@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
+
+import Home from "../../pages/Home/Home.page";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,14 +13,6 @@ const TAB_ICON = {
   Learn: "book",
   Profile: "user",
 };
-
-function Home() {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  );
-}
 
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
