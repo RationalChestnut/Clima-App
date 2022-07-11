@@ -76,6 +76,7 @@ export const Option = styled(View)`
   align-items: center;
   justify-content: center;
   margin: 0px 12px;
+  border-radius: 40px;
 `;
 
 export const OptionText = styled(Text)`

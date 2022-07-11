@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import ActivityScreen from "../../pages/ActivityScreen/ActivityScreen.page";
+import CommunityPage from "../../pages/Community/Community.page";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +38,7 @@ function MainNavigator() {
     <Tab.Navigator screenOptions={createScreenOptions}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Your Tree" component={ActivityScreen} />
-      <Tab.Screen name="Community" component={Home} />
+      <Tab.Screen name="Community" component={CommunityPage} />
       <Tab.Screen name="Learn" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>
