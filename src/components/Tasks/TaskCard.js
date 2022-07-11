@@ -30,6 +30,7 @@ const ExpText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.monospace};
   font-size: ${(props) => props.theme.fontSizes.body};
   margin-top: ${(props) => props.theme.sizes.xs}px;
+  align-self: flex-end;
 `;
 
 function TaskCard({ task = {} }) {
@@ -51,7 +52,7 @@ function TaskCard({ task = {} }) {
             right: 0,
             top: 0,
             height: "100%",
-            justifyContent: "center",
+            justifyContent: "flex-end",
             borderRadius: theme.sizes.sm,
           }}
         >
