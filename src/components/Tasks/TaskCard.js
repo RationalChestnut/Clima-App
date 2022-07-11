@@ -1,26 +1,18 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, ImageBackground } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
+import { ThemeContext } from "styled-components";
 
 const Container = styled(View)`
   flex: 1;
   width: 200px;
-  height: 165px;
-  background-color: ${(props) => props.theme.colors.defaultGreen};
+  height: 130px;
   border-radius: ${(props) => props.theme.sizes.sm}px;
 `;
 
-const TaskImageContainer = styled(View)`
+const BackgroundImage = styled(ImageBackground)`
   flex: 1;
-  width: 100%;
-  align-items: stretch;
-`;
-
-const TaskImage = styled(Image)`
-  flex: 1;
-  border-top-left-radius: ${(props) => props.theme.sizes.sm}px;
-  border-top-right-radius: ${(props) => props.theme.sizes.sm}px;
-  resize-mode: cover;
 `;
 
 const TextContainer = styled(View)`
@@ -36,22 +28,39 @@ const Title = styled(Text)`
 const ExpText = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.monospace};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${(props) => props.theme.fontSizes.body};
   margin-top: ${(props) => props.theme.sizes.xs}px;
 `;
 
 function TaskCard({ task = {} }) {
   const { title, exp, image } = task;
+  const theme = useContext(ThemeContext);
 
   return (
     <Container>
-      <TaskImageContainer>
-        <TaskImage source={{ uri: image }} />
-      </TaskImageContainer>
-      <TextContainer>
-        <Title>{title}</Title>
-        <ExpText>+ {exp} EXP</ExpText>
-      </TextContainer>
+      <BackgroundImage
+        source={{ uri: image }}
+        resizeMode="cover"
+        imageStyle={{ borderRadius: theme.sizes.sm }}
+      >
+        <LinearGradient
+          colors={["transparent", "rgba(0,0,0,0.7)"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "100%",
+            justifyContent: "center",
+            borderRadius: theme.sizes.sm,
+          }}
+        >
+          <TextContainer>
+            <Title>{title}</Title>
+            <ExpText>+ {exp} EXP</ExpText>
+          </TextContainer>
+        </LinearGradient>
+      </BackgroundImage>
     </Container>
   );
 }
