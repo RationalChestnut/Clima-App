@@ -1,34 +1,62 @@
 import React from "react";
+import { FlatList } from "react-native";
 import {
   LeaderboardPageContainer,
   TopPlayersContainer,
   LeaderboardContainer,
   LeaderBoardBar,
   Label,
-  Section,
+  RankSection,
+  UserSection,
+  PointsSection,
+  LevelSection,
+  ListContainer,
+  Circle,
+  InviteFriendsContainer,
+  InviteFriendsText,
+  ButtonView,
+  ShareText,
 } from "./Leaderboard.styling";
+import Player from "./Player/Player";
 import TopPlayerCard from "./TopPlayerCard/TopPlayerCard";
 
-function LeaderboardPage() {
+function LeaderboardPage({ users = [1, 2, 3, 4, 5] }) {
+  const r = 128;
+
   return (
     <LeaderboardPageContainer>
       <TopPlayersContainer>
-        <TopPlayerCard />
-        <TopPlayerCard style={[{ transform: [{ scale: 1.1 }] }]} />
-        <TopPlayerCard />
+        <TopPlayerCard rank={2} />
+        <TopPlayerCard rank={1} />
+        <TopPlayerCard rank={3} />
       </TopPlayersContainer>
       <LeaderboardContainer>
         <LeaderBoardBar>
-          <Section>
+          <RankSection>
             <Label>Rank</Label>
+          </RankSection>
+          <UserSection>
             <Label>User</Label>
-          </Section>
-          <Section>
+          </UserSection>
+          <PointsSection>
             <Label>Points</Label>
+          </PointsSection>
+          <LevelSection>
             <Label>Level</Label>
-          </Section>
+          </LevelSection>
         </LeaderBoardBar>
+        <ListContainer>
+          <FlatList data={users} renderItem={Player} key={(item) => item} />
+        </ListContainer>
       </LeaderboardContainer>
+      <Circle>
+        <InviteFriendsContainer>
+          <InviteFriendsText>Add More Friends!</InviteFriendsText>
+          <ButtonView>
+            <ShareText>Share!</ShareText>
+          </ButtonView>
+        </InviteFriendsContainer>
+      </Circle>
     </LeaderboardPageContainer>
   );
 }

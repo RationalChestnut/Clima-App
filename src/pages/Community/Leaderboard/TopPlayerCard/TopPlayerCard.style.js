@@ -62,5 +62,4 @@ export const RankBackground = styled(View)`
   justify-content: center;
   align-items: center;
   border-radius: 40px;
-  border: 1px solid #e9c162;
 `;

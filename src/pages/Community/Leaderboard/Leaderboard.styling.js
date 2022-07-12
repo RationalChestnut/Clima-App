@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 
 export const LeaderboardPageContainer = styled(View)`
   flex: 1;
@@ -22,19 +22,62 @@ export const LeaderboardContainer = styled(View)`
 export const LeaderBoardBar = styled(View)`
   width: 90%;
   background-color: #5479e1;
-  padding: ${(props) => props.theme.sizes.sm}px 0px;
+  padding: ${(props) => props.theme.sizes.sm}px 5%;
   border-radius: 5px;
-  justify-content: space-between;
   flex-direction: row;
 `;
 
 export const Label = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  padding-left: ${(props) => props.theme.sizes.lg}px;
 `;
 
-export const Section = styled(View)`
-  flex-direction: row;
-  flex: 1;
+export const RankSection = styled(View)``;
+export const UserSection = styled(View)`
+  padding-left: 15%;
+`;
+export const PointsSection = styled(View)`
+  padding-left: 25%;
+`;
+export const LevelSection = styled(View)`
+  padding-left: 10%;
+`;
+
+export const ListContainer = styled(View)`
+  width: 90%;
+  height: 280px;
+`;
+
+export const Circle = styled(View)`
+  border-radius: 1000px;
+  background-color: #5479e1;
+  position: absolute;
+  z-index: -1;
+  width: ${Dimensions.get("window").width}px;
+  height: ${Dimensions.get("window").width}px;
+  bottom: -40%;
+`;
+
+export const InviteFriendsContainer = styled(View)``;
+export const InviteFriendsText = styled(Text)`
+  color: white;
+  text-align: center;
+  margin-top: 10%;
+  font-size: 24px;
+`;
+
+export const ButtonView = styled(TouchableOpacity)`
+  width: 150px;
+  height: 40px;
+  background-color: white;
+  margin-top: 3%;
+  align-self: center;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ShareText = styled(Text)`
+  color: #5479e1;
+  font-size: 20px;
 `;
