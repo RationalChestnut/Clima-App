@@ -1,11 +1,17 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import Post from "./Post/Post";
+import { PostsContainer } from "./Posts.style";
 
 function PostsPage() {
   return (
-    <View>
-      <Text>Posts</Text>
-    </View>
+    <PostsContainer>
+      <ScrollView>
+        <Post />
+        <Post />
+        <Post />
+      </ScrollView>
+    </PostsContainer>
   );
 }
 

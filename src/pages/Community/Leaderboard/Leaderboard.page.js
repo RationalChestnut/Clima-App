@@ -21,8 +21,6 @@ import Player from "./Player/Player";
 import TopPlayerCard from "./TopPlayerCard/TopPlayerCard";
 
 function LeaderboardPage({ users = [1, 2, 3, 4, 5] }) {
-  const r = 128;
-
   return (
     <LeaderboardPageContainer>
       <TopPlayersContainer>
