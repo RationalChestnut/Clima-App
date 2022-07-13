@@ -7,6 +7,8 @@ import TaskCard from "./TaskCard";
 const TitleRowContainer = styled(View)`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding: 0px ${(props) => props.theme.sizes.md}px;
 `;
 
 const Title = styled(Text)`
@@ -16,6 +18,7 @@ const Title = styled(Text)`
 
 const BrowseAllButton = styled(TouchableOpacity)`
   margin-left: ${(props) => props.theme.sizes.md}px;
+  align-items: center;
 `;
 
 const BrowseAllButtonText = styled(Text)`
