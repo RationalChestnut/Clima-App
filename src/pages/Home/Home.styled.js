@@ -1,6 +1,6 @@
-import React, { View } from "react-native";
+import { View } from "react-native";
 import styled from "styled-components/native";
 
-const HomePageContainer = styled(View)`
+export const HomePageContainer = styled(View)`
   flex: 1;
 `;

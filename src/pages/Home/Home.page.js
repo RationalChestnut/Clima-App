@@ -1,5 +1,8 @@
 import React from "react";
-import { View } from "react-native";
+import { HomePageContainer } from "./Home.styled";
 
-const Home = () => {};
+function Home() {
+  return <HomePageContainer />;
+}
+
 export default Home;

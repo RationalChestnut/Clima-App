@@ -37,7 +37,7 @@ function Post() {
           parallaxScrollingOffset: 50,
         }}
         data={[{ image: background }, { image: building }, { image: lightswitch }]}
-        renderItem={({ item, index }) => <ImageComponent source={item.image} />}
+        renderItem={({ item }) => <ImageComponent source={item.image} />}
         style={{ height: 250 }}
       />
       <BotttomBar>
