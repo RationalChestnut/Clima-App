@@ -3,6 +3,8 @@ import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 
+import Learn from "../../pages/Learn/Learn.page";
+
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
@@ -37,7 +39,7 @@ function MainNavigator() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Your Tree" component={Home} />
       <Tab.Screen name="Community" component={Home} />
-      <Tab.Screen name="Learn" component={Home} />
+      <Tab.Screen name="Learn" component={Learn} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>
   );
