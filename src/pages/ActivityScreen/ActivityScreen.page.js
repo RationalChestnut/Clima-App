@@ -23,9 +23,11 @@ import {
   ListItem,
   SecondSectionTitle,
   ListItemsContainer,
+  RecommendedTasksContainer,
 } from "./ActivityScreen.styled";
 import lightswitch from "../../../assets/images/lightswitch.jpeg";
 import BackArrow from "../../components/BackArrow.component";
+import Tasks from "../../components/Tasks/Tasks";
 
 function ActivityScreen({
   // eslint-disable-next-line react/prop-types
@@ -85,6 +87,9 @@ function ActivityScreen({
           </ListContainer>
         </ListItemsContainer>
       </InfoContainer>
+      <RecommendedTasksContainer>
+        <Tasks />
+      </RecommendedTasksContainer>
     </ActivityScreenContainer>
   );
 }
