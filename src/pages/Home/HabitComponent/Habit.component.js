@@ -20,8 +20,8 @@ function Habit() {
       <HabitText>Log an action each day to earn extra EXP!</HabitText>
       <HabitBar>
         <Day completed day="Mon" active />
-        <Day day="Tue" />
-        <Day day="Wed" />
+        <Day day="Tue" failed />
+        <Day day="Wed" failed />
         <Day completed day="Thu" />
         <Day day="Fri" />
         <Day day="Sat" />
