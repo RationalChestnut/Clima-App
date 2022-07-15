@@ -45,7 +45,7 @@ function Learn() {
     <ActivityContainer>
       <FullWidthCard
         title="Learn More"
-        content="Learn more about climate change is the first step in making a difference!"
+        content="Learning more about climate change is the first step in making a difference!"
         bgColor={theme.colors.defaultGreen}
       />
       <ArticlesContainer
