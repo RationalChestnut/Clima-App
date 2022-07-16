@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import ActivityScreen from "../../pages/ActivityScreen/ActivityScreen.page";
 import CommunityPage from "../../pages/Community/Community.page";
-
+import Signup from "../../pages/AuthScreens/Signup/Signup.page";
 import Home from "../../pages/Home/Home.page";
 
 const Tab = createBottomTabNavigator();
@@ -33,7 +33,7 @@ function MainNavigator() {
       <Tab.Screen name="Your Tree" component={ActivityScreen} />
       <Tab.Screen name="Community" component={CommunityPage} />
       <Tab.Screen name="Learn" component={Home} />
-      <Tab.Screen name="Profile" component={Home} />
+      <Tab.Screen name="Profile" component={Signup} />
     </Tab.Navigator>
   );
 }
