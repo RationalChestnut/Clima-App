@@ -4,6 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import Home from "../../pages/Home/Home.page";
 import Learn from "../../pages/Learn/Learn.page";
+import Profile from "../../pages/Profile/Profile.page";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ function MainNavigator() {
       <Tab.Screen name="Your Tree" component={Home} />
       <Tab.Screen name="Community" component={Home} />
       <Tab.Screen name="Learn" component={Learn} />
-      <Tab.Screen name="Profile" component={Home} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
