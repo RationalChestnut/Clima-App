@@ -1,9 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
-
+import ActivityScreen from "../../pages/ActivityScreen/ActivityScreen.page";
+import CommunityPage from "../../pages/Community/Community.page";
+import Signup from "../../pages/AuthScreens/Signup/Signup.page";
 import Home from "../../pages/Home/Home.page";
 import Learn from "../../pages/Learn/Learn.page";
+import Login from "../../pages/AuthScreens/Login/Login.page";
+import PetScreen from "../../pages/PetScreen/Pet.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,10 +33,10 @@ function MainNavigator() {
   return (
     <Tab.Navigator screenOptions={createScreenOptions}>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Your Tree" component={Home} />
-      <Tab.Screen name="Community" component={Home} />
+      <Tab.Screen name="Your Tree" component={PetScreen} />
+      <Tab.Screen name="Community" component={CommunityPage} />
       <Tab.Screen name="Learn" component={Learn} />
-      <Tab.Screen name="Profile" component={Home} />
+      <Tab.Screen name="Profile" component={Login} />
     </Tab.Navigator>
   );
 }

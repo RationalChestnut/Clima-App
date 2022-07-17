@@ -1,14 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
-
+import { HomePageContainer } from "./Home.styled";
 import Tasks from "../../components/Tasks/Tasks";
+import Habit from "./HabitComponent/Habit.component";
+import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
 
 function Home() {
   return (
-    <View style={{ flex: 1 }}>
+    <HomePageContainer>
+      <Habit />
+      <SavedTasksPage />
       <Tasks />
-      <Text>Content</Text>
-    </View>
+    </HomePageContainer>
   );
 }
 
