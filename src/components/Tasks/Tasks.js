@@ -19,11 +19,14 @@ const Title = styled(Text)`
 const BrowseAllButton = styled(TouchableOpacity)`
   margin-left: ${(props) => props.theme.sizes.md}px;
   align-items: center;
+  margin-top: 4px;
 `;
 
 const BrowseAllButtonText = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.button};
   color: ${(props) => props.theme.colors.muteGreen};
+  align-self: flex-end;
+  padding: 0px ${(props) => props.theme.sizes.md}px;
 `;
 
 const TaskListContainer = styled(View)`
@@ -77,10 +80,7 @@ function Tasks({ category = {} }) {
   return (
     <>
       <TitleRowContainer>
-        <Title>{name} Tasks</Title>
-        <BrowseAllButton onPress={() => {}}>
-          <BrowseAllButtonText onPress={() => {}}>Browse all Tasks</BrowseAllButtonText>
-        </BrowseAllButton>
+        <Title>{name}</Title>
       </TitleRowContainer>
       <TaskListContainer>
         <TasksList
@@ -91,6 +91,9 @@ function Tasks({ category = {} }) {
           keyExtractor={(item) => item.id}
         />
       </TaskListContainer>
+      <BrowseAllButton onPress={() => {}}>
+        <BrowseAllButtonText onPress={() => {}}>Browse all Tasks</BrowseAllButtonText>
+      </BrowseAllButton>
     </>
   );
 }

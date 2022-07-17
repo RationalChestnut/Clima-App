@@ -6,6 +6,7 @@ import CommunityPage from "../../pages/Community/Community.page";
 import Signup from "../../pages/AuthScreens/Signup/Signup.page";
 import Home from "../../pages/Home/Home.page";
 import Login from "../../pages/AuthScreens/Login/Login.page";
+import PetScreen from "../../pages/PetScreen/Pet.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ function MainNavigator() {
   return (
     <Tab.Navigator screenOptions={createScreenOptions}>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Your Tree" component={ActivityScreen} />
+      <Tab.Screen name="Your Tree" component={PetScreen} />
       <Tab.Screen name="Community" component={CommunityPage} />
       <Tab.Screen name="Learn" component={Home} />
       <Tab.Screen name="Profile" component={Login} />
