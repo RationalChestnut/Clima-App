@@ -8,6 +8,11 @@ export const PetScreenContainer = styled(ScrollView).attrs({
   flex: 1;
 `;
 
+export const PetInfoContainer = styled(View)`
+  width: 100%;
+  border-top-right-radius: 20px;
+`;
+
 export const InfoContainer = styled(View)`
   width: 100%;
   padding: 4px 10px;
@@ -22,7 +27,7 @@ export const LevelText = styled(Text)`
 
 export const BarContainer = styled(View)`
   width: 80%;
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 
 export const Green = styled(Text)`
@@ -47,14 +52,16 @@ export const Mood = styled(Text)`
 
 export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
   width: 100%;
-  height: 300px;
+  height: 525px;
   opacity: 1;
   align-items: center;
   justify-content: center;
+  flex: 6;
 `;
 
 export const Pet = styled(Image)`
-  margin-top: 80px;
+  margin-top: 150px;
+  transform: scale(1.5);
 `;
 
 export const NameInput = styled(TextInput).attrs({

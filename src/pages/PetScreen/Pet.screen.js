@@ -12,10 +12,8 @@ import {
   MoodText,
   Mood,
   NameInput,
-  TaskContainer,
   Pet,
 } from "./Pet.style";
-import Tasks from "../../components/Tasks/Tasks";
 import habitat from "../../../assets/images/habitat.png";
 import petImage from "../../../assets/images/pet.png";
 
@@ -44,9 +42,6 @@ function PetScreen() {
         </InfoContainer>
         <BarComponent percentage={60} color="#FFA800" />
       </BarContainer>
-      <TaskContainer>
-        <Tasks category={{ name: "Complete Tasks To Have Your Pet Level Up!" }} fontSize={16} />
-      </TaskContainer>
     </PetScreenContainer>
   );
 }
