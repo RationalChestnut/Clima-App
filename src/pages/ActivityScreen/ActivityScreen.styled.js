@@ -139,3 +139,7 @@ export const ListItem = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   line-height: 23px;
 `;
+
+export const RecommendedTasksContainer = styled(View)`
+  padding-bottom: ${(props) => props.theme.sizes.lg}px;
+`;
