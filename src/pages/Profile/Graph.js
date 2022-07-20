@@ -54,8 +54,8 @@ function Graph() {
       }}
       bezier
       style={{
-        marginVertical: 8,
-        borderRadius: 16,
+        marginTop: theme.sizes.sm,
+        borderRadius: theme.sizes.md,
       }}
     />
   );

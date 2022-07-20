@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "styled-components/native";
+import React, { useEffect } from "react";
+import { LogBox } from "react-native";
 
 import {
   CalendarTitle,
   GraphTitle,
   ProfilePageContainer,
-  ProfilePageScrollView,
   Separator,
   StatsList,
   StatsListContainer,
@@ -33,6 +32,10 @@ const monthNames = [
 
 // eslint-disable-next-line react/prop-types
 function Profile({ profile = {} }) {
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists"]);
+  }, []);
+
   const {
     name = "Yixuan Li",
     picture = "https://www.howtogeek.com/wp-content/uploads/2021/07/Discord-Logo-Lede.png?width=398&trim=1,1&bg-color=000&pad=1,1",
@@ -67,8 +70,6 @@ function Profile({ profile = {} }) {
     ],
   } = profile;
 
-  const theme = useContext(ThemeContext);
-
   const today = new Date();
 
   const stat = ({ item }) => (
@@ -81,19 +82,22 @@ function Profile({ profile = {} }) {
     />
   );
 
+  const beforeCalendar = () => (
+    <>
+      <ProfileCard name={name} picture={picture} exp={exp} level={level} />
+      <StatsTitle>Lifetime Stats</StatsTitle>
+      <StatsListContainer>
+        <StatsList data={stats} renderItem={stat} horizontal ItemSeparatorComponent={Separator} />
+      </StatsListContainer>
+      <GraphTitle>CO2 removed over time</GraphTitle>
+      <Graph />
+      <CalendarTitle>{`${monthNames[today.getMonth()]} ${today.getFullYear()}`}</CalendarTitle>
+    </>
+  );
+
   return (
     <ProfilePageContainer>
-      <ProfilePageScrollView>
-        <ProfileCard name={name} picture={picture} exp={exp} level={level} />
-        <StatsTitle>Lifetime Stats</StatsTitle>
-        <StatsListContainer>
-          <StatsList data={stats} renderItem={stat} horizontal ItemSeparatorComponent={Separator} />
-        </StatsListContainer>
-        <GraphTitle>CO2 removed over time</GraphTitle>
-        <Graph />
-        <CalendarTitle>{`${monthNames[today.getMonth()]} ${today.getFullYear()}`}</CalendarTitle>
-        <Calendar currentMonth={currentMonth} />
-      </ProfilePageScrollView>
+      <Calendar currentMonth={currentMonth} before={beforeCalendar} />
     </ProfilePageContainer>
   );
 }

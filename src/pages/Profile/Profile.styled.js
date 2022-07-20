@@ -40,6 +40,7 @@ export const GraphTitle = styled(Text)`
 export const CalendarTitle = styled(Text)`
   text-align: center;
   margin-top: ${(props) => props.theme.sizes.md}px;
+  margin-bottom: ${(props) => props.theme.sizes.sm}px;
   color: ${(props) => props.theme.colors.defaultGreen};
   font-size: ${(props) => props.theme.fontSizes.title};
   font-family: ${(props) => props.theme.fonts.heading};

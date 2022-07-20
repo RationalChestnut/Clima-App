@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { View, Text, LogBox } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatGrid } from "react-native-super-grid";
 
@@ -79,16 +79,21 @@ function fillMonth(currentMonth) {
 }
 
 // eslint-disable-next-line react/prop-types
-function Calendar({ currentMonth }) {
+function Calendar({ currentMonth, before }) {
   const theme = useContext(ThemeContext);
   const filledMonth = fillMonth(currentMonth);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists"]);
+  }, []);
 
   return (
     <CalendarGrid
       itemDimension={40}
       spacing={theme.sizes.sm}
       data={filledMonth}
-      scrollEnabled={false}
+      ListHeaderComponent={before}
+      keyExtractor={(item) => item.date}
       renderItem={({ item }) => {
         let backgroundColor = theme.colors.lightGreen;
 
