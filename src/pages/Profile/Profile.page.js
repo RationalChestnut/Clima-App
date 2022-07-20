@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Dimensions } from "react-native";
 import { ThemeContext } from "styled-components/native";
-import { LineChart } from "react-native-chart-kit";
 
 import {
+  CalendarTitle,
   GraphTitle,
   ProfilePageContainer,
+  ProfilePageScrollView,
   Separator,
   StatsList,
   StatsListContainer,
@@ -13,17 +13,23 @@ import {
 } from "./Profile.styled";
 import ProfileCard from "./ProfileCard";
 import StatCard from "./StatCard";
+import Graph from "./Graph";
+import Calendar from "./Calendar";
 
-function generateMonths() {
-  const months = [];
-
-  for (let i = 5; i > 0; i -= 1) {
-    months.push(
-      new Date(null, new Date().getMonth() - i + 1).toLocaleDateString("en", { month: "long" })
-    );
-  }
-  return months;
-}
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 // eslint-disable-next-line react/prop-types
 function Profile({ profile = {} }) {
@@ -38,9 +44,32 @@ function Profile({ profile = {} }) {
       { negative: true, number: 123, unit: "L", description: "Water saved", percent: 11 },
       { negative: false, number: 150, unit: "", description: "Trees planted", percent: 5 },
     ],
+    currentMonth = [
+      { date: 1, tasks: 10 },
+      { date: 2, tasks: 1 },
+      { date: 3, tasks: 0 },
+      { date: 4, tasks: 5 },
+      { date: 5, tasks: 8 },
+      { date: 6, tasks: 2 },
+      { date: 7, tasks: 5 },
+      { date: 8, tasks: 15 },
+      { date: 9, tasks: 1 },
+      { date: 10, tasks: 2 },
+      { date: 11, tasks: 16 },
+      { date: 12, tasks: 0 },
+      { date: 13, tasks: 2 },
+      { date: 14, tasks: 10 },
+      { date: 15, tasks: 8 },
+      { date: 16, tasks: 5 },
+      { date: 17, tasks: 2 },
+      { date: 18, tasks: 0 },
+      { date: 19, tasks: 9 },
+    ],
   } = profile;
 
   const theme = useContext(ThemeContext);
+
+  const today = new Date();
 
   const stat = ({ item }) => (
     <StatCard
@@ -54,52 +83,17 @@ function Profile({ profile = {} }) {
 
   return (
     <ProfilePageContainer>
-      <ProfileCard name={name} picture={picture} exp={exp} level={level} />
-      <StatsTitle>Lifetime Stats</StatsTitle>
-      <StatsListContainer>
-        <StatsList data={stats} renderItem={stat} horizontal ItemSeparatorComponent={Separator} />
-      </StatsListContainer>
-      <GraphTitle>CO2 removed overtime</GraphTitle>
-      <LineChart
-        data={{
-          labels: generateMonths(),
-          datasets: [
-            {
-              data: [
-                Math.ceil(Math.random() * 200),
-                Math.ceil(Math.random() * 200),
-                Math.ceil(Math.random() * 200),
-                Math.ceil(Math.random() * 200),
-                Math.ceil(Math.random() * 200),
-                180,
-              ],
-            },
-          ],
-        }}
-        width={Dimensions.get("window").width - theme.sizes.sm * 2} // from react-native
-        height={220}
-        yAxisLabel=""
-        yAxisSuffix="kg"
-        yAxisInterval={10} // optional, defaults to 1
-        chartConfig={{
-          backgroundColor: theme.colors.defaultGreen,
-          backgroundGradientFrom: theme.colors.lightGreen,
-          backgroundGradientTo: theme.colors.defaultGreen,
-          decimalPlaces: 0, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: theme.colors.lightGray,
-          },
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+      <ProfilePageScrollView>
+        <ProfileCard name={name} picture={picture} exp={exp} level={level} />
+        <StatsTitle>Lifetime Stats</StatsTitle>
+        <StatsListContainer>
+          <StatsList data={stats} renderItem={stat} horizontal ItemSeparatorComponent={Separator} />
+        </StatsListContainer>
+        <GraphTitle>CO2 removed over time</GraphTitle>
+        <Graph />
+        <CalendarTitle>{`${monthNames[today.getMonth()]} ${today.getFullYear()}`}</CalendarTitle>
+        <Calendar currentMonth={currentMonth} />
+      </ProfilePageScrollView>
     </ProfilePageContainer>
   );
 }

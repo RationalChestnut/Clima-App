@@ -7,6 +7,7 @@ const colors = {
   lightGray: "#D5DCDC",
   red: "#C54F46",
   orange: "#FFA800",
+  purple: "#3943A4",
 };
 
 export default colors;
