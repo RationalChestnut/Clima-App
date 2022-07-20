@@ -1,5 +1,5 @@
 import React from "react";
-import { HomePageContainer } from "./Home.styled";
+import { HomePageContainer, PaddingAdder } from "./Home.styled";
 import Tasks from "../../components/Tasks/Tasks";
 import Habit from "./HabitComponent/Habit.component";
 import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
@@ -7,9 +7,11 @@ import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
 function Home() {
   return (
     <HomePageContainer>
-      <Habit />
-      <SavedTasksPage />
-      <Tasks />
+      <PaddingAdder>
+        <Habit />
+        <SavedTasksPage />
+        <Tasks />
+      </PaddingAdder>
     </HomePageContainer>
   );
 }

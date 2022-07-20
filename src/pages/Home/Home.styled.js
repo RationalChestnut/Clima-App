@@ -1,7 +1,10 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 
 export const HomePageContainer = styled(ScrollView)`
   flex: 1;
-  padding: 0px ${(props) => props.theme.sizes.sm}px;
+`;
+
+export const PaddingAdder = styled(View)`
+  padding: ${(props) => props.theme.sizes.md}px ${(props) => props.theme.sizes.sm}px;
 `;

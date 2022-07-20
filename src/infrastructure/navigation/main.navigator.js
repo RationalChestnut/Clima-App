@@ -8,6 +8,7 @@ import Home from "../../pages/Home/Home.page";
 import Learn from "../../pages/Learn/Learn.page";
 import Login from "../../pages/AuthScreens/Login/Login.page";
 import PetScreen from "../../pages/PetScreen/Pet.screen";
+import ExploreTasks from "../../pages/ExploreTasks/ExploreTasks.page";
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ function MainNavigator() {
       <Tab.Screen name="Your Tree" component={PetScreen} />
       <Tab.Screen name="Community" component={CommunityPage} />
       <Tab.Screen name="Learn" component={Learn} />
-      <Tab.Screen name="Profile" component={Login} />
+      <Tab.Screen name="Profile" component={ExploreTasks} />
     </Tab.Navigator>
   );
 }

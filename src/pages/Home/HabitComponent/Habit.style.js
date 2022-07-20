@@ -36,10 +36,10 @@ export const ProgressHabitText = styled(Text)`
 
 export const AddActivityIcon = styled(Ionicons).attrs({
   name: "add-circle-sharp",
-  size: 32,
+  size: 40,
   color: "#0FA958",
 })`
   position: absolute;
-  top: -1px;
-  right: 0px;
+  top: -5px;
+  right: 10px;
 `;

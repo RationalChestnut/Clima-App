@@ -42,6 +42,10 @@ const CardSeparator = styled(View)`
   margin-right: ${(props) => props.theme.sizes.sm}px;
 `;
 
+const Container = styled(View)`
+  flex: 1;
+`;
+
 function Tasks({ category = {} }) {
   const {
     name = "Recommended",
@@ -78,7 +82,7 @@ function Tasks({ category = {} }) {
   const renderItem = ({ item }) => <TaskCard task={{ ...item }} />;
 
   return (
-    <>
+    <Container>
       <TitleRowContainer>
         <Title>{name}</Title>
       </TitleRowContainer>
@@ -94,7 +98,7 @@ function Tasks({ category = {} }) {
       <BrowseAllButton onPress={() => {}}>
         <BrowseAllButtonText onPress={() => {}}>Browse all Tasks</BrowseAllButtonText>
       </BrowseAllButton>
-    </>
+    </Container>
   );
 }
 
