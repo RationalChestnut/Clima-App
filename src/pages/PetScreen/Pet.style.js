@@ -1,15 +1,14 @@
-import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
+import { Image, ImageBackground, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 
-export const PetScreenContainer = styled(View).attrs({})`
-  flex: 1;
+export const PetScreenContainer = styled(View)`
+  flex: 0.96;
   align-items: center;
 `;
 
 export const PetInfoContainer = styled(View)`
   width: 100%;
-  border-top-right-radius: 20px;
 `;
 
 export const InfoContainer = styled(View)`
