@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatGrid } from "react-native-super-grid";
-import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 
 const CalendarGrid = styled(FlatGrid)`
   flex: 1;
@@ -59,6 +58,7 @@ function fillMonth(currentMonth) {
   const today = new Date();
   let daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
 
+  // eslint-disable-next-line no-loop-func
   while (!currentMonth.find((day) => day.date === daysInMonth)) {
     filledMonth.push({ date: daysInMonth, tasks: -1 });
     daysInMonth -= 1;
@@ -78,6 +78,7 @@ function fillMonth(currentMonth) {
   return filledMonth;
 }
 
+// eslint-disable-next-line react/prop-types
 function Calendar({ currentMonth }) {
   const theme = useContext(ThemeContext);
   const filledMonth = fillMonth(currentMonth);
