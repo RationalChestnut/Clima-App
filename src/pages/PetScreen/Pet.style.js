@@ -2,10 +2,9 @@ import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 
-export const PetScreenContainer = styled(ScrollView).attrs({
-  contentContainerStyle: { alignItems: "center" },
-})`
+export const PetScreenContainer = styled(View).attrs({})`
   flex: 1;
+  align-items: center;
 `;
 
 export const PetInfoContainer = styled(View)`
