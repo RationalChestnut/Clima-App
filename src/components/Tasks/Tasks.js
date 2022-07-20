@@ -35,6 +35,7 @@ const TaskListContainer = styled(View)`
 
 const TasksList = styled(FlatList)`
   margin-top: ${(props) => props.theme.sizes.md}px;
+  padding-bottom: ${(props) => props.theme.sizes.sm}px;
 `;
 
 const CardSeparator = styled(View)`
