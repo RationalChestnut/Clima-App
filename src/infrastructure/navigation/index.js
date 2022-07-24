@@ -1,11 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useContext } from "react";
 import MainNavigator from "./main.navigator";
+import { AuthenticationContext } from "../Authentication/AuthenticationContext";
+import UnAuthNavigator from "./unauth.navigator";
 
 function Navigation() {
+  const { isAuthenticated } = useContext(AuthenticationContext);
   return (
     <NavigationContainer>
-      <MainNavigator />
+      {isAuthenticated ? <MainNavigator /> : <UnAuthNavigator />}
     </NavigationContainer>
   );
 }

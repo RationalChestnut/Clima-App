@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Logo,
   SignUpScreenContainer,
@@ -21,8 +21,14 @@ import {
   Facebook,
   Google,
 } from "./Signup.style";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function Signup() {
+// eslint-disable-next-line react/prop-types
+function Signup({ email, navigation }) {
+  const { onRegister, googleSignIn } = useContext(AuthenticationContext);
+  const [nameState, setNameState] = useState("");
+  const [emailState, setEmailState] = useState(email || "");
+  const [passwordState, setPasswordState] = useState(null);
   return (
     <SignUpScreenContainer>
       <UpperBar>
@@ -31,14 +37,24 @@ function Signup() {
       </UpperBar>
       <ImageContainer />
       <FormContainer>
-        <Input label="Name" />
-        <Input label="Email" />
-        <Input label="Password" />
-        <Button>
+        <Input label="Name" onChangeText={(text) => setNameState(text)} />
+        <Input
+          label="Email"
+          onChangeText={(text) => setEmailState(text)}
+          keyboardType="email-address"
+          textContentType="emailAddress"
+        />
+        <Input
+          label="Password"
+          onChangeText={(text) => setPasswordState(text)}
+          secureTextEntry
+          textContentType="password"
+        />
+        <Button onPress={() => onRegister(emailState, passwordState)}>
           <ButtonText>Signup</ButtonText>
           <RightArrow color="white" />
         </Button>
-        <ButtonSecondary>
+        <ButtonSecondary onPress={() => navigation.navigate("Login", { email: emailState })}>
           <ButtonTextSecondary>Login</ButtonTextSecondary>
           <RightArrow color="#0FA958" />
         </ButtonSecondary>
@@ -48,7 +64,7 @@ function Signup() {
             <Facebook />
             <ThirdPartySignInTextFacebook>Facebook</ThirdPartySignInTextFacebook>
           </FacebookSignIn>
-          <GoogleSignIn>
+          <GoogleSignIn onPress={() => googleSignIn()}>
             <Google />
             <ThirdPartySignInTextGoogle>Google</ThirdPartySignInTextGoogle>
           </GoogleSignIn>

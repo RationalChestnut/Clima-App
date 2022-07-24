@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   Logo,
   SignUpScreenContainer,
@@ -21,8 +21,14 @@ import {
   Facebook,
   Google,
 } from "./Login.style";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function Login() {
+// eslint-disable-next-line react/prop-types
+function Login({ navigation, email }) {
+  const { onLogin } = useContext(AuthenticationContext);
+  const [emailState, setEmailState] = useState(email || "");
+  const [passwordState, setPasswordState] = useState();
+
   return (
     <SignUpScreenContainer>
       <UpperBar>
@@ -31,13 +37,23 @@ function Login() {
       </UpperBar>
       <ImageContainer />
       <FormContainer>
-        <Input label="Email" />
-        <Input label="Password" />
-        <Button>
+        <Input
+          label="Email"
+          onChangeText={(text) => setEmailState(text)}
+          keyboardType="email-address"
+          textContentType="emailAddress"
+        />
+        <Input
+          label="Password"
+          onChangeText={(text) => setPasswordState(text)}
+          secureTextEntry
+          textContentType="password"
+        />
+        <Button onPress={() => onLogin(emailState, passwordState)}>
           <ButtonText>Login</ButtonText>
           <RightArrow color="white" />
         </Button>
-        <ButtonSecondary>
+        <ButtonSecondary onPress={() => navigation.navigate("Signup", { email: emailState })}>
           <ButtonTextSecondary>Signup</ButtonTextSecondary>
           <RightArrow color="#0FA958" />
         </ButtonSecondary>
