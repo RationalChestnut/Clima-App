@@ -18,8 +18,8 @@ import {
   BannerContainer,
 } from "./ExploreTasks.styles";
 
-import background from "../../../assets/images/building.jpeg";
 import SliderComponent from "./CategorySlider/SliderComponent.component";
+import background from "../../../../assets/images/background.jpeg";
 
 function ExploreTasks() {
   const data = [
