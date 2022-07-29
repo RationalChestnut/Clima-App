@@ -1,6 +1,12 @@
 import React from "react";
 import SavedTask from "./SavedTask.component";
-import { SavedTasksText, FlatListContainer, PageContainer } from "./SavedTasks.style";
+import {
+  SavedTasksText,
+  FlatListContainer,
+  PageContainer,
+  AddMoreButton,
+  AddMoreText,
+} from "./SavedTasks.style";
 import lightswitch from "../../../../assets/images/lightswitch.jpeg";
 import building from "../../../../assets/images/building.jpeg";
 
@@ -30,7 +36,7 @@ function SavedTasksPage() {
   ];
   return (
     <PageContainer>
-      <SavedTasksText>Saved Tasks</SavedTasksText>
+      <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
         {data.map((item) => (
           <SavedTask
@@ -42,6 +48,9 @@ function SavedTasksPage() {
           />
         ))}
       </FlatListContainer>
+      <AddMoreButton>
+        <AddMoreText>Explore More</AddMoreText>
+      </AddMoreButton>
     </PageContainer>
   );
 }

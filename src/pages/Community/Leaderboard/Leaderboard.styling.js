@@ -3,7 +3,7 @@ import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 
 export const LeaderboardPageContainer = styled(View)`
   flex: 1;
-  padding: ${(props) => props.theme.sizes.sm}px 0px;
+  padding: ${(props) => props.theme.sizes.md}px 0px;
 `;
 
 export const TopPlayersContainer = styled(View)`
@@ -45,7 +45,7 @@ export const LevelSection = styled(View)`
 
 export const ListContainer = styled(View)`
   width: 90%;
-  height: 280px;
+  height: 320px;
 `;
 
 export const Circle = styled(View)`
@@ -55,7 +55,7 @@ export const Circle = styled(View)`
   z-index: -1;
   width: ${Dimensions.get("window").width}px;
   height: ${Dimensions.get("window").width}px;
-  bottom: -40%;
+  bottom: -35%;
 `;
 
 export const InviteFriendsContainer = styled(View)``;

@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 
 export const SavedTasksText = styled(Text)`
@@ -11,4 +11,19 @@ export const FlatListContainer = styled(View)``;
 
 export const PageContainer = styled(View)`
   margin-bottom: ${(props) => props.theme.sizes.lg}px;
+`;
+
+export const AddMoreButton = styled(TouchableOpacity)`
+  height: 40px;
+  width: 100%;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: #0fa958;
+  margin-top: ${(props) => props.theme.sizes.md}px;
+`;
+
+export const AddMoreText = styled(Text)`
+  color: white;
+  font-size: 17px;
 `;

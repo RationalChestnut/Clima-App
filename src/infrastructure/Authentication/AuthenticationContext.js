@@ -4,11 +4,6 @@ import { loginRequest, signupRequest, auth } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
-// GoogleSignin.configure({
-//   webClientId: "",
-// });
-
-// eslint-disable-next-line react/prop-types
 export function AuthenticationContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
