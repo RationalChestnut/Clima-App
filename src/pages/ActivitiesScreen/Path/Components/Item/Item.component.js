@@ -1,16 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { ItemContainer, CourseTypeText, Title, XPLabelContainer, XPLabelText } from "./Item.styled";
 import IconComponent from "../Icon/Icon.component";
-import background from "../../../../../../assets/images/lightswitch.jpeg";
 
-function Item() {
+function Item({ course }) {
   return (
     <ItemContainer>
-      <IconComponent image={background} />
-      <CourseTypeText>Course</CourseTypeText>
-      <Title>Discover plant-based food</Title>
+      <IconComponent image={course.image} />
+      <CourseTypeText>{course.type}</CourseTypeText>
+      <Title>{course.title}</Title>
       <XPLabelContainer>
-        <XPLabelText>+323 EXP</XPLabelText>
+        <XPLabelText>+{course.exp} EXP</XPLabelText>
       </XPLabelContainer>
     </ItemContainer>
   );

@@ -7,15 +7,19 @@ import {
   TitleText,
 } from "./Path.screen.styles";
 
+import background from "../../../../assets/images/background.jpeg";
+
 function PathScreen() {
   const mockData = [
     [
       {
         name: "At home activities",
-        icon: "",
+        type: "Course",
+        icon: background,
         totalCarbonRemoved: 0,
         totalWasteRemoved: 0,
         totalWaterSaved: 0,
+        exp: 430,
         tasks: ["Qxs2THMxMiavcZhnwwZS", "Qxs2THMxMiavcZhnwwZS"],
         resources: [
           {
@@ -28,9 +32,7 @@ function PathScreen() {
           },
         ],
       },
-      {},
     ],
-    [],
   ];
   return (
     <PathContainer>
@@ -38,17 +40,20 @@ function PathScreen() {
       <CourseDescription>
         This plan will help you get started on your carbon-zero journey!
       </CourseDescription>
-      <SectionContainer>
-        <Item />
-      </SectionContainer>
-      <SectionContainer>
-        <Item />
-        <Item />
-      </SectionContainer>
-      <SectionContainer>
-        <Item />
-        <Item />
-      </SectionContainer>
+      {mockData.map((course) => (
+        <SectionContainer>
+          {course.map((section) => (
+            <Item
+              course={{
+                image: section.icon,
+                title: section.name,
+                type: section.type,
+                exp: section.exp,
+              }}
+            />
+          ))}
+        </SectionContainer>
+      ))}
     </PathContainer>
   );
 }
