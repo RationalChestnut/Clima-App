@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+
+import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import QuestionMarkComponent from "../../components/QuestionMark/QuestionMark.component";
 import BarComponent from "./Bar/Bar.component";
 import {
@@ -17,7 +20,35 @@ import {
 import habitat from "../../../assets/images/habitat.png";
 import petImage from "../../../assets/images/pet.png";
 
+import { totalExpToLevel } from "../../utils/utils";
+
 function PetScreen() {
+  const user = useContext(AuthenticationContext);
+  const [stats, setStats] = useState({
+    lvl: 0,
+    lvlTotalExp: 0,
+    exp: 0,
+    expOverLevel: 0,
+    name: "",
+    mood: 0,
+    moodMessage: "Angry",
+  });
+
+  const getStats = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/user/${user.user.user.uid}/pet`);
+      const { data } = res;
+
+      setStats({ ...data, ...totalExpToLevel(data.exp) });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getStats();
+  }, []);
+
   return (
     <PetScreenContainer>
       <PetImage source={habitat}>
@@ -26,21 +57,21 @@ function PetScreen() {
       <NameInput value="Barky" />
       <BarContainer>
         <InfoContainer>
-          <LevelText>Lvl. 2</LevelText>
+          <LevelText>Lvl. {stats.lvl}</LevelText>
           <QuestionMarkComponent />
           <StatusText>
-            270 / <Green>300EXP</Green>
+            {stats.expOverLevel} / <Green>{stats.lvlTotalExp}</Green>
           </StatusText>
         </InfoContainer>
-        <BarComponent percentage={40} color="#0FA958" />
+        <BarComponent percentage={(stats.expOverLevel / stats.lvlTotalExp) * 100} color="#0FA958" />
       </BarContainer>
       <BarContainer>
         <InfoContainer>
           <MoodText>Your Pets Mood</MoodText>
           <QuestionMarkComponent />
-          <Mood color="#1494DC">Sad</Mood>
+          <Mood color="#1494DC">{stats.moodMessage}</Mood>
         </InfoContainer>
-        <BarComponent percentage={60} color="#FFA800" />
+        <BarComponent percentage={stats.mood * 100} color="#FFA800" />
       </BarContainer>
     </PetScreenContainer>
   );
