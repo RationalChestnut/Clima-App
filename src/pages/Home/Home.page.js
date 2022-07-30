@@ -3,12 +3,12 @@ import { HomePageContainer, PaddingAdder } from "./Home.styled";
 import Habit from "./HabitComponent/Habit.component";
 import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
 
-function Home() {
+function Home({ navigation }) {
   return (
     <HomePageContainer>
       <PaddingAdder>
-        <Habit />
-        <SavedTasksPage />
+        <Habit navigation={navigation} />
+        <SavedTasksPage navigation={navigation} />
       </PaddingAdder>
     </HomePageContainer>
   );

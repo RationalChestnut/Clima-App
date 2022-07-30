@@ -9,7 +9,7 @@ import {
 
 import background from "../../../../assets/images/background.jpeg";
 
-function PathScreen() {
+function PathScreen({ navigation }) {
   const mockData = [
     [
       {
@@ -43,14 +43,7 @@ function PathScreen() {
       {mockData.map((course) => (
         <SectionContainer>
           {course.map((section) => (
-            <Item
-              course={{
-                image: section.icon,
-                title: section.name,
-                type: section.type,
-                exp: section.exp,
-              }}
-            />
+            <Item course={section} navigation={navigation} />
           ))}
         </SectionContainer>
       ))}

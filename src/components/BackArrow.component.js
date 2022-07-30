@@ -1,11 +1,23 @@
+import React from "react";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
-const BackArrow = styled(AntDesign).attrs({ name: "arrowleft", size: 24, color: "black" })`
-  position: absolute;
-  top: -2.5px;
-  left: 20px;
-  z-index: 999;
-`;
+const BackArrowComponent = styled(AntDesign).attrs({
+  name: "arrowleft",
+  size: 28,
+})``;
+
+function BackArrow({ color, navigation }) {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.goBack();
+      }}
+    >
+      <BackArrowComponent color={color} />
+    </TouchableOpacity>
+  );
+}
 
 export default BackArrow;

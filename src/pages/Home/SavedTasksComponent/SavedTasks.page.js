@@ -10,7 +10,7 @@ import {
 import lightswitch from "../../../../assets/images/lightswitch.jpeg";
 import building from "../../../../assets/images/building.jpeg";
 
-function SavedTasksPage() {
+function SavedTasksPage({ navigation }) {
   const data = [
     {
       id: 1,
@@ -48,7 +48,7 @@ function SavedTasksPage() {
           />
         ))}
       </FlatListContainer>
-      <AddMoreButton>
+      <AddMoreButton onPress={() => navigation.navigate("All Activities")}>
         <AddMoreText>Explore More</AddMoreText>
       </AddMoreButton>
     </PageContainer>

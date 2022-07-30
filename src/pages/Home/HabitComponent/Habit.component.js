@@ -10,10 +10,14 @@ import {
 } from "./Habit.style";
 import Day from "./Day.component";
 
-function Habit() {
+function Habit({ navigation }) {
   return (
     <HabitsContainer>
-      <AddActivityIcon />
+      <AddActivityIcon
+        onPress={() => {
+          navigation.navigate("All Activities");
+        }}
+      />
       <UpperHabitBar>
         <TasksTitle>Tasks Completed</TasksTitle>
       </UpperHabitBar>

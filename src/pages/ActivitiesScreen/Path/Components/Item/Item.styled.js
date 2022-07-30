@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-export const ItemContainer = styled(View)`
+export const ItemContainer = styled(TouchableOpacity)`
   align-items: center;
   flex: 1;
 `;
