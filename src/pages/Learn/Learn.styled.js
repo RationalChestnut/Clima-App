@@ -8,7 +8,7 @@ export const ActivityContainer = styled(View)`
 
 export const ArticlesContainer = styled(FlatList)`
   flex: 1;
-  margin-top: ${(props) => props.theme.sizes.lg}px;
+  margin-top: ${(props) => props.theme.sizes.md}px;
 `;
 
 export const Separator = styled(View)`

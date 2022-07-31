@@ -13,12 +13,15 @@ export const ActivityPageBackground = styled(ImageBackground).attrs({ resizeMode
 export const ActivityTitle = styled(Text)`
   font-size: 28px;
   font-family: ${(props) => props.theme.fonts.heading};
-  margin-top: auto;
-  margin-bottom: 40px;
-  margin-left: 20px;
 `;
 
 export const Spacer = styled(View)`
   margin-left: 20px;
   margin-top: 20px;
+`;
+
+export const Description = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  margin-bottom: 10px;
 `;

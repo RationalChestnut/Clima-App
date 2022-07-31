@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "styled-components";
+import React from "react";
 
-import FullWidthCard from "../../components/FullWidthCard/FullWidthCard";
 import { ActivityContainer, ArticlesContainer, Separator } from "./Learn.styled";
 import Article from "../../components/Article/Article";
 
@@ -37,17 +35,10 @@ const articles = [
 ];
 
 function Learn() {
-  const theme = useContext(ThemeContext);
-
   const article = ({ item }) => <Article title={item.title} image={item.image} link={item.link} />;
 
   return (
     <ActivityContainer>
-      <FullWidthCard
-        title="Learn More"
-        content="Learning more about climate change is the first step in making a difference!"
-        bgColor={theme.colors.defaultGreen}
-      />
       <ArticlesContainer
         data={articles}
         renderItem={article}
