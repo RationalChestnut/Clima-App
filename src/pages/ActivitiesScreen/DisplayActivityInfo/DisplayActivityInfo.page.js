@@ -11,7 +11,6 @@ import {
 import BackArrow from "../../../components/BackArrow.component";
 import Activities from "./Activities/Activities.screen";
 import Learn from "../../Learn/Learn.page";
-import CustomTabBar from "./TabBar/TabBar.component";
 
 function DisplayActivityInfo({ route }) {
   const { pathItem, navigation } = route.params;
