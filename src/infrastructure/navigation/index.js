@@ -3,9 +3,13 @@ import React, { useContext } from "react";
 import MainNavigator from "./main.navigator";
 import { AuthenticationContext } from "../Authentication/AuthenticationContext";
 import UnAuthNavigator from "./unauth.navigator";
+import SplashScreen from "../../pages/SplashScreen/SplashScreen.page";
 
 function Navigation() {
-  const { isAuthenticated } = useContext(AuthenticationContext);
+  const { isAuthenticated, isLoading } = useContext(AuthenticationContext);
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
     <NavigationContainer>
       {isAuthenticated ? <MainNavigator /> : <UnAuthNavigator />}

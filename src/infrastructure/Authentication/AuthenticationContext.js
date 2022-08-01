@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { loginRequest, signupRequest, auth } from "./authentication.service";
+import React, { createContext, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loginRequest, signupRequest } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
@@ -15,6 +15,7 @@ export function AuthenticationContextProvider({ children }) {
       .then((u) => {
         setUser(u);
         setIsLoading(false);
+        saveAuthState(email);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -28,25 +29,46 @@ export function AuthenticationContextProvider({ children }) {
       .then((u) => {
         setIsLoading(false);
         setUser(u);
+        saveAuthState(email);
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err.toString());
       });
   };
-  const googleSignIn = async () => {
-    try {
-      const { idToken } = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      auth().signInWithCredential(googleCredential);
-    } catch (err) {
-      setError(err);
+
+  const saveAuthState = async (email) => {
+    if (email) {
+      try {
+        const jsonValue = JSON.stringify(email);
+        await AsyncStorage.setItem("@clima-user-email", jsonValue);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+        setIsLoading(false);
+      }
     }
   };
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@clima-user-email");
+      if (value !== null) {
+        setUser(value);
+      }
+      setIsLoading(false);
+    } catch (err) {
+      // error reading value
+      console.log(err);
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <AuthenticationContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         isAuthenticated: !!user,
         user,
@@ -54,7 +76,6 @@ export function AuthenticationContextProvider({ children }) {
         error,
         onLogin,
         onRegister,
-        googleSignIn,
       }}
     >
       {children}
