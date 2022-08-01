@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useMemo } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loginRequest, signupRequest } from "./authentication.service";
 
@@ -10,29 +10,23 @@ export function AuthenticationContextProvider({ children }) {
   const [error, setError] = useState("");
 
   const onLogin = (email, password) => {
-    setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
         setUser(u);
-        setIsLoading(false);
         saveAuthState(email);
       })
       .catch((err) => {
-        setIsLoading(false);
         setError(err.toString());
       });
   };
 
   const onRegister = (email, password) => {
-    setIsLoading(true);
     signupRequest(email, password)
       .then((u) => {
-        setIsLoading(false);
         setUser(u);
         saveAuthState(email);
       })
       .catch((err) => {
-        setIsLoading(false);
         setError(err.toString());
       });
   };
@@ -44,25 +38,27 @@ export function AuthenticationContextProvider({ children }) {
         await AsyncStorage.setItem("@clima-user-email", jsonValue);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
         setIsLoading(false);
       }
     }
   };
 
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@clima-user-email");
-      if (value !== null) {
-        setUser(value);
+  const getData = useMemo(
+    () => async () => {
+      try {
+        const value = await AsyncStorage.getItem("@clima-user-email");
+        if (value !== null) {
+          setUser(value);
+        }
+        setIsLoading(false);
+      } catch (err) {
+        // error reading value
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    } catch (err) {
-      // error reading value
-      console.log(err);
-      setIsLoading(false);
-    }
-  };
+    },
+    []
+  );
+
   useEffect(() => {
     getData();
   }, []);
