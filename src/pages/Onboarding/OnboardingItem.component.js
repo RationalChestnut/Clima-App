@@ -18,9 +18,12 @@ function OnboardingItem({ item, scrollX, navigation }) {
 
   return (
     <OnboardingItemContainer backgroundColor={item.backgroundColor} height={height} width={width}>
-      <SkipButton onPress={() => navigation.navigate("Signup")}>
-        <SkipButtonText>Skip</SkipButtonText>
-      </SkipButton>
+      {item.id !== 3 && (
+        <SkipButton onPress={() => navigation.navigate("Signup")}>
+          <SkipButtonText>Skip</SkipButtonText>
+        </SkipButton>
+      )}
+
       <SubTitleText>{item.subtitle}</SubTitleText>
       <TitleText main={item.main}>{item.title}</TitleText>
       <OnboardImage source={item.image} nospacing={item.nospacing} />

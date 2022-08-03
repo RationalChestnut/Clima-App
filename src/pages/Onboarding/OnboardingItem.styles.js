@@ -46,7 +46,7 @@ export const OnboardImage = styled(Image).attrs({ resizeMode: "contain" })`
 `;
 
 export const BeginButton = styled(TouchableOpacity)`
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
 export const BeginText = styled(Text)`
