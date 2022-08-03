@@ -46,7 +46,7 @@ export function AuthenticationContextProvider({ children }) {
   const getData = useMemo(
     () => async () => {
       try {
-        const value = await AsyncStorage.getItem("@clima-user-id-unique-e");
+        const value = await AsyncStorage.getItem("@clima-user-id-unique");
         if (value !== null) {
           setUser(value);
         }

@@ -17,7 +17,7 @@ function UnAuthNavigator() {
         AsyncStorage.setItem("clima-already-launched", "true");
         setIsFirstLaunch(true);
       } else {
-        setIsFirstLaunch(true);
+        setIsFirstLaunch(false);
       }
     });
   }, []);
