@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { SplashImage, SplashScreenPage } from "./SplashScreen.styled";
 
 function SplashScreen() {
   return (
-    <View>
-      <Text>Splash Screen</Text>
-    </View>
+    <SplashScreenPage>
+      <SplashImage />
+    </SplashScreenPage>
   );
 }
 
