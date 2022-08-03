@@ -13,7 +13,7 @@ export function AuthenticationContextProvider({ children }) {
     loginRequest(email, password)
       .then((u) => {
         setUser(u);
-        saveAuthState(email);
+        saveAuthState(u.user);
       })
       .catch((err) => {
         setError(err.toString());
@@ -24,18 +24,18 @@ export function AuthenticationContextProvider({ children }) {
     signupRequest(email, password)
       .then((u) => {
         setUser(u);
-        saveAuthState(email);
+        saveAuthState(u.user);
       })
       .catch((err) => {
         setError(err.toString());
       });
   };
 
-  const saveAuthState = async (email) => {
-    if (email) {
+  const saveAuthState = async (id) => {
+    if (id) {
       try {
-        const jsonValue = JSON.stringify(email);
-        await AsyncStorage.setItem("@clima-user-email", jsonValue);
+        const jsonValue = JSON.stringify(id);
+        await AsyncStorage.setItem("@clima-user-id", jsonValue);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -46,7 +46,7 @@ export function AuthenticationContextProvider({ children }) {
   const getData = useMemo(
     () => async () => {
       try {
-        const value = await AsyncStorage.getItem("@clima-user-email");
+        const value = await AsyncStorage.getItem("@clima-user-id");
         if (value !== null) {
           setUser(value);
         }
