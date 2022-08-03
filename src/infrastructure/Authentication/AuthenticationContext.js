@@ -12,8 +12,8 @@ export function AuthenticationContextProvider({ children }) {
   const onLogin = (email, password) => {
     loginRequest(email, password)
       .then((u) => {
-        setUser(u);
-        saveAuthState(u.user);
+        setUser(u.user.uid);
+        saveAuthState(u.user.uid);
       })
       .catch((err) => {
         setError(err.toString());
@@ -23,8 +23,8 @@ export function AuthenticationContextProvider({ children }) {
   const onRegister = (email, password) => {
     signupRequest(email, password)
       .then((u) => {
-        setUser(u);
-        saveAuthState(u.user);
+        setUser(u.user.uid);
+        saveAuthState(u.user.uid);
       })
       .catch((err) => {
         setError(err.toString());
@@ -35,7 +35,7 @@ export function AuthenticationContextProvider({ children }) {
     if (id) {
       try {
         const jsonValue = JSON.stringify(id);
-        await AsyncStorage.setItem("@clima-user-id", jsonValue);
+        await AsyncStorage.setItem("@clima-user-id-unique", jsonValue);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -46,7 +46,7 @@ export function AuthenticationContextProvider({ children }) {
   const getData = useMemo(
     () => async () => {
       try {
-        const value = await AsyncStorage.getItem("@clima-user-id");
+        const value = await AsyncStorage.getItem("@clima-user-id-unique-e");
         if (value !== null) {
           setUser(value);
         }
@@ -58,7 +58,6 @@ export function AuthenticationContextProvider({ children }) {
     },
     []
   );
-
   useEffect(() => {
     getData();
   }, []);
