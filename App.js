@@ -8,6 +8,7 @@ import {
 } from "@expo-google-fonts/nunito";
 import { useFonts as useHind, Hind_400Regular } from "@expo-google-fonts/hind";
 import { ThemeProvider } from "styled-components/native";
+
 import Navigation from "./src/infrastructure/navigation";
 import theme from "./src/infrastructure/theme";
 import { AuthenticationContextProvider } from "./src/infrastructure/Authentication/AuthenticationContext";
