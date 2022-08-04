@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import { loginRequest, signupRequest } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
@@ -20,10 +21,11 @@ export function AuthenticationContextProvider({ children }) {
       });
   };
 
-  const onRegister = (email, password) => {
+  const onRegister = (name, email, password) => {
     signupRequest(email, password)
       .then((u) => {
         setUser(u.user.uid);
+        createNewUser(name, email);
         saveAuthState(u.user.uid);
       })
       .catch((err) => {
@@ -40,6 +42,17 @@ export function AuthenticationContextProvider({ children }) {
       } catch (err) {
         setIsLoading(false);
       }
+    }
+  };
+
+  const createNewUser = async (name, email) => {
+    try {
+      const res = await axios.post("https://localhost:5000/user/createUser", {
+        name,
+        email,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 

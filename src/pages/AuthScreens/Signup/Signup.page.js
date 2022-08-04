@@ -50,7 +50,7 @@ function Signup({ email, navigation }) {
           secureTextEntry
           textContentType="password"
         />
-        <Button onPress={() => onRegister(emailState, passwordState)}>
+        <Button onPress={() => onRegister(nameState, emailState, passwordState)}>
           <ButtonText>Signup</ButtonText>
           <RightArrow color="white" />
         </Button>
