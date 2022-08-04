@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { View, Text, LogBox } from "react-native";
+import React, { useContext } from "react";
+import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatGrid } from "react-native-super-grid";
 
@@ -53,18 +53,36 @@ function dateToString(date) {
   return `${date}th`;
 }
 
-function fillMonth(currentMonth) {
-  const filledMonth = [...currentMonth];
-  const today = new Date();
-  let daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+function generateMonth(data) {
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth() + 1;
+  const daysInCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
+  const currentDate = date.getDate();
 
-  // eslint-disable-next-line no-loop-func
-  while (!currentMonth.find((day) => day.date === daysInMonth)) {
-    filledMonth.push({ date: daysInMonth, tasks: -1 });
-    daysInMonth -= 1;
+  const currentMonthData = data[currentYear][currentMonth];
+  let fullMonth = {};
+  if (currentMonthData) {
+    Object.keys(currentMonthData).forEach((week) => {
+      fullMonth = { ...fullMonth, ...currentMonthData[week] };
+    });
   }
 
-  filledMonth.sort((a, b) => {
+  const returnMonthData = [];
+  for (let i = 1; i <= daysInCurrentMonth; i += 1) {
+    if (i > currentDate) {
+      returnMonthData.push({ date: i, tasks: -1 });
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+    if (fullMonth[i]) {
+      returnMonthData.push({ date: i, tasks: fullMonth[i].tasksCompleted });
+    } else {
+      returnMonthData.push({ date: i, tasks: 0 });
+    }
+  }
+
+  returnMonthData.sort((a, b) => {
     if (a.date < b.date) {
       return -1;
     }
@@ -75,23 +93,20 @@ function fillMonth(currentMonth) {
     return 0;
   });
 
-  return filledMonth;
+  return returnMonthData;
 }
 
 // eslint-disable-next-line react/prop-types
-function Calendar({ currentMonth, before }) {
+function Calendar({ before, data }) {
   const theme = useContext(ThemeContext);
-  const filledMonth = fillMonth(currentMonth);
 
-  useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists"]);
-  }, []);
+  const currentMonth = generateMonth(data);
 
   return (
     <CalendarGrid
       itemDimension={40}
       spacing={theme.sizes.sm}
-      data={filledMonth}
+      data={currentMonth}
       ListHeaderComponent={before}
       keyExtractor={(item) => item.date}
       renderItem={({ item }) => {

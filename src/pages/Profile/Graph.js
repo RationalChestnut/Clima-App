@@ -3,34 +3,45 @@ import { ThemeContext } from "styled-components/native";
 import { Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
-function generateMonths() {
-  const months = [];
-
-  for (let i = 5; i > 0; i -= 1) {
-    months.push(
-      new Date(null, new Date().getMonth() - i + 1).toLocaleDateString("en", { month: "long" })
-    );
-  }
-  return months;
-}
-
-function Graph() {
+function Graph({ data }) {
   const theme = useContext(ThemeContext);
+
+  const generateMonths = () => {
+    const graphData = [];
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    let currentMonth = date.getMonth() + 1;
+
+    for (let i = 5; i >= 0; i -= 1) {
+      graphData.unshift({
+        month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
+        CO2Removed: data[currentYear][`${currentMonth}`]?.monthlyCO2Removed || 0,
+      });
+
+      currentMonth -= 1;
+    }
+
+    graphData.sort((a, b) => {
+      if (
+        new Date(Date.parse(`${a.month} 1, 2022`)).getMonth() >
+        new Date(Date.parse(`${b.month} 1, 2022`)).getMonth()
+      ) {
+        return 1;
+      }
+
+      return -1;
+    });
+
+    return graphData;
+  };
 
   return (
     <LineChart
       data={{
-        labels: generateMonths(),
+        labels: generateMonths().map((month) => month.month),
         datasets: [
           {
-            data: [
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              180,
-            ],
+            data: generateMonths().map((month) => month.CO2Removed),
           },
         ],
       }}

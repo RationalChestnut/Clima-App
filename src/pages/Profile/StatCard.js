@@ -40,7 +40,7 @@ const IndicatorText = styled(Text)`
 `;
 
 // eslint-disable-next-line react/prop-types
-function StatCard({ negative, number, unit, description, percent }) {
+function StatCard({ negative, number, unit, description, percent, valid }) {
   const theme = useContext(ThemeContext);
 
   return (
@@ -54,8 +54,14 @@ function StatCard({ negative, number, unit, description, percent }) {
       <Description>{description}</Description>
       <Separator />
       <IndicatorContainer>
-        <AntDesign name={negative ? "arrowdown" : "arrowup"} size={20} color="white" />
-        <IndicatorText>{percent}% MoM</IndicatorText>
+        {valid ? (
+          <>
+            <AntDesign name={negative ? "arrowdown" : "arrowup"} size={20} color="white" />
+            <IndicatorText>{percent}% MoM</IndicatorText>
+          </>
+        ) : (
+          <IndicatorText>Good job!</IndicatorText>
+        )}
       </IndicatorContainer>
     </StatCardContainer>
   );

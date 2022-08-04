@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
-import { LogBox } from "react-native";
+import React, { useEffect, useContext, useState } from "react";
+import axios from "axios";
+
+import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
 import {
   CalendarTitle,
@@ -14,6 +16,7 @@ import ProfileCard from "./ProfileCard";
 import StatCard from "./StatCard";
 import Graph from "./Graph";
 import Calendar from "./Calendar";
+import { totalExpToLevel } from "../../utils/utils";
 
 const monthNames = [
   "January",
@@ -32,43 +35,108 @@ const monthNames = [
 
 // eslint-disable-next-line react/prop-types
 function Profile({ profile = {} }) {
-  useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists"]);
-  }, []);
+  const userContext = useContext(AuthenticationContext);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({
+    profilePicture: "",
+    name: "",
+    email: "",
+    exp: 0,
+    totalCO2Removed: 0,
+    totalWasteRemoved: 0,
+    totalWaterSaved: 0,
+    totalData: null,
+  });
 
-  const {
-    name = "Yixuan Li",
-    picture = "https://www.howtogeek.com/wp-content/uploads/2021/07/Discord-Logo-Lede.png?width=398&trim=1,1&bg-color=000&pad=1,1",
-    exp = 270,
-    level = 2,
-    stats = [
-      { negative: false, number: 180, unit: "kg", description: "CO2 removed", percent: 20 },
-      { negative: true, number: 250, unit: "kg", description: "Waste removed", percent: 14 },
-      { negative: true, number: 123, unit: "L", description: "Water saved", percent: 11 },
-      { negative: false, number: 150, unit: "", description: "Trees planted", percent: 5 },
-    ],
-    currentMonth = [
-      { date: 1, tasks: 10 },
-      { date: 2, tasks: 1 },
-      { date: 3, tasks: 0 },
-      { date: 4, tasks: 5 },
-      { date: 5, tasks: 8 },
-      { date: 6, tasks: 2 },
-      { date: 7, tasks: 5 },
-      { date: 8, tasks: 15 },
-      { date: 9, tasks: 1 },
-      { date: 10, tasks: 2 },
-      { date: 11, tasks: 16 },
-      { date: 12, tasks: 0 },
-      { date: 13, tasks: 2 },
-      { date: 14, tasks: 10 },
-      { date: 15, tasks: 8 },
-      { date: 16, tasks: 5 },
-      { date: 17, tasks: 2 },
-      { date: 18, tasks: 0 },
-      { date: 19, tasks: 9 },
-    ],
-  } = profile;
+  const getUser = async () => {
+    const date_ob = new Date();
+    const previousMonth = date_ob.getMonth();
+    const currentDay = date_ob.getDate();
+    const currentMonth = date_ob.getMonth() + 1;
+    const currentYear = date_ob.getFullYear();
+    const daysInPreviousMonth = new Date(currentYear, previousMonth, 0).getDate();
+
+    try {
+      const { data } = await axios.get(`http://localhost:5000/user/getUser/${userContext.user}`);
+
+      const { totalCO2Removed, totalWasteRemoved, totalWaterSaved } = data;
+      const thisMonthCO2Removed = data.totalData[currentYear][currentMonth]?.monthlyCO2Removed || 0;
+      const thisMonthWasteRemoved =
+        data.totalData[currentYear][currentMonth]?.monthlyWasteRemoved || 0;
+      const thisMonthWaterSaved = data.totalData[currentYear][currentMonth]?.monthlyWaterSaved || 0;
+
+      const lastMonthCO2RemovedPerDay =
+        (data.totalData[currentYear][previousMonth]?.monthlyCO2Removed
+          ? data.totalData[currentYear][previousMonth].monthlyCO2Removed
+          : 0) / daysInPreviousMonth;
+      const lastMonthWasteRemovedPerDay =
+        (data.totalData[currentYear][previousMonth]?.monthlyWasteRemoved
+          ? data.totalData[currentYear][previousMonth].monthlyWasteRemoved
+          : 0) / daysInPreviousMonth;
+      const lastMonthWaterSavedPerDay =
+        (data.totalData[currentYear][previousMonth]?.monthlyWaterSaved
+          ? data.totalData[currentYear][previousMonth].monthlyWaterSaved
+          : 0) / daysInPreviousMonth;
+
+      const CO2RemovedDiff = thisMonthCO2Removed - lastMonthCO2RemovedPerDay * currentDay;
+      const wasteRemovedDiff = thisMonthWasteRemoved - lastMonthWasteRemovedPerDay * currentDay;
+      const waterSavedDiff = thisMonthWaterSaved - lastMonthWaterSavedPerDay * currentDay;
+
+      setUser({
+        ...data,
+        ...totalExpToLevel(data.exp),
+        stats: [
+          {
+            description: "CO2 removed",
+            number: totalCO2Removed,
+            unit: "kg",
+            negative: CO2RemovedDiff < 0,
+            percent: Math.round(
+              (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthCO2RemovedPerDay &&
+              lastMonthCO2RemovedPerDay !== 0 &&
+              lastMonthCO2RemovedPerDay !== Infinity,
+          },
+          {
+            description: "Waste removed",
+            number: totalWasteRemoved,
+            unit: "kg",
+            negative: wasteRemovedDiff < 0,
+            percent: Math.round(
+              (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthWasteRemovedPerDay &&
+              lastMonthWasteRemovedPerDay !== 0 &&
+              lastMonthWasteRemovedPerDay !== Infinity,
+          },
+          {
+            description: "Water saved",
+            number: totalWaterSaved,
+            unit: "L",
+            negative: waterSavedDiff < 0,
+            percent: Math.round(
+              (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthWaterSavedPerDay &&
+              lastMonthWaterSavedPerDay !== 0 &&
+              lastMonthWaterSavedPerDay !== Infinity,
+          },
+        ],
+      });
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const today = new Date();
 
@@ -79,25 +147,37 @@ function Profile({ profile = {} }) {
       unit={item.unit}
       description={item.description}
       percent={item.percent}
+      valid={item.valid}
     />
   );
 
   const beforeCalendar = () => (
     <>
-      <ProfileCard name={name} picture={picture} exp={exp} level={level} />
+      <ProfileCard
+        name={user.name}
+        picture={user.profilePicture}
+        level={user.lvl}
+        levelTotalExp={user.lvlTotalExp}
+        expOverLevel={user.expOverLevel}
+      />
       <StatsTitle>Lifetime Stats</StatsTitle>
       <StatsListContainer>
-        <StatsList data={stats} renderItem={stat} horizontal ItemSeparatorComponent={Separator} />
+        <StatsList
+          data={user.stats}
+          renderItem={stat}
+          horizontal
+          ItemSeparatorComponent={Separator}
+        />
       </StatsListContainer>
       <GraphTitle>CO2 removed over time</GraphTitle>
-      <Graph />
+      <Graph data={user.totalData} />
       <CalendarTitle>{`${monthNames[today.getMonth()]} ${today.getFullYear()}`}</CalendarTitle>
     </>
   );
 
   return (
     <ProfilePageContainer>
-      <Calendar currentMonth={currentMonth} before={beforeCalendar} />
+      {!loading ? <Calendar data={user.totalData} before={beforeCalendar} /> : null}
     </ProfilePageContainer>
   );
 }
