@@ -24,9 +24,9 @@ export function AuthenticationContextProvider({ children }) {
   const onRegister = (name, email, password) => {
     signupRequest(email, password)
       .then((u) => {
-        setUser(u.user.uid);
-        createNewUser(name, email);
+        createNewUser(name, email, u.user.uid);
         saveAuthState(u.user.uid);
+        setUser(u.user.uid);
       })
       .catch((err) => {
         setError(err.toString());
@@ -45,11 +45,12 @@ export function AuthenticationContextProvider({ children }) {
     }
   };
 
-  const createNewUser = async (name, email) => {
+  const createNewUser = async (name, email, id) => {
     try {
-      const res = await axios.post("https://localhost:5000/user/createUser", {
+      const res = await axios.post("http://localhost:5000/user/createUser", {
         name,
         email,
+        id,
       });
     } catch (err) {
       console.log(err);
