@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   HabitsContainer,
@@ -11,52 +11,82 @@ import {
   ProgressHabitText,
 } from "./Habit.style";
 import Day from "./Day.component";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
 function Habit({ navigation }) {
   const [days, setDays] = useState([]);
-
+  const { user } = useContext(AuthenticationContext);
   const getWeekData = async () => {
     try {
-      axios.get("http://localhost:5000/user/getUser/6ZIWQSbvV15oscn0W31y").then((res) => {
+      axios.get(`http://localhost:5000/user/getUser/${user.replaceAll('"', "")}`).then((res) => {
         const userTotalData = res.data.data.totalData;
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;
         const currentYear = date_ob.getFullYear();
         const currentDay = date_ob.getDate();
         const currentWeek = Math.ceil(currentDay / 7);
-
-        const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
         const dataToAppend = [];
-        for (let i = 1; i <= 7; i += 1) {
-          const dayName =
-            i === 1
-              ? "Mon"
-              : i === 2
-              ? "Tue"
-              : i === 3
-              ? "Wed"
-              : i === 4
-              ? "Thu"
-              : i === 5
-              ? "Fri"
-              : i === 6
-              ? "Sat"
-              : "Sun";
-          const objectToPush = {};
-          if (i === date_ob.getDate()) {
-            objectToPush.currentDay = true;
+
+        if (userTotalData[currentYear]) {
+          const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
+          for (let i = 1; i <= 7; i += 1) {
+            const dayName =
+              i === 1
+                ? "Mon"
+                : i === 2
+                ? "Tue"
+                : i === 3
+                ? "Wed"
+                : i === 4
+                ? "Thu"
+                : i === 5
+                ? "Fri"
+                : i === 6
+                ? "Sat"
+                : "Sun";
+            const objectToPush = {};
+            if (i === date_ob.getDate()) {
+              objectToPush.currentDay = true;
+            }
+            const assignedDayValue = thisWeekData[i];
+            if (!assignedDayValue) {
+              if (i < currentDay) {
+                dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
+              } else {
+                dataToAppend.push({ ...objectToPush, day: dayName });
+              }
+            } else {
+              dataToAppend.push({ ...objectToPush, day: dayName, completed: true });
+            }
           }
-          const assignedDayValue = thisWeekData[i];
-          if (!assignedDayValue) {
+        } else {
+          for (let i = 1; i <= 7; i += 1) {
+            const dayName =
+              i === 1
+                ? "Mon"
+                : i === 2
+                ? "Tue"
+                : i === 3
+                ? "Wed"
+                : i === 4
+                ? "Thu"
+                : i === 5
+                ? "Fri"
+                : i === 6
+                ? "Sat"
+                : "Sun";
+            const objectToPush = {};
+            if (i === date_ob.getDate()) {
+              objectToPush.currentDay = true;
+            }
             if (i < currentDay) {
               dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
             } else {
               dataToAppend.push({ ...objectToPush, day: dayName });
             }
-          } else {
-            dataToAppend.push({ ...objectToPush, day: dayName, completed: true });
           }
         }
+
         setDays(dataToAppend);
       });
     } catch (err) {
@@ -80,12 +110,13 @@ function Habit({ navigation }) {
       </UpperHabitBar>
       <HabitText>Log an action each day to earn extra EXP!</HabitText>
       <HabitBar>
-        {days.map((day) => (
+        {days.map((day, index) => (
           <Day
             day={day.day}
             active={day.currentDay}
             completed={day.completed === true}
             failed={day.completed === false}
+            key={`habit:${index}`}
           />
         ))}
       </HabitBar>

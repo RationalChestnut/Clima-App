@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "878817171101",
+    "project_id": "clima-88541",
+    "storage_bucket": "clima-88541.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878817171101:android:bade2dc9bca3ba775d6674",
+        "android_client_info": {
+          "package_name": "com.yxli.clima_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878817171101-kgh8f2sd1smhj3p4ec411qdh7ju2apf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yxli.clima_app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "878817171101-1e5t7mvugqntb5qcvjvn1oie5nr4jv3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi1cOd5v88W0LurAF5mmb1AjkGVHGUVIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878817171101-1e5t7mvugqntb5qcvjvn1oie5nr4jv3h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878817171101-48jbq4io9jcgvaikt8f4d43f05p0tcc1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.climaapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
