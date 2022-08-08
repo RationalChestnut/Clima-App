@@ -5,7 +5,6 @@ import { AuthenticationContext } from "../../infrastructure/Authentication/Authe
 
 import {
   CalendarTitle,
-  GraphTitle,
   ProfilePageContainer,
   Separator,
   StatsList,
@@ -14,9 +13,9 @@ import {
 } from "./Profile.styled";
 import ProfileCard from "./ProfileCard";
 import StatCard from "./StatCard";
-import Graph from "./Graph";
 import Calendar from "./Calendar";
 import { totalExpToLevel } from "../../utils/utils";
+import { GraphsCarousel } from "./GraphsCarousel";
 
 const monthNames = [
   "January",
@@ -34,7 +33,7 @@ const monthNames = [
 ];
 
 // eslint-disable-next-line react/prop-types
-function Profile({ profile = {} }) {
+function Profile() {
   const userContext = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({
@@ -169,8 +168,7 @@ function Profile({ profile = {} }) {
           ItemSeparatorComponent={Separator}
         />
       </StatsListContainer>
-      <GraphTitle>CO2 removed over time</GraphTitle>
-      <Graph data={user.totalData} />
+      <GraphsCarousel totalData={user.totalData} />
       <CalendarTitle>{`${monthNames[today.getMonth()]} ${today.getFullYear()}`}</CalendarTitle>
     </>
   );
