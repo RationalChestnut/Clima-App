@@ -62,7 +62,7 @@ export function AuthenticationContextProvider({ children }) {
       try {
         const value = await AsyncStorage.getItem("@clima-user-id-unique");
         if (value !== null) {
-          setUser(value);
+          setUser(JSON.parse(value));
         }
         setIsLoading(false);
       } catch (err) {

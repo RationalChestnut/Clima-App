@@ -33,13 +33,15 @@ function PetScreen() {
     mood: 0,
     moodMessage: "Angry",
   });
+  const [loading, setLoading] = useState(true);
 
   const getStats = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/user/${user.user.user.uid}/pet`);
+      const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
       const { data } = res;
 
       setStats({ ...data, ...totalExpToLevel(data.exp) });
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -49,8 +51,8 @@ function PetScreen() {
     getStats();
   }, []);
 
-  return (
-    <PetScreenContainer>
+  const pageContent = (
+    <>
       <PetImage source={habitat}>
         <Pet source={petImage} />
       </PetImage>
@@ -73,8 +75,10 @@ function PetScreen() {
         </InfoContainer>
         <BarComponent percentage={stats.mood * 100} color="#FFA800" />
       </BarContainer>
-    </PetScreenContainer>
+    </>
   );
+
+  return <PetScreenContainer>{!loading ? pageContent : null}</PetScreenContainer>;
 }
 
 export default PetScreen;

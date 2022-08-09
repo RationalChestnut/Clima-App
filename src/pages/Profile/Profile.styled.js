@@ -30,13 +30,6 @@ export const Separator = styled(View)`
   margin: ${(props) => props.theme.sizes.sm}px;
 `;
 
-export const GraphTitle = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.title};
-  color: ${(props) => props.theme.colors.defaultGreen};
-  text-align: center;
-  margin-top: ${(props) => props.theme.sizes.md}px;
-`;
-
 export const CalendarTitle = styled(Text)`
   text-align: center;
   margin-top: ${(props) => props.theme.sizes.md}px;

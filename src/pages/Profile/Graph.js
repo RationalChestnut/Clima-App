@@ -1,63 +1,62 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import { ThemeContext } from "styled-components/native";
-import { Dimensions } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
-function generateMonths() {
-  const months = [];
+const Container = styled(View)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-  for (let i = 5; i > 0; i -= 1) {
-    months.push(
-      new Date(null, new Date().getMonth() - i + 1).toLocaleDateString("en", { month: "long" })
-    );
-  }
-  return months;
-}
+const GraphTitle = styled(Text)`
+  font-size: ${(props) => props.theme.fontSizes.title};
+  color: ${(props) => props.theme.colors.defaultGreen};
+  text-align: center;
+  margin-top: ${(props) => props.theme.sizes.md}px;
+`;
 
-function Graph() {
+function Graph({ data }) {
   const theme = useContext(ThemeContext);
 
   return (
-    <LineChart
-      data={{
-        labels: generateMonths(),
-        datasets: [
-          {
-            data: [
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              Math.ceil(Math.random() * 200),
-              180,
-            ],
+    <Container>
+      <GraphTitle>{data.title}</GraphTitle>
+      <LineChart
+        data={{
+          labels: data.data.map((month) => month.month),
+          datasets: [
+            {
+              data: data.data.map((month) => month.data),
+            },
+          ],
+        }}
+        width={Dimensions.get("window").width - theme.sizes.sm * 2} // from react-native
+        height={220}
+        yAxisLabel=""
+        yAxisSuffix={data.units}
+        yAxisInterval={10} // optional, defaults to 1
+        chartConfig={{
+          backgroundColor: theme.colors.defaultGreen,
+          backgroundGradientFrom: theme.colors.lightGreen,
+          backgroundGradientTo: theme.colors.defaultGreen,
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: theme.colors.lightGray,
           },
-        ],
-      }}
-      width={Dimensions.get("window").width - theme.sizes.sm * 2} // from react-native
-      height={220}
-      yAxisLabel=""
-      yAxisSuffix="kg"
-      yAxisInterval={10} // optional, defaults to 1
-      chartConfig={{
-        backgroundColor: theme.colors.defaultGreen,
-        backgroundGradientFrom: theme.colors.lightGreen,
-        backgroundGradientTo: theme.colors.defaultGreen,
-        decimalPlaces: 0, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        propsForDots: {
-          r: "6",
-          strokeWidth: "2",
-          stroke: theme.colors.lightGray,
-        },
-      }}
-      bezier
-      style={{
-        marginTop: theme.sizes.sm,
-        borderRadius: theme.sizes.md,
-      }}
-    />
+        }}
+        bezier
+        style={{
+          marginTop: theme.sizes.sm,
+          borderRadius: theme.sizes.md,
+        }}
+      />
+    </Container>
   );
 }
 

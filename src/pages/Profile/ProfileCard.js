@@ -60,7 +60,7 @@ const TotalExp = styled(Text)`
 const ExpBar = styled(Progress.Bar)``;
 
 // eslint-disable-next-line react/prop-types
-function ProfileCard({ picture, name, level, exp }) {
+function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel }) {
   const theme = useContext(ThemeContext);
 
   return (
@@ -72,11 +72,11 @@ function ProfileCard({ picture, name, level, exp }) {
           <Level>Lvl. {level}</Level>
         </NameContainer>
         <ExpContainer>
-          <CurrentExp>{exp} / </CurrentExp>
-          <TotalExp>{150 * level} EXP</TotalExp>
+          <CurrentExp>{expOverLevel} / </CurrentExp>
+          <TotalExp>{levelTotalExp} EXP</TotalExp>
         </ExpContainer>
         <ExpBar
-          progress={exp / (level * 150)}
+          progress={expOverLevel / levelTotalExp}
           width={null}
           unfilledColor={theme.colors.gray}
           color={theme.colors.highlightGreen}
