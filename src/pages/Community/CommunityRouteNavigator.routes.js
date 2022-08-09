@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 function Community() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Leaderboard" component={LeaderboardPage} />
+      <Stack.Screen name="LeaderboardPage" component={LeaderboardPage} />
       <Stack.Screen name="AddFriend" component={AddFriendScreen} />
     </Stack.Navigator>
   );
