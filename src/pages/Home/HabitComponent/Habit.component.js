@@ -18,7 +18,7 @@ function Habit({ navigation }) {
   const { user } = useContext(AuthenticationContext);
   const getWeekData = async () => {
     try {
-      axios.get(`http://localhost:5000/user/getUser/${user.replaceAll('"', "")}`).then((res) => {
+      axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
         const userTotalData = res.data.data.totalData;
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;

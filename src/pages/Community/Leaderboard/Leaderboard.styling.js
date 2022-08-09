@@ -52,13 +52,16 @@ export const Circle = styled(View)`
   border-radius: 1000px;
   background-color: #5479e1;
   position: absolute;
-  z-index: -1;
+  z-index: -100;
   width: ${Dimensions.get("window").width}px;
   height: ${Dimensions.get("window").width}px;
   bottom: -35%;
 `;
 
-export const InviteFriendsContainer = styled(View)``;
+export const InviteFriendsContainer = styled(View)`
+  margin-bottom: 10px;
+`;
+
 export const InviteFriendsText = styled(Text)`
   color: white;
   text-align: center;

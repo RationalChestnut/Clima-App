@@ -20,7 +20,10 @@ import {
 import Player from "./Player/Player";
 import TopPlayerCard from "./TopPlayerCard/TopPlayerCard";
 
-function LeaderboardPage({ users = [1, 2, 3, 4, 5] }) {
+function LeaderboardPage({ navigation, users = [1, 2, 3, 4, 5] }) {
+  const handleFriendRequest = () => {
+    navigation.navigate("AddFriend");
+  };
   return (
     <LeaderboardPageContainer>
       <TopPlayersContainer>
@@ -47,14 +50,13 @@ function LeaderboardPage({ users = [1, 2, 3, 4, 5] }) {
           <FlatList data={users} renderItem={Player} key={(item) => item} />
         </ListContainer>
       </LeaderboardContainer>
-      <Circle>
-        <InviteFriendsContainer>
-          <InviteFriendsText>Add More Friends!</InviteFriendsText>
-          <ButtonView>
-            <ShareText>Share!</ShareText>
-          </ButtonView>
-        </InviteFriendsContainer>
-      </Circle>
+      <Circle />
+      <InviteFriendsContainer>
+        <InviteFriendsText>Add More Friends!</InviteFriendsText>
+        <ButtonView onPress={handleFriendRequest}>
+          <ShareText>Share!</ShareText>
+        </ButtonView>
+      </InviteFriendsContainer>
     </LeaderboardPageContainer>
   );
 }

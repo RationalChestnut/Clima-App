@@ -8,12 +8,13 @@ const BackArrowComponent = styled(AntDesign).attrs({
   size: 28,
 })``;
 
-function BackArrow({ color, navigation }) {
+function BackArrow({ color, navigation, style }) {
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.goBack();
       }}
+      style={style}
     >
       <BackArrowComponent color={color} />
     </TouchableOpacity>

@@ -80,7 +80,7 @@ export function AuthenticationContextProvider({ children }) {
     <AuthenticationContext.Provider
       value={{
         isAuthenticated: !!user,
-        user,
+        user: user ? user.replaceAll('"', "") : user,
         isLoading,
         error,
         onLogin,

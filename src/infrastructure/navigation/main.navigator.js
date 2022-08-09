@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import ActivitiesScreen from "../../pages/ActivitiesScreen/ActivitiesScreen.navigator";
-import CommunityPage from "../../pages/Community/Community.page";
 import Home from "../../pages/Home/Home.page";
 import PetScreen from "../../pages/PetScreen/Pet.screen";
 import Profile from "../../pages/Profile/Profile.page";
+import Community from "../../pages/Community/CommunityRouteNavigator.routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,10 +34,9 @@ function MainNavigator() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Activities" component={ActivitiesScreen} />
       <Tab.Screen name="Your Tree" component={PetScreen} />
-      <Tab.Screen name="Leaderboard" component={CommunityPage} />
+      <Tab.Screen name="Leaderboard" component={Community} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
-
 export default MainNavigator;
