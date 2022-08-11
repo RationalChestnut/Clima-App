@@ -25,6 +25,7 @@ export const PlayerPersonalInfoContainer = styled(View)`
 
 export const UserNameText = styled(Text)`
   padding-left: 4.9%;
+  text-align: center;
 `;
 
 export const PointText = styled(Text).attrs({ includeFontPadding: false })`

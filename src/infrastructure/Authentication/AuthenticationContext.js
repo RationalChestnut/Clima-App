@@ -24,9 +24,7 @@ export function AuthenticationContextProvider({ children }) {
   const onRegister = (name, email, password) => {
     signupRequest(email, password)
       .then((u) => {
-        createNewUser(name, email, u.user.uid);
-        saveAuthState(u.user.uid);
-        setUser(u.user.uid);
+        createNewUser(name, email, u.user.uid); // Creates user in our database
       })
       .catch((err) => {
         setError(err.toString());
@@ -41,6 +39,7 @@ export function AuthenticationContextProvider({ children }) {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
+        setUser(id);
       }
     }
   };
@@ -52,7 +51,14 @@ export function AuthenticationContextProvider({ children }) {
         email,
         id,
       });
+      console.log(res.status);
+      if (res.status === 201) {
+        saveAuthState(id);
+      } else {
+        throw "Create user failed";
+      }
     } catch (err) {
+      console.log("Create user failed");
       console.log(err);
     }
   };
@@ -62,7 +68,7 @@ export function AuthenticationContextProvider({ children }) {
       try {
         const value = await AsyncStorage.getItem("@clima-user-id-unique");
         if (value !== null) {
-          setUser(JSON.parse(value));
+          setUser(JSON.parse(value).replaceAll('"', ""));
         }
         setIsLoading(false);
       } catch (err) {
@@ -80,7 +86,7 @@ export function AuthenticationContextProvider({ children }) {
     <AuthenticationContext.Provider
       value={{
         isAuthenticated: !!user,
-        user: user ? user.replaceAll('"', "") : user,
+        user,
         isLoading,
         error,
         onLogin,

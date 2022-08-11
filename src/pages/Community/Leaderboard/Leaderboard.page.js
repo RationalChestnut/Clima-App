@@ -1,62 +1,66 @@
-import React from "react";
+/* eslint-disable no-nested-ternary */
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList } from "react-native";
+import axios from "axios";
+import InviteFriendsComponent from "./InviteFriendsSection/InviteFriends.component";
 import {
   LeaderboardPageContainer,
   TopPlayersContainer,
   LeaderboardContainer,
-  LeaderBoardBar,
-  Label,
-  RankSection,
-  UserSection,
-  PointsSection,
-  LevelSection,
   ListContainer,
-  Circle,
-  InviteFriendsContainer,
-  InviteFriendsText,
-  ButtonView,
-  ShareText,
 } from "./Leaderboard.styling";
+import LeaderboardBarComponent from "./LeaderboardBar/LeaderboardBar.component";
 import Player from "./Player/Player";
 import TopPlayerCard from "./TopPlayerCard/TopPlayerCard";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function LeaderboardPage({ navigation, users = [1, 2, 3, 4, 5] }) {
-  const handleFriendRequest = () => {
-    navigation.navigate("AddFriend");
+function LeaderboardPage({ navigation }) {
+  const [users, setUsers] = useState([]);
+  const [topThree, setTopThree] = useState([]);
+  const { user } = useContext(AuthenticationContext);
+
+  const getAllFriends = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/leaderboard/get/${user}`);
+      const listOfFriends = res.data;
+      const topThreeFriends = listOfFriends.slice(0, 3);
+      const firstItem = topThreeFriends[0];
+      // eslint-disable-next-line prefer-destructuring
+      topThreeFriends[0] = topThreeFriends[1];
+      topThreeFriends[1] = firstItem;
+      setTopThree(topThreeFriends);
+      setUsers(listOfFriends.slice(3));
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    getAllFriends();
+  }, []);
+
   return (
     <LeaderboardPageContainer>
       <TopPlayersContainer>
-        <TopPlayerCard rank={2} />
-        <TopPlayerCard rank={1} />
-        <TopPlayerCard rank={3} />
+        {topThree.map((thisUser, index) => (
+          <TopPlayerCard
+            rank={index === 0 ? 2 : index === 1 ? 1 : 3}
+            user={thisUser}
+            key={thisUser}
+          />
+        ))}
       </TopPlayersContainer>
       <LeaderboardContainer>
-        <LeaderBoardBar>
-          <RankSection>
-            <Label>Rank</Label>
-          </RankSection>
-          <UserSection>
-            <Label>User</Label>
-          </UserSection>
-          <PointsSection>
-            <Label>Points</Label>
-          </PointsSection>
-          <LevelSection>
-            <Label>Level</Label>
-          </LevelSection>
-        </LeaderBoardBar>
+        <LeaderboardBarComponent />
         <ListContainer>
-          <FlatList data={users} renderItem={Player} key={(item) => item} />
+          <FlatList
+            data={users}
+            renderItem={({ item, index }) => <Player user={item} rank={index + 4} />}
+            key={(item) => item}
+          />
         </ListContainer>
       </LeaderboardContainer>
-      <Circle />
-      <InviteFriendsContainer>
-        <InviteFriendsText>Add More Friends!</InviteFriendsText>
-        <ButtonView onPress={handleFriendRequest}>
-          <ShareText>Share!</ShareText>
-        </ButtonView>
-      </InviteFriendsContainer>
+      <InviteFriendsComponent navigation={navigation} />
     </LeaderboardPageContainer>
   );
 }

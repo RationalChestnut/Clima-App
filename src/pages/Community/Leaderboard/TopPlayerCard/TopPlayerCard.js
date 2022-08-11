@@ -1,20 +1,44 @@
 /* eslint-disable no-nested-ternary */
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Image } from "react-native";
+import axios from "axios";
 import {
   CardContainer,
   PlayerName,
   Points,
   Level,
-  DefaultImage,
   Rank,
   RankBackground,
 } from "./TopPlayerCard.style";
+import anonymousimage from "../../../../../assets/images/anonymousimage.jpeg";
+import { totalExpToLevel } from "../../../../utils/utils";
 
-function TopPlayerCard({ style, rank }) {
+function TopPlayerCard({ style, rank, user }) {
+  const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [points, setPoints] = useState(0);
+  const [level, setLevel] = useState(0);
+
+  const getUserData = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
+      const allData = res.data.data;
+      setName(allData.name);
+      setPoints(allData.exp);
+      setProfilePicture(allData.profilePicture || anonymousimage);
+      setLevel(totalExpToLevel(allData.exp).lvl);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <CardContainer style={[style, rank === 1 ? { transform: [{ scale: 1.15 }] } : null]}>
-      <DefaultImage />
+      <Image style={styles.image} source={profilePicture} />
       <RankBackground
         style={[
           rank === 1
@@ -34,9 +58,9 @@ function TopPlayerCard({ style, rank }) {
           {rank}
         </Rank>
       </RankBackground>
-      <PlayerName>Kalam Suresh</PlayerName>
-      <Points>97,235 EXP</Points>
-      <Level>Level 10</Level>
+      <PlayerName>{name}</PlayerName>
+      <Points>{points} EXP</Points>
+      <Level>Level {level}</Level>
     </CardContainer>
   );
 }
@@ -73,6 +97,11 @@ const styles = StyleSheet.create({
   },
   third: {
     color: "#B99B77",
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
   },
 });
 

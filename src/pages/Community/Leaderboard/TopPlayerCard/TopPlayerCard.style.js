@@ -31,6 +31,7 @@ export const PlayerName = styled(Text)`
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.heading};
   margin-top: ${(props) => props.theme.sizes.xs}px;
+  text-align: center;
 `;
 
 export const Points = styled(Text)`

@@ -1,7 +1,10 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import anonymousimage from "../../../../../assets/images/anonymousimage.jpeg";
-import { RankSection } from "../Leaderboard.styling";
+import { RankSection } from "../LeaderboardBar/LeaderboardBar.styles";
+import { totalExpToLevel } from "../../../../utils/utils";
+
 import {
   PlayerContainer,
   RankText,
@@ -11,19 +14,40 @@ import {
   LevelText,
 } from "./Player.styles";
 
-function Player() {
+function Player({ user, rank }) {
+  const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [points, setPoints] = useState(0);
+  const [level, setLevel] = useState(0);
+
+  const getUserData = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
+      const allData = res.data.data;
+      setName(allData.name);
+      setPoints(allData.exp);
+      setProfilePicture(allData.profilePicture || anonymousimage);
+      setLevel(totalExpToLevel(allData.exp).lvl);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <PlayerContainer>
       <RankSection>
-        <RankText>4</RankText>
+        <RankText>{rank}</RankText>
       </RankSection>
-
       <PlayerPersonalInfoContainer>
-        <Image style={styles.image} source={anonymousimage} />
-        <UserNameText>Alex Ensina</UserNameText>
+        <Image style={styles.image} source={profilePicture} />
+        <UserNameText>{name}</UserNameText>
       </PlayerPersonalInfoContainer>
-      <PointText>42,123</PointText>
-      <LevelText>9</LevelText>
+      <PointText>{points}</PointText>
+      <LevelText>{level}</LevelText>
     </PlayerContainer>
   );
 }

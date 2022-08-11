@@ -29,7 +29,6 @@ function Habit({ navigation }) {
 
         if (userTotalData[currentYear]) {
           const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
-          console.log(thisWeekData);
           for (let i = 1; i <= 7; i += 1) {
             const dayName =
               i === 1
@@ -46,12 +45,14 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDate()) {
+            if (i === date_ob.getDate() % 7) {
               objectToPush.currentDay = true;
             }
-            const assignedDayValue = thisWeekData[i];
+
+            const assignedDayValue = thisWeekData[i + (currentWeek - 1) * 7];
+
             if (!assignedDayValue) {
-              if (i < currentDay) {
+              if (i < currentDay % 7) {
                 dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
               } else {
                 dataToAppend.push({ ...objectToPush, day: dayName });
@@ -111,13 +112,13 @@ function Habit({ navigation }) {
       </UpperHabitBar>
       <HabitText>Log an action each day to earn extra EXP!</HabitText>
       <HabitBar>
-        {days.map((day, index) => (
+        {days.map((day) => (
           <Day
             day={day.day}
             active={day.currentDay}
             completed={day.completed === true}
             failed={day.completed === false}
-            key={`habit:${index}`}
+            key={`habit:${day.day}`}
           />
         ))}
       </HabitBar>
