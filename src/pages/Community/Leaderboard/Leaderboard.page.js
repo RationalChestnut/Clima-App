@@ -26,8 +26,11 @@ function LeaderboardPage({ navigation }) {
       const topThreeFriends = listOfFriends.slice(0, 3);
       const firstItem = topThreeFriends[0];
       // eslint-disable-next-line prefer-destructuring
-      topThreeFriends[0] = topThreeFriends[1];
-      topThreeFriends[1] = firstItem;
+      if (topThreeFriends.length !== 1) {
+        topThreeFriends[0] = topThreeFriends[1];
+        topThreeFriends[1] = firstItem;
+      }
+
       setTopThree(topThreeFriends);
       setUsers(listOfFriends.slice(3));
     } catch (err) {
@@ -44,7 +47,7 @@ function LeaderboardPage({ navigation }) {
       <TopPlayersContainer>
         {topThree.map((thisUser, index) => (
           <TopPlayerCard
-            rank={index === 0 ? 2 : index === 1 ? 1 : 3}
+            rank={topThree.length === 1 ? 1 : index === 0 ? 2 : index === 1 ? 1 : 3}
             user={thisUser}
             key={thisUser}
           />
