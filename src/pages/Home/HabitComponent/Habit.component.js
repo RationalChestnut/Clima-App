@@ -19,7 +19,7 @@ function Habit({ navigation }) {
   const getWeekData = async () => {
     try {
       axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
-        const userTotalData = res.data.data.totalData;
+        const userTotalData = res.data.totalData;
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;
         const currentYear = date_ob.getFullYear();

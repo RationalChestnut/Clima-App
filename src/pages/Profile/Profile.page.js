@@ -54,7 +54,6 @@ function Profile() {
     const currentMonth = date_ob.getMonth() + 1;
     const currentYear = date_ob.getFullYear();
     const daysInPreviousMonth = new Date(currentYear, previousMonth, 0).getDate();
-    
     try {
       const { data } = await axios.get(`http://localhost:5000/user/getUser/${userContext.user}`);
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
 import SavedTask from "./SavedTask.component";
 import {
   SavedTasksText,
@@ -7,45 +8,30 @@ import {
   AddMoreButton,
   AddMoreText,
 } from "./SavedTasks.style";
-import lightswitch from "../../../../assets/images/lightswitch.jpeg";
-import building from "../../../../assets/images/building.jpeg";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
 function SavedTasksPage({ navigation }) {
-  const data = [
-    {
-      id: 1,
-      title: "Turn off the lights",
-      image: lightswitch,
-      xp: 25,
-      isCompleted: true,
-    },
-    {
-      id: 2,
-      title: "Walk for a day",
-      image: building,
-      xp: 20,
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      title: "Walk for a day",
-      image: building,
-      xp: 20,
-      isCompleted: false,
-    },
-  ];
+  const [data, setData] = useState([]);
+  const { user } = useContext(AuthenticationContext);
+  const getTaskData = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getTaskData();
+  }, []);
+
   return (
     <PageContainer>
       <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
         {data.map((item) => (
-          <SavedTask
-            title={item.title}
-            image={item.image}
-            xp={item.xp}
-            isCompleted={item.isCompleted}
-            key={item.id}
-          />
+          <SavedTask task={item} key={item.id} />
         ))}
       </FlatListContainer>
       <AddMoreButton onPress={() => navigation.navigate("All Activities")}>

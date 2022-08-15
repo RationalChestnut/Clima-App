@@ -36,6 +36,7 @@ export function AuthenticationContextProvider({ children }) {
       try {
         const jsonValue = JSON.stringify(id);
         await AsyncStorage.setItem("@clima-user-id-unique", jsonValue);
+        setUser(id);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
