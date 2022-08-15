@@ -60,7 +60,7 @@ function generateMonth(data) {
   const daysInCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
   const currentDate = date.getDate();
 
-  const currentMonthData = data[currentYear][currentMonth];
+  const currentMonthData = data[currentYear] ? data[currentYear][currentMonth] : {};
   let fullMonth = {};
   if (currentMonthData) {
     Object.keys(currentMonthData).forEach((week) => {

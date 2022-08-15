@@ -54,28 +54,36 @@ function Profile() {
     const currentMonth = date_ob.getMonth() + 1;
     const currentYear = date_ob.getFullYear();
     const daysInPreviousMonth = new Date(currentYear, previousMonth, 0).getDate();
-    
+
     try {
       const { data } = await axios.get(`http://localhost:5000/user/getUser/${userContext.user}`);
 
       const { totalCO2Removed, totalWasteRemoved, totalWaterSaved } = data;
-      const thisMonthCO2Removed = data.totalData[currentYear][currentMonth]?.monthlyCO2Removed || 0;
-      const thisMonthWasteRemoved =
-        data.totalData[currentYear][currentMonth]?.monthlyWasteRemoved || 0;
-      const thisMonthWaterSaved = data.totalData[currentYear][currentMonth]?.monthlyWaterSaved || 0;
+      let thisMonthCO2Removed = 0;
+      let thisMonthWasteRemoved = 0;
+      let thisMonthWaterSaved = 0;
+      let lastMonthCO2RemovedPerDay = 0;
+      let lastMonthWasteRemovedPerDay = 0;
+      let lastMonthWaterSavedPerDay = 0;
 
-      const lastMonthCO2RemovedPerDay =
-        (data.totalData[currentYear][previousMonth]?.monthlyCO2Removed
-          ? data.totalData[currentYear][previousMonth].monthlyCO2Removed
-          : 0) / daysInPreviousMonth;
-      const lastMonthWasteRemovedPerDay =
-        (data.totalData[currentYear][previousMonth]?.monthlyWasteRemoved
-          ? data.totalData[currentYear][previousMonth].monthlyWasteRemoved
-          : 0) / daysInPreviousMonth;
-      const lastMonthWaterSavedPerDay =
-        (data.totalData[currentYear][previousMonth]?.monthlyWaterSaved
-          ? data.totalData[currentYear][previousMonth].monthlyWaterSaved
-          : 0) / daysInPreviousMonth;
+      if (data.totalData[currentYear]) {
+        thisMonthCO2Removed = data.totalData[currentYear][currentMonth]?.monthlyCO2Removed || 0;
+        thisMonthWasteRemoved = data.totalData[currentYear][currentMonth]?.monthlyWasteRemoved || 0;
+        thisMonthWaterSaved = data.totalData[currentYear][currentMonth]?.monthlyWaterSaved || 0;
+
+        lastMonthCO2RemovedPerDay =
+          (data.totalData[currentYear][previousMonth]?.monthlyCO2Removed
+            ? data.totalData[currentYear][previousMonth].monthlyCO2Removed
+            : 0) / daysInPreviousMonth;
+        lastMonthWasteRemovedPerDay =
+          (data.totalData[currentYear][previousMonth]?.monthlyWasteRemoved
+            ? data.totalData[currentYear][previousMonth].monthlyWasteRemoved
+            : 0) / daysInPreviousMonth;
+        lastMonthWaterSavedPerDay =
+          (data.totalData[currentYear][previousMonth]?.monthlyWaterSaved
+            ? data.totalData[currentYear][previousMonth].monthlyWaterSaved
+            : 0) / daysInPreviousMonth;
+      }
 
       const CO2RemovedDiff = thisMonthCO2Removed - lastMonthCO2RemovedPerDay * currentDay;
       const wasteRemovedDiff = thisMonthWasteRemoved - lastMonthWasteRemovedPerDay * currentDay;
