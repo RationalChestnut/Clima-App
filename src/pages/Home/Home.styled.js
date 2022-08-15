@@ -1,7 +1,7 @@
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import styled from "styled-components/native";
 
-export const HomePageContainer = styled(ScrollView)`
+export const HomePageContainer = styled(View)`
   flex: 1;
 `;
 

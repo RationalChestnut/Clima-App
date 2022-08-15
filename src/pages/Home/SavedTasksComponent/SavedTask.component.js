@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   ImageContainer,
   SavedTaskContainer,
@@ -10,14 +11,35 @@ import {
   Check,
 } from "./SavedTask.styles";
 
-function SavedTask({ title, xp, image, isCompleted }) {
+function SavedTask({ task }) {
+  const [title, setTitle] = useState("");
+  const [EXP, setEXP] = useState(0);
+  const [image, setImage] = useState(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const taskData = async () => {
+    try {
+      // console.log(task);
+      const res = await axios.get(`http://localhost:5000/tasks/getTask/${task}`);
+      const thisTaskData = res.data;
+      setTitle(thisTaskData.title);
+      setEXP(thisTaskData.exp);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    taskData();
+  }, []);
+
   return (
     <SavedTaskContainer>
       <TextContainer>
         <TaskTitle>{title}</TaskTitle>
-        <TaskXP>+{xp} EXP</TaskXP>
+        <TaskXP>+{EXP} EXP</TaskXP>
       </TextContainer>
-      <ImageContainer source={image} />
+      <ImageContainer source={image || null} />
       <CheckMark>
         {isCompleted ? (
           <InnerCheckMark>
