@@ -66,7 +66,7 @@ function PetScreen() {
         petProperties.height = 400;
       }
 
-      setPet({ ...petProperties, image: tree });
+      setPet({ ...petProperties });
       setLoading(false);
     } catch (err) {
       console.log(err);
