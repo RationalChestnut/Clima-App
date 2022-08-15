@@ -58,8 +58,9 @@ export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
 `;
 
 export const Pet = styled(Image)`
-  margin-top: 150px;
-  transform: scale(1.5);
+  position: absolute;
+  bottom: 50px;
+  background-color: rgba(0, 240, 64, 0.1);
 `;
 
 export const NameInput = styled(TextInput).attrs({
