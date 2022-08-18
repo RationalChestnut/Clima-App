@@ -1,9 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  getAuth,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
 import { initializeApp } from "firebase/app";
 
@@ -19,7 +14,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // eslint-disable-next-line no-unused-vars
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 // Providers
 

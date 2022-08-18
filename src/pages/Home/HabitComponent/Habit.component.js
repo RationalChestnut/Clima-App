@@ -88,7 +88,6 @@ function Habit({ navigation }) {
             }
           }
         }
-
         setDays(dataToAppend);
       });
     } catch (err) {
