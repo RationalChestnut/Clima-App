@@ -16,7 +16,7 @@ function SavedTasksPage({ navigation }) {
   const getTaskData = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
-      setData(res.data);
+      setData(res.data || []);
     } catch (err) {
       console.log(err);
     }

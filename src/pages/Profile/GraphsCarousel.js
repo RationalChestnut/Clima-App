@@ -55,23 +55,32 @@ export function GraphsCarousel(props) {
     for (let i = 5; i >= 0; i -= 1) {
       carouselData[0].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
-        data: totalData[currentYear]
-          ? totalData[currentYear][`${currentMonth}`]?.monthlyCO2Removed
-          : 0,
+        data:
+          totalData[currentYear] &&
+          totalData[currentYear][currentMonth] &&
+          totalData[currentYear][currentMonth].monthlyCO2Removed
+            ? totalData[currentYear][currentMonth]?.monthlyCO2Removed
+            : 0,
       });
 
       carouselData[1].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
-        data: totalData[currentYear]
-          ? totalData[currentYear][`${currentMonth}`]?.monthlyWasteRemoved
-          : 0,
+        data:
+          totalData[currentYear] &&
+          totalData[currentYear][currentMonth] &&
+          totalData[currentYear][currentMonth].monthlyWasteRemoved
+            ? totalData[currentYear][currentMonth]?.monthlyWasteRemoved
+            : 0,
       });
 
       carouselData[2].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
-        data: totalData[currentYear]
-          ? totalData[currentYear][`${currentMonth}`]?.monthlyWaterSaved
-          : 0,
+        data:
+          totalData[currentYear] &&
+          totalData[currentYear][currentMonth] &&
+          totalData[currentYear][currentMonth].monthlyWaterSaved
+            ? totalData[currentYear][currentMonth]?.monthlyWaterSaved
+            : 0,
       });
 
       currentMonth -= 1;
