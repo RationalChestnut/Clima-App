@@ -16,7 +16,8 @@ function SavedTasksPage({ navigation }) {
   const getTaskData = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
-      setData(res.data);
+      console.log(res.data);
+      setData(res.data || []);
     } catch (err) {
       console.log(err);
     }
@@ -30,7 +31,7 @@ function SavedTasksPage({ navigation }) {
     <PageContainer>
       <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
-        {data.map((item) => (
+        {data?.map((item) => (
           <SavedTask task={item} key={item.id} />
         ))}
       </FlatListContainer>

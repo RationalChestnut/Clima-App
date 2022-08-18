@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { loginRequest, signupRequest } from "./authentication.service";
+import { isLoggedIn, loginRequest, signupRequest, auth } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
@@ -31,20 +31,6 @@ export function AuthenticationContextProvider({ children }) {
       });
   };
 
-  const saveAuthState = async (id) => {
-    if (id) {
-      try {
-        const jsonValue = JSON.stringify(id);
-        await AsyncStorage.setItem("@clima-user-id-unique", jsonValue);
-        setUser(id);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setUser(id);
-      }
-    }
-  };
-
   const createNewUser = async (name, email, id) => {
     try {
       const res = await axios.post("http://localhost:5000/user/createUser", {
@@ -52,28 +38,31 @@ export function AuthenticationContextProvider({ children }) {
         email,
         id,
       });
-      console.log(res.status);
       if (res.status === 201) {
-        saveAuthState(id);
-      } else {
-        throw "Create user failed";
+        setUser(id);
       }
     } catch (err) {
-      console.log("Create user failed");
       console.log(err);
     }
   };
 
   const getData = useMemo(
     () => async () => {
+      setIsLoading(true);
       try {
-        const value = await AsyncStorage.getItem("@clima-user-id-unique");
-        if (value !== null) {
-          setUser(JSON.parse(value).replaceAll('"', ""));
-        }
-        setIsLoading(false);
+        auth.onAuthStateChanged((userValue) => {
+          if (userValue) {
+            setUser(userValue.uid);
+            setIsLoading(false);
+          } else {
+            setUser(null);
+            setIsLoading(false);
+          }
+        });
+        console.log("Run");
       } catch (err) {
         // error reading value
+        setUser(null);
         setIsLoading(false);
       }
     },
