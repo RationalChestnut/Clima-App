@@ -34,7 +34,9 @@ function SavedTasksPage({ navigation }) {
           <SavedTask task={item} key={item.id} />
         ))}
       </FlatListContainer>
-      <AddMoreButton onPress={() => navigation.navigate("All Activities")}>
+      <AddMoreButton
+        onPress={() => navigation.navigate("Activities", { screen: "All Activities" })}
+      >
         <AddMoreText>Explore More</AddMoreText>
       </AddMoreButton>
     </PageContainer>

@@ -31,7 +31,6 @@ function SavedTask({ task }) {
       const imageRef = ref(storage, `/${thisTaskData.image}`);
       const validImage = await getDownloadURL(imageRef);
       setImage(validImage);
-      // Get image Id and then get image from database
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +39,7 @@ function SavedTask({ task }) {
   const completeTask = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${task}`);
-      console.log(res.data);
+      setIsCompleted(true);
     } catch (err) {
       console.log(err);
     }

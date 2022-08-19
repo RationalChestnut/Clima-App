@@ -103,7 +103,7 @@ function Habit({ navigation }) {
     <HabitsContainer>
       <AddActivityIcon
         onPress={() => {
-          navigation.navigate("All Activities");
+          navigation.navigate("Activities", { screen: "All Activities" });
         }}
       />
       <UpperHabitBar>
