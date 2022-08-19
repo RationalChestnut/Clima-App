@@ -12,14 +12,15 @@ const ProfileCardContainer = styled(View)`
 `;
 
 const ProfilePicture = styled(Image)`
-  height: 100%;
+  width: undefined;
+  height: undefined;
+  resize-mode: contain;
   aspect-ratio: 1;
-  resize-mode: cover;
   border-radius: ${(props) => props.theme.sizes.xxl}px;
 `;
 
 const ProfileInfo = styled(View)`
-  flex: 1;
+  flex: 2;
   margin-left: ${(props) => props.theme.sizes.md}px;
 `;
 
@@ -65,7 +66,7 @@ function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel }) {
 
   return (
     <ProfileCardContainer>
-      <ProfilePicture source={{ uri: picture }} />
+      <ProfilePicture source={picture} />
       <ProfileInfo>
         <NameContainer>
           <Name>{name}</Name>

@@ -16,6 +16,7 @@ import StatCard from "./StatCard";
 import Calendar from "./Calendar";
 import { totalExpToLevel } from "../../utils/utils";
 import { GraphsCarousel } from "./GraphsCarousel";
+import anonymousimage from "../../../assets/images/anonymousimage.jpeg";
 
 const monthNames = [
   "January",
@@ -162,7 +163,7 @@ function Profile() {
     <>
       <ProfileCard
         name={user.name}
-        picture={user.profilePicture}
+        picture={user.profilePicture || anonymousimage}
         level={user.lvl}
         levelTotalExp={user.lvlTotalExp}
         expOverLevel={user.expOverLevel}
