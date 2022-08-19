@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import aBetterFutureImage from "../../../../assets/images/a_better_future.jpg";
+
 import {
   ExploreTasksPage,
   ExploreTasksPageContainer,
@@ -12,28 +15,31 @@ import {
   MainCardTextContainer,
   MainCardTitle,
   MainCardTitleDescription,
-  Banner,
-  BannerText,
   Slider,
-  BannerContainer,
 } from "./ExploreTasks.styles";
 
 import SliderComponent from "./CategorySlider/SliderComponent.component";
-import background from "../../../../assets/images/background.jpeg";
 
 function ExploreTasks() {
-  const data = [
-    {
-      id: 1,
-      image: background,
-      title: "Save the whales",
-    },
-    {
-      id: 2,
-      image: background,
-      title: "Save the whales",
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  const getAllCategories = async () => {
+    try {
+      const collectionResponse = await axios.get("http://localhost:5000/tasks/getCollectionInfo");
+      const arrayVersion = Object.entries(collectionResponse.data);
+      const dataToSet = [];
+      for (let i = 0; i < arrayVersion.length; i++) {
+        dataToSet.push(arrayVersion[i][1]);
+      }
+      setData(dataToSet);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
 
   return (
     <ExploreTasksPage>
@@ -46,26 +52,18 @@ function ExploreTasks() {
           </Description>
         </TextContainer>
         <ActionTitle>Browse all actions</ActionTitle>
-        <LargeBannerImage source={background}>
+        <LargeBannerImage source={aBetterFutureImage}>
           <Gradient>
             <MainCardTextContainer>
               <MainCardTitle>All Actions</MainCardTitle>
               <MainCardTitleDescription>Start small to make a big impact!</MainCardTitleDescription>
             </MainCardTextContainer>
-            <BannerContainer>
-              <Banner>
-                <BannerText>165 actions</BannerText>
-              </Banner>
-              <Banner>
-                <BannerText>+200XP</BannerText>
-              </Banner>
-            </BannerContainer>
           </Gradient>
         </LargeBannerImage>
-        <ActionTitle>Browse by category (9)</ActionTitle>
+        <ActionTitle>Browse by category</ActionTitle>
         <Slider
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.title}
           renderItem={({ item }) => <SliderComponent image={item.image} title={item.title} />}
         />
       </ExploreTasksPageContainer>
