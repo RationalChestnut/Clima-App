@@ -23,11 +23,15 @@ function Habit({ navigation }) {
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;
         const currentYear = date_ob.getFullYear();
-        const currentDay = date_ob.getDate();
+        const currentDay = date_ob.getDay();
         const currentWeek = Math.ceil(currentDay / 7);
         const dataToAppend = [];
 
-        if (userTotalData[currentYear]) {
+        if (
+          userTotalData[currentYear] &&
+          userTotalData[currentYear][currentMonth] &&
+          userTotalData[currentYear][currentMonth][currentWeek]
+        ) {
           const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
           for (let i = 1; i <= 7; i += 1) {
             const dayName =
@@ -45,7 +49,7 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDate() % 7) {
+            if (i === date_ob.getDay()) {
               objectToPush.currentDay = true;
             }
 
@@ -78,10 +82,10 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDate() % 7) {
+            if (i === date_ob.getDay()) {
               objectToPush.currentDay = true;
             }
-            if (i < currentDay % 7) {
+            if (i < date_ob.getDay()) {
               dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
             } else {
               dataToAppend.push({ ...objectToPush, day: dayName });
@@ -103,7 +107,12 @@ function Habit({ navigation }) {
     <HabitsContainer>
       <AddActivityIcon
         onPress={() => {
-          navigation.navigate("Activities", { screen: "All Activities" });
+          navigation.navigate("Activities", {
+            screen: "All Activities",
+            params: {
+              screen: "All Activities Screen",
+            },
+          });
         }}
       />
       <UpperHabitBar>

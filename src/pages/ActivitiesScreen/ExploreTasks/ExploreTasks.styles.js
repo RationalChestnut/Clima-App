@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, ImageBackground, FlatList } from "react-native";
+import { ScrollView, View, Text, ImageBackground, FlatList, TouchableOpacity } from "react-native";
 import { Searchbar } from "react-native-paper";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -34,6 +34,8 @@ export const Description = styled(Text)`
 export const ActionTitle = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.h5};
 `;
+
+export const Touchable = styled(TouchableOpacity)``;
 
 export const LargeBannerImage = styled(ImageBackground).attrs({
   resizeMode: "cover",

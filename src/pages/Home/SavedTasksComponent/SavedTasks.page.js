@@ -35,7 +35,14 @@ function SavedTasksPage({ navigation }) {
         ))}
       </FlatListContainer>
       <AddMoreButton
-        onPress={() => navigation.navigate("Activities", { screen: "All Activities" })}
+        onPress={() =>
+          navigation.navigate("Activities", {
+            screen: "All Activities",
+            params: {
+              screen: "All Activities Screen",
+            },
+          })
+        }
       >
         <AddMoreText>Explore More</AddMoreText>
       </AddMoreButton>

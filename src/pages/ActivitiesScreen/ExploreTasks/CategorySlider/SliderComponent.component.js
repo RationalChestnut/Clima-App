@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
 import { Gradient } from "../ExploreTasks.styles";
-import { SliderComponentContainer, TitleText } from "./SliderComponent.styles";
+import { SliderComponentContainer, SliderTouchable, TitleText } from "./SliderComponent.styles";
 import { storage } from "../../../../infrastructure/Storage/storage.service";
 // eslint-disable-next-line react/prop-types
-function SliderComponent({ image, title }) {
+function SliderComponent({ image, title, navigation }) {
   const [imageURL, setImageURL] = useState("");
-  console.log("Loaded", title);
+
   const getImage = async () => {
     try {
       const imageRef = ref(storage, `/${image}`);
@@ -22,11 +22,13 @@ function SliderComponent({ image, title }) {
   }, []);
 
   return (
-    <SliderComponentContainer source={{ uri: imageURL || null }}>
-      <Gradient>
-        <TitleText>{title}</TitleText>
-      </Gradient>
-    </SliderComponentContainer>
+    <SliderTouchable onPress={() => navigation.navigate("DisplayListOfActivities")}>
+      <SliderComponentContainer source={{ uri: imageURL || null }}>
+        <Gradient>
+          <TitleText>{title}</TitleText>
+        </Gradient>
+      </SliderComponentContainer>
+    </SliderTouchable>
   );
 }
 

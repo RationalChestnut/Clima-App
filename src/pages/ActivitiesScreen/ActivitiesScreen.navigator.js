@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ExploreTasks from "./ExploreTasks/ExploreTasks.page";
 import PathScreen from "./Path/Path.screen";
 import DisplayActivityInfo from "./DisplayActivityInfo/DisplayActivityInfo.page";
+import AllActivitiesScreenNavigator from "./AllActivitiesScreen.navigator";
 
 const Tab = createMaterialTopTabNavigator();
 const PathStack = createNativeStackNavigator();
@@ -26,7 +27,7 @@ function ActivitiesScreen() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Path" component={PathStackScreen} />
-      <Tab.Screen name="All Activities" component={ExploreTasks} />
+      <Tab.Screen name="All Activities" component={AllActivitiesScreenNavigator} />
     </Tab.Navigator>
   );
 }
