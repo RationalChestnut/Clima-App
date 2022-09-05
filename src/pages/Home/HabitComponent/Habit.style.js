@@ -18,15 +18,11 @@ export const TasksTitle = styled(Text)`
   padding-bottom: ${(props) => props.theme.sizes.md}px;
 `;
 
-export const HabitText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.body};
-  font-family: ${(props) => props.theme.fonts.heading};
-`;
-
 export const HabitBar = styled(View)`
   width: 80%;
   flex-direction: row;
   justify-content: center;
+  margin-top: -10px;
 `;
 
 export const ProgressHabitText = styled(Text)`

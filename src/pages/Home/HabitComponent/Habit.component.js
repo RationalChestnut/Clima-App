@@ -6,7 +6,6 @@ import {
   TasksTitle,
   UpperHabitBar,
   AddActivityIcon,
-  HabitText,
   HabitBar,
   ProgressHabitText,
 } from "./Habit.style";
@@ -16,6 +15,8 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 function Habit({ navigation }) {
   const [days, setDays] = useState([]);
   const { user } = useContext(AuthenticationContext);
+  const [actionsLogged, setActionsLogged] = useState(0);
+
   const getWeekData = async () => {
     try {
       axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
@@ -26,6 +27,7 @@ function Habit({ navigation }) {
         const currentDay = date_ob.getDay();
         const currentWeek = Math.ceil(currentDay / 7);
         const dataToAppend = [];
+        const day = date_ob.getDate();
 
         if (
           userTotalData[currentYear] &&
@@ -49,11 +51,11 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDay()) {
+            if (i === currentDay % 7) {
               objectToPush.currentDay = true;
             }
 
-            const assignedDayValue = thisWeekData[i + (currentWeek - 1) * 7];
+            const assignedDayValue = thisWeekData[(currentWeek - 1) * 7 + day - i - 1]; // ERROR THIS PROBABLY WILL NOT WORK
 
             if (!assignedDayValue) {
               if (i < currentDay % 7) {
@@ -82,10 +84,10 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDay()) {
+            if (i === currentDay % 7) {
               objectToPush.currentDay = true;
             }
-            if (i < date_ob.getDay()) {
+            if (i < currentDay % 7) {
               dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
             } else {
               dataToAppend.push({ ...objectToPush, day: dayName });
@@ -118,7 +120,6 @@ function Habit({ navigation }) {
       <UpperHabitBar>
         <TasksTitle>Tasks Completed</TasksTitle>
       </UpperHabitBar>
-      <HabitText>Log an action each day to earn extra EXP!</HabitText>
       <HabitBar>
         {days.map((day) => (
           <Day
@@ -130,7 +131,7 @@ function Habit({ navigation }) {
           />
         ))}
       </HabitBar>
-      <ProgressHabitText>You have 10 actions saved, 0 logged today</ProgressHabitText>
+      <ProgressHabitText>You have {actionsLogged} actions logged today</ProgressHabitText>
     </HabitsContainer>
   );
 }
