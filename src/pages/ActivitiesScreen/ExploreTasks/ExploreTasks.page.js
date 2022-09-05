@@ -53,7 +53,9 @@ function ExploreTasks({ navigation }) {
           </Description>
         </TextContainer>
         <ActionTitle>Browse all actions</ActionTitle>
-        <Touchable onPress={() => navigation.navigate("DisplayListOfActivities")}>
+        <Touchable
+          onPress={() => navigation.navigate("DisplayListOfActivities", { type: "All Actions" })}
+        >
           <LargeBannerImage source={aBetterFutureImage}>
             <Gradient>
               <MainCardTextContainer>

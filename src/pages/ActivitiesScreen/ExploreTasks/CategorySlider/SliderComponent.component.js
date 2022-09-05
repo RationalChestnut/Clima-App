@@ -22,7 +22,9 @@ function SliderComponent({ image, title, navigation }) {
   }, []);
 
   return (
-    <SliderTouchable onPress={() => navigation.navigate("DisplayListOfActivities")}>
+    <SliderTouchable
+      onPress={() => navigation.navigate("DisplayListOfActivities", { type: title })}
+    >
       <SliderComponentContainer source={{ uri: imageURL || null }}>
         <Gradient>
           <TitleText>{title}</TitleText>

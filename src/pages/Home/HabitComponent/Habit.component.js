@@ -28,6 +28,7 @@ function Habit({ navigation }) {
         const currentWeek = Math.ceil(currentDay / 7);
         const dataToAppend = [];
         const day = date_ob.getDate();
+
         if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
           setActionsLogged(
             userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted

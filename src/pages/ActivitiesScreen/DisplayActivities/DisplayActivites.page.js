@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { DisplayActivityInfoPageContainer } from "../DisplayActivityInfo/DisplayActivityInfo.styles";
-import { Title, TopBar } from "./DisplayActivities.styles";
+import { ActivitiesList, FilterIcon, Title, TopBar } from "./DisplayActivities.styles";
+import BackArrow from "../../../components/BackArrow.component";
+import DisplayActivityDescription from "./DisplayActivityDescription/DisplayActivityDescription.component";
 
-function DisplayActivitiesPage({ navigation }) {
+function DisplayActivitiesPage({ navigation, route }) {
+  const { type } = route.params;
+  const [data, setData] = useState([]);
+
+  const getAllTasks = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderItem = ({ item }) => <DisplayActivityDescription item={item} />;
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+
   return (
     <DisplayActivityInfoPageContainer>
       <TopBar>
-        <Title>Outdoor Activities</Title>
+        <BackArrow navigation={navigation} style={{ marginLeft: 12 }} />
+        <Title>{type}</Title>
+        <FilterIcon />
       </TopBar>
+      <ActivitiesList data={data} renderItem={renderItem} keyExtractor={(item) => item.title} />
     </DisplayActivityInfoPageContainer>
   );
 }
