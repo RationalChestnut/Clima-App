@@ -1,6 +1,8 @@
-import { ImageBackground, Text, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
+
+export const SliderTouchable = styled(TouchableOpacity)``;
 
 export const SliderComponentContainer = styled(ImageBackground)`
   height: 133px;

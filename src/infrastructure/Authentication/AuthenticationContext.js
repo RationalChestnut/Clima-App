@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState, useMemo } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { isLoggedIn, loginRequest, signupRequest, auth } from "./authentication.service";
+import { loginRequest, signupRequest, auth } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
@@ -14,7 +13,6 @@ export function AuthenticationContextProvider({ children }) {
     loginRequest(email, password)
       .then((u) => {
         setUser(u.user.uid);
-        saveAuthState(u.user.uid);
       })
       .catch((err) => {
         setError(err.toString());

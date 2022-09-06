@@ -6,7 +6,6 @@ import {
   TasksTitle,
   UpperHabitBar,
   AddActivityIcon,
-  HabitText,
   HabitBar,
   ProgressHabitText,
 } from "./Habit.style";
@@ -16,6 +15,8 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 function Habit({ navigation }) {
   const [days, setDays] = useState([]);
   const { user } = useContext(AuthenticationContext);
+  const [actionsLogged, setActionsLogged] = useState(0);
+
   const getWeekData = async () => {
     try {
       axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
@@ -23,11 +24,22 @@ function Habit({ navigation }) {
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;
         const currentYear = date_ob.getFullYear();
-        const currentDay = date_ob.getDate();
+        const currentDay = date_ob.getDay();
         const currentWeek = Math.ceil(currentDay / 7);
         const dataToAppend = [];
+        const day = date_ob.getDate();
 
-        if (userTotalData[currentYear]) {
+        if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
+          setActionsLogged(
+            userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
+          );
+        }
+
+        if (
+          userTotalData[currentYear] &&
+          userTotalData[currentYear][currentMonth] &&
+          userTotalData[currentYear][currentMonth][currentWeek]
+        ) {
           const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
           for (let i = 1; i <= 7; i += 1) {
             const dayName =
@@ -45,11 +57,11 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDate() % 7) {
+            if (i === currentDay % 7) {
               objectToPush.currentDay = true;
             }
 
-            const assignedDayValue = thisWeekData[i + (currentWeek - 1) * 7];
+            const assignedDayValue = thisWeekData[(currentWeek - 1) * 7 + day - i - 1]; // ERROR THIS PROBABLY WILL NOT WORK
 
             if (!assignedDayValue) {
               if (i < currentDay % 7) {
@@ -78,7 +90,7 @@ function Habit({ navigation }) {
                 ? "Sat"
                 : "Sun";
             const objectToPush = {};
-            if (i === date_ob.getDate() % 7) {
+            if (i === currentDay % 7) {
               objectToPush.currentDay = true;
             }
             if (i < currentDay % 7) {
@@ -103,13 +115,17 @@ function Habit({ navigation }) {
     <HabitsContainer>
       <AddActivityIcon
         onPress={() => {
-          navigation.navigate("Activities", { screen: "All Activities" });
+          navigation.navigate("Activities", {
+            screen: "All Activities",
+            params: {
+              screen: "All Activities Screen",
+            },
+          });
         }}
       />
       <UpperHabitBar>
         <TasksTitle>Tasks Completed</TasksTitle>
       </UpperHabitBar>
-      <HabitText>Log an action each day to earn extra EXP!</HabitText>
       <HabitBar>
         {days.map((day) => (
           <Day
@@ -121,7 +137,7 @@ function Habit({ navigation }) {
           />
         ))}
       </HabitBar>
-      <ProgressHabitText>You have 10 actions saved, 0 logged today</ProgressHabitText>
+      <ProgressHabitText>You have {actionsLogged} actions logged today</ProgressHabitText>
     </HabitsContainer>
   );
 }

@@ -16,11 +16,12 @@ import {
   MainCardTitle,
   MainCardTitleDescription,
   Slider,
+  Touchable,
 } from "./ExploreTasks.styles";
 
 import SliderComponent from "./CategorySlider/SliderComponent.component";
 
-function ExploreTasks() {
+function ExploreTasks({ navigation }) {
   const [data, setData] = useState([]);
 
   const getAllCategories = async () => {
@@ -28,7 +29,7 @@ function ExploreTasks() {
       const collectionResponse = await axios.get("http://localhost:5000/tasks/getCollectionInfo");
       const arrayVersion = Object.entries(collectionResponse.data);
       const dataToSet = [];
-      for (let i = 0; i < arrayVersion.length; i++) {
+      for (let i = 0; i < arrayVersion.length; i += 1) {
         dataToSet.push(arrayVersion[i][1]);
       }
       setData(dataToSet);
@@ -52,19 +53,27 @@ function ExploreTasks() {
           </Description>
         </TextContainer>
         <ActionTitle>Browse all actions</ActionTitle>
-        <LargeBannerImage source={aBetterFutureImage}>
-          <Gradient>
-            <MainCardTextContainer>
-              <MainCardTitle>All Actions</MainCardTitle>
-              <MainCardTitleDescription>Start small to make a big impact!</MainCardTitleDescription>
-            </MainCardTextContainer>
-          </Gradient>
-        </LargeBannerImage>
+        <Touchable
+          onPress={() => navigation.navigate("DisplayListOfActivities", { type: "All Actions" })}
+        >
+          <LargeBannerImage source={aBetterFutureImage}>
+            <Gradient>
+              <MainCardTextContainer>
+                <MainCardTitle>All Actions</MainCardTitle>
+                <MainCardTitleDescription>
+                  Start small to make a big impact!
+                </MainCardTitleDescription>
+              </MainCardTextContainer>
+            </Gradient>
+          </LargeBannerImage>
+        </Touchable>
         <ActionTitle>Browse by category</ActionTitle>
         <Slider
           data={data}
           keyExtractor={(item) => item.title}
-          renderItem={({ item }) => <SliderComponent image={item.image} title={item.title} />}
+          renderItem={({ item }) => (
+            <SliderComponent image={item.image} title={item.title} navigation={navigation} />
+          )}
         />
       </ExploreTasksPageContainer>
     </ExploreTasksPage>

@@ -23,7 +23,6 @@ function SavedTask({ task }) {
   const { user } = useContext(AuthenticationContext);
   const taskData = async () => {
     try {
-      // console.log(task);
       const res = await axios.get(`http://localhost:5000/tasks/getTask/${task}`);
       const thisTaskData = res.data;
       setTitle(thisTaskData.title);
