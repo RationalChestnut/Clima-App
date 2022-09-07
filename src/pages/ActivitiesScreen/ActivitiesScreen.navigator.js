@@ -3,7 +3,6 @@ import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import ExploreTasks from "./ExploreTasks/ExploreTasks.page";
 import PathScreen from "./Path/Path.screen";
 import DisplayActivityInfo from "./DisplayActivityInfo/DisplayActivityInfo.page";
 import AllActivitiesScreenNavigator from "./AllActivitiesScreen.navigator";

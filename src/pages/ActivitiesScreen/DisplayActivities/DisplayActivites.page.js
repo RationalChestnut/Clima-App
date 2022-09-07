@@ -18,12 +18,13 @@ function DisplayActivitiesPage({ navigation, route }) {
     }
   };
 
-  const renderItem = ({ item }) => <DisplayActivityDescription item={item} />;
+  const renderItem = ({ item }) => (
+    <DisplayActivityDescription item={item} navigation={navigation} />
+  );
 
   useEffect(() => {
     getAllTasks();
   }, []);
-
   return (
     <DisplayActivityInfoPageContainer>
       <TopBar>
@@ -31,7 +32,7 @@ function DisplayActivitiesPage({ navigation, route }) {
         <Title>{type}</Title>
         <FilterIcon />
       </TopBar>
-      <ActivitiesList data={data} renderItem={renderItem} keyExtractor={(item) => item.title} />
+      <ActivitiesList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} />
     </DisplayActivityInfoPageContainer>
   );
 }

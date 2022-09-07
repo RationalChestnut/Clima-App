@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import axios from "axios";
 import {
   ActivityScreenContainer,
   UpperBar,
-  UpperText,
   TitleText,
   TextContainer,
   SubText,
@@ -24,62 +24,76 @@ import {
   SecondSectionTitle,
   ListItemsContainer,
   RecommendedTasksContainer,
+  OptionIconContainer,
 } from "./ActivityScreen.styled";
-import lightswitch from "../../../assets/images/lightswitch.jpeg";
 import BackArrow from "../../components/BackArrow.component";
 import Tasks from "../../components/Tasks/Tasks";
+import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
-function ActivityScreen({
-  // eslint-disable-next-line react/prop-types
-  statisticsList = [
-    "On average you save 0.48kg of CO2 per hour the lights are off!",
-    "On average you save 0.48kg of CO2 per hour the lights are off!",
-    "On average you save 0.48kg of CO2 per hour the lights are off!",
-  ],
-}) {
+function ActivityScreen({ navigation, route }) {
+  const { item, imageURL } = route.params;
+  const { user } = useContext(AuthenticationContext);
+  const completeTask = async () => {
+    try {
+      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${item.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const saveTask = async () => {
+    try {
+      const res = await axios.patch(`http://localhost:5000/user/saveTask/${user}/${item.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <ActivityScreenContainer>
       <UpperBar>
-        <BackArrow />
-        <UpperText>Action</UpperText>
+        <BackArrow navigation={navigation} />
       </UpperBar>
       <TextContainer>
-        <TitleText>Turn off the lights</TitleText>
-        <SubText>At home Activity</SubText>
+        <TitleText>{item.title}</TitleText>
+        <SubText>{item.type}</SubText>
       </TextContainer>
       <ImageContainer>
-        <ActivityImage source={lightswitch} />
+        <ActivityImage source={{ uri: imageURL || null }} />
       </ImageContainer>
       <StatsContainer>
-        <Stat>-20kg</Stat>
         <Stat>+50xp</Stat>
+        <Stat>-{item.wasteRemoved}kg</Stat>
+        <Stat>-{item.waterSaved}L</Stat>
       </StatsContainer>
       <OptionsContainer>
-        <Option>
-          <AntOptionIcon name="check" />
+        <Option onPress={completeTask}>
+          <OptionIconContainer>
+            <AntOptionIcon name="check" />
+          </OptionIconContainer>
           <OptionText>Complete!</OptionText>
         </Option>
-        <Option>
-          <IonOptionIcon name="save" />
+        <Option onPress={saveTask}>
+          <OptionIconContainer>
+            <IonOptionIcon name="save" />
+          </OptionIconContainer>
           <OptionText>Save</OptionText>
         </Option>
         <Option>
-          <EntypoOptionIcon name="share" />
+          <OptionIconContainer>
+            <EntypoOptionIcon name="share" />
+          </OptionIconContainer>
+
           <OptionText>Share</OptionText>
         </Option>
       </OptionsContainer>
       <InfoContainer>
         <SectionTitle>Description</SectionTitle>
-        <SectionText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet est quam. Mauris
-          molestie eu lectus in efficitur. Vivamus mollis id sapien et efficitur. In hac habitasse
-          platea dictumst. Mauris at ipsum pharetra, consequat nibh ut, aliquet leo. Nunc massa
-          odio, consequat vitae metus quis, condimentum accumsan magna.
-        </SectionText>
+        <SectionText>{item.description}</SectionText>
         <SecondSectionTitle>Statistics</SecondSectionTitle>
         <ListItemsContainer>
           <ListContainer>
-            {statisticsList.map((index) => (
+            {item?.statistics?.map((index) => (
               <ListItem key={index} style={{ flexShrink: 1 }}>
                 {index}
               </ListItem>
@@ -88,7 +102,7 @@ function ActivityScreen({
         </ListItemsContainer>
       </InfoContainer>
       <RecommendedTasksContainer>
-        <Tasks />
+        <Tasks navigation={navigation} />
       </RecommendedTasksContainer>
     </ActivityScreenContainer>
   );
