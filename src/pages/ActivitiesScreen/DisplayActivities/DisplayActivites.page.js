@@ -18,13 +18,27 @@ function DisplayActivitiesPage({ navigation, route }) {
     }
   };
 
+  const getSpecificType = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/tasks/getAllTasks/${type}`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const renderItem = ({ item }) => (
     <DisplayActivityDescription item={item} navigation={navigation} />
   );
 
   useEffect(() => {
-    getAllTasks();
+    if (type === "All Actions") {
+      getAllTasks();
+    } else {
+      getSpecificType();
+    }
   }, []);
+
   return (
     <DisplayActivityInfoPageContainer>
       <TopBar>
