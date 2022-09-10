@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
-import { MaterialCommunityIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 import {
   ActivityImage,
+  AddButton,
   DescriptionContainer,
   DisplayActivityDescriptionContainer,
-  IconsContainer,
-  ReducedText,
+  ExpText,
+  SaveText,
   Title,
-  Reduced,
 } from "./DisplayActivityDescription.styles";
 import { storage } from "../../../../infrastructure/Storage/storage.service";
 
-function DisplayActivityDescription({ item }) {
+function DisplayActivityDescription({ item, navigation }) {
   const [imageURL, setImageURL] = useState("");
   const getImage = async () => {
     try {
@@ -24,29 +23,24 @@ function DisplayActivityDescription({ item }) {
     }
   };
 
+  const handleNavigation = () => {
+    navigation.navigate("Activity", { item, imageURL });
+  };
+
   useEffect(() => {
     getImage();
   }, []);
 
   return (
-    <DisplayActivityDescriptionContainer>
-      <ActivityImage source={{ uri: imageURL || null }} />
+    <DisplayActivityDescriptionContainer onPress={handleNavigation}>
+      <ActivityImage source={{ uri: imageURL || null }}>
+        <AddButton>
+          <SaveText>+</SaveText>
+        </AddButton>
+      </ActivityImage>
       <DescriptionContainer>
         <Title>{item.title}</Title>
-        <IconsContainer>
-          <Reduced>
-            <MaterialCommunityIcons name="molecule-co2" size={26} color="#6b6b6b" />
-            <ReducedText>-{item.carbonReduced}kg</ReducedText>
-          </Reduced>
-          <Reduced>
-            <Ionicons name="ios-water" size={24} color="#477eed" />
-            <ReducedText>-{item.waterSaved}L</ReducedText>
-          </Reduced>
-          <Reduced>
-            <FontAwesome name="trash-o" size={20} color="black" />
-            <ReducedText>-{item.wasteRemoved}kg</ReducedText>
-          </Reduced>
-        </IconsContainer>
+        <ExpText>+{item.exp} exp</ExpText>
       </DescriptionContainer>
     </DisplayActivityDescriptionContainer>
   );

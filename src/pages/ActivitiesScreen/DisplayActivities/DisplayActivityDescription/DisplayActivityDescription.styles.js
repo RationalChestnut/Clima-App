@@ -1,9 +1,9 @@
-import { Image, ImageBackground, Text, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 
-export const DisplayActivityDescriptionContainer = styled(View)`
+export const DisplayActivityDescriptionContainer = styled(TouchableOpacity)`
   flex: 1;
-  margin-top: 10px;
+  margin-top: 12px;
   padding: 0px 14px;
 `;
 
@@ -15,30 +15,38 @@ export const ActivityImage = styled(ImageBackground)`
   align-self: center;
 `;
 
-export const DescriptionContainer = styled(View)``;
+export const DescriptionContainer = styled(View)`
+  flex-direction: row;
+  margin-top: 8px;
+  align-items: center;
+`;
 
 export const Title = styled(Text)`
-  margin-top: 8px;
   font-size: 24px;
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 
-export const IconsContainer = styled(View)`
-  flex-direction: row;
-  margin-top: 8px;
+export const ExpText = styled(Text)`
+  margin-left: auto;
+  color: ${(props) => props.theme.colors.highlightGreen};
+  font-size: 17px;
 `;
 
-export const Reduced = styled(View)`
-  flex-direction: row;
-  border: 1px solid ${(props) => props.theme.colors.highlightGreen};
-  width: 85px;
+export const AddButton = styled(TouchableOpacity)`
+  background-color: ${(props) => props.theme.colors.highlightGreen};
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  margin-top: 12px;
+  margin-right: 12px;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
-  padding: 5px;
-  margin-right: 10px;
+  border-radius: 100px;
 `;
 
-export const ReducedText = styled(Text)`
-  margin-left: 4px;
+export const SaveText = styled(Text)`
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 `;

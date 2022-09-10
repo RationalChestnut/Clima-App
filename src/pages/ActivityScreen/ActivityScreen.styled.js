@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
 import MarkedList from "@jsamr/react-native-li";
@@ -8,14 +8,13 @@ export const ActivityScreenContainer = styled(ScrollView).attrs({
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;
-  padding: 10px;
+  padding: 12px;
 `;
 
 export const UpperBar = styled(View)`
   padding: 0px 20px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 `;
 
 export const UpperText = styled(Text)`
@@ -59,7 +58,7 @@ export const StatsContainer = styled(View)`
 export const Stat = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   color: #0fa958;
-  font-size: ${(props) => props.theme.sizes.md}px;
+  font-size: 18px;
   margin-left: ${(props) => props.theme.sizes.md}px;
   margin-top: ${(props) => props.theme.sizes.sm}px;
 `;
@@ -72,35 +71,31 @@ export const OptionsContainer = styled(View)`
   margin-top: ${(props) => props.theme.sizes.sm}px;
 `;
 
-export const Option = styled(View)`
+export const Option = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
-  margin: 0px 12px;
-  border-radius: 40px;
+  margin: 0px 14px;
+`;
+
+export const OptionIconContainer = styled(View)`
+  background-color: ${(props) => props.theme.colors.defaultGreen};
+  border-radius: 800px;
+  padding: 9px;
 `;
 
 export const OptionText = styled(Text)`
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 2px;
 `;
 
 export const AntOptionIcon = styled(AntDesign).attrs({ size: 24, color: "black" })`
-  background-color: ${(props) => props.theme.colors.defaultGreen};
-  padding: 8px;
-  border-radius: 20px;
   color: white;
 `;
 
 export const IonOptionIcon = styled(Ionicons).attrs({ size: 24, color: "black" })`
-  background-color: ${(props) => props.theme.colors.defaultGreen};
-  padding: 8px;
-  border-radius: 100px;
   color: white;
 `;
 export const EntypoOptionIcon = styled(Entypo).attrs({ size: 24, color: "black" })`
-  background-color: ${(props) => props.theme.colors.defaultGreen};
-  padding: 8px;
-  border-radius: 100px;
   color: white;
 `;
 
@@ -142,4 +137,6 @@ export const ListItem = styled(Text)`
 
 export const RecommendedTasksContainer = styled(View)`
   padding-bottom: ${(props) => props.theme.sizes.lg}px;
+  height: 240px;
+  margin-right: -12px;
 `;

@@ -47,7 +47,7 @@ const Container = styled(View)`
   flex: 1;
 `;
 
-function Tasks({ category = {} }) {
+function Tasks({ category = {}, navigation }) {
   const {
     name = "Recommended",
     tasks = [
@@ -97,7 +97,13 @@ function Tasks({ category = {} }) {
         />
       </TaskListContainer>
       <BrowseAllButton onPress={() => {}}>
-        <BrowseAllButtonText onPress={() => {}}>Browse all Tasks</BrowseAllButtonText>
+        <BrowseAllButtonText
+          onPress={() => {
+            navigation.navigate("All Activities Screen");
+          }}
+        >
+          Browse all Tasks
+        </BrowseAllButtonText>
       </BrowseAllButton>
     </Container>
   );
