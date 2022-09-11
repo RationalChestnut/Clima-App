@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
+import { FontAwesome } from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
+
+import anonymous from "../../../../assets/images/anonymousimage.jpeg";
 
 const ProfileCardContainer = styled(View)`
   height: 100px;
@@ -42,6 +45,10 @@ const Level = styled(Text)`
   color: ${(props) => props.theme.colors.highlightGreen};
 `;
 
+const SettingsButton = styled(TouchableOpacity)`
+  margin-left: auto;
+`;
+
 const ExpContainer = styled(View)`
   flex: 1;
   flex-direction: row;
@@ -61,16 +68,26 @@ const TotalExp = styled(Text)`
 const ExpBar = styled(Progress.Bar)``;
 
 // eslint-disable-next-line react/prop-types
-function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel }) {
+function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel, navigation }) {
   const theme = useContext(ThemeContext);
 
   return (
     <ProfileCardContainer>
-      <ProfilePicture source={picture} />
+      {typeof picture === "string" ? (
+        <ProfilePicture source={{ uri: picture }} />
+      ) : (
+        <ProfilePicture source={anonymous} />
+      )}
+
       <ProfileInfo>
         <NameContainer>
           <Name>{name}</Name>
           <Level>Lvl. {level}</Level>
+          <SettingsButton
+            onPress={() => navigation.navigate("Settings", { profilePicture: picture })}
+          >
+            <FontAwesome name="gear" size={20} />
+          </SettingsButton>
         </NameContainer>
         <ExpContainer>
           <CurrentExp>{expOverLevel} / </CurrentExp>

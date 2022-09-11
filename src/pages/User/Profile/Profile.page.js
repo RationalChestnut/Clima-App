@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
+import { getDownloadURL, ref } from "firebase/storage";
 import axios from "axios";
+import { storage } from "../../../infrastructure/Storage/storage.service";
 
-import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
+import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
 import {
   CalendarTitle,
@@ -14,9 +16,8 @@ import {
 import ProfileCard from "./ProfileCard";
 import StatCard from "./StatCard";
 import Calendar from "./Calendar";
-import { totalExpToLevel } from "../../utils/utils";
+import { totalExpToLevel } from "../../../utils/utils";
 import { GraphsCarousel } from "./GraphsCarousel";
-import anonymousimage from "../../../assets/images/anonymousimage.jpeg";
 
 const monthNames = [
   "January",
@@ -34,7 +35,7 @@ const monthNames = [
 ];
 
 // eslint-disable-next-line react/prop-types
-function Profile() {
+function Profile({ navigation }) {
   const userContext = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({
@@ -90,52 +91,72 @@ function Profile() {
       const wasteRemovedDiff = thisMonthWasteRemoved - lastMonthWasteRemovedPerDay * currentDay;
       const waterSavedDiff = thisMonthWaterSaved - lastMonthWaterSavedPerDay * currentDay;
 
-      setUser({
-        ...data,
-        ...totalExpToLevel(data.exp),
-        stats: [
-          {
-            description: "CO2 removed",
-            number: totalCO2Removed,
-            unit: "kg",
-            negative: CO2RemovedDiff < 0,
-            percent: Math.round(
-              (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
-            ),
-            valid:
-              lastMonthCO2RemovedPerDay &&
-              lastMonthCO2RemovedPerDay !== 0 &&
-              lastMonthCO2RemovedPerDay !== Infinity,
-          },
-          {
-            description: "Waste removed",
-            number: totalWasteRemoved,
-            unit: "kg",
-            negative: wasteRemovedDiff < 0,
-            percent: Math.round(
-              (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
-            ),
-            valid:
-              lastMonthWasteRemovedPerDay &&
-              lastMonthWasteRemovedPerDay !== 0 &&
-              lastMonthWasteRemovedPerDay !== Infinity,
-          },
-          {
-            description: "Water saved",
-            number: totalWaterSaved,
-            unit: "L",
-            negative: waterSavedDiff < 0,
-            percent: Math.round(
-              (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
-            ),
-            valid:
-              lastMonthWaterSavedPerDay &&
-              lastMonthWaterSavedPerDay !== 0 &&
-              lastMonthWaterSavedPerDay !== Infinity,
-          },
-        ],
-      });
-      setLoading(false);
+      const imageRef = ref(storage, `users/${userContext.user}`);
+      let profilePicture;
+
+      getDownloadURL(imageRef)
+        .then((url) => {
+          profilePicture = url;
+          setUser({
+            ...data,
+            ...totalExpToLevel(data.exp),
+            profilePicture,
+            stats: [
+              {
+                description: "CO2 removed",
+                number: totalCO2Removed,
+                unit: "kg",
+                negative: CO2RemovedDiff < 0,
+                percent: Math.round(
+                  (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
+                ),
+                valid:
+                  lastMonthCO2RemovedPerDay &&
+                  lastMonthCO2RemovedPerDay !== 0 &&
+                  lastMonthCO2RemovedPerDay !== Infinity,
+              },
+              {
+                description: "Waste removed",
+                number: totalWasteRemoved,
+                unit: "kg",
+                negative: wasteRemovedDiff < 0,
+                percent: Math.round(
+                  (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
+                ),
+                valid:
+                  lastMonthWasteRemovedPerDay &&
+                  lastMonthWasteRemovedPerDay !== 0 &&
+                  lastMonthWasteRemovedPerDay !== Infinity,
+              },
+              {
+                description: "Water saved",
+                number: totalWaterSaved,
+                unit: "L",
+                negative: waterSavedDiff < 0,
+                percent: Math.round(
+                  (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
+                ),
+                valid:
+                  lastMonthWaterSavedPerDay &&
+                  lastMonthWaterSavedPerDay !== 0 &&
+                  lastMonthWaterSavedPerDay !== Infinity,
+              },
+            ],
+          });
+          setLoading(false);
+        })
+        .catch((error) => {
+          switch (error.code) {
+            case "storage/object-not-found":
+              console.log("not found");
+              profilePicture = null;
+              break;
+            case "storage/unknown":
+              break;
+            default:
+              break;
+          }
+        });
     } catch (err) {
       console.log(err);
     }
@@ -163,10 +184,11 @@ function Profile() {
     <>
       <ProfileCard
         name={user.name}
-        picture={user.profilePicture || anonymousimage}
+        picture={user.profilePicture}
         level={user.lvl}
         levelTotalExp={user.lvlTotalExp}
         expOverLevel={user.expOverLevel}
+        navigation={navigation}
       />
       <StatsTitle>Lifetime Stats</StatsTitle>
       <StatsListContainer>
