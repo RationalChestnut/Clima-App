@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import ActivitiesScreen from "../../pages/ActivitiesScreen/ActivitiesScreen.navigator";
 import Home from "../../pages/Home/Home.page";
 import PetScreen from "../../pages/PetScreen/Pet.screen";
-import Profile from "../../pages/Profile/Profile.page";
+import User from "../../pages/User/UserRouteNavigator";
 import Community from "../../pages/Community/CommunityRouteNavigator.routes";
 
 const Tab = createBottomTabNavigator();
@@ -15,7 +15,7 @@ const TAB_ICON = {
   Activities: "flag",
   Leaderboard: "trophy",
   Learn: "book",
-  Profile: "user",
+  User: "user",
 };
 
 const createScreenOptions = ({ route }) => {
@@ -35,7 +35,7 @@ function MainNavigator() {
       <Tab.Screen name="Activities" component={ActivitiesScreen} />
       <Tab.Screen name="Your Tree" component={PetScreen} />
       <Tab.Screen name="Leaderboard" component={Community} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="User" component={User} />
     </Tab.Navigator>
   );
 }
