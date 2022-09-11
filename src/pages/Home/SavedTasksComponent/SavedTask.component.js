@@ -15,18 +15,17 @@ import {
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function SavedTask({ task }) {
-  const [title, setTitle] = useState("");
-  const [EXP, setEXP] = useState(0);
+function SavedTask({ task, navigation }) {
   const [image, setImage] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [taskData, setTaskData] = useState();
   const { user } = useContext(AuthenticationContext);
-  const taskData = async () => {
+
+  const taskDataCollector = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/tasks/getTask/${task}`);
-      const thisTaskData = res.data;
-      setTitle(thisTaskData.title);
-      setEXP(thisTaskData.exp);
+      const thisTaskData = res.data; // We have data here
+      setTaskData(thisTaskData);
       const imageRef = ref(storage, `/${thisTaskData.image}`);
       const validImage = await getDownloadURL(imageRef);
       setImage(validImage);
@@ -45,14 +44,27 @@ function SavedTask({ task }) {
   };
 
   useEffect(() => {
-    taskData();
+    taskDataCollector();
   }, []);
 
   return (
-    <SavedTaskContainer>
+    <SavedTaskContainer
+      onPress={() =>
+        navigation.navigate("Activities", {
+          screen: "All Activities",
+          params: {
+            screen: "Activity",
+            params: {
+              item: { ...taskData },
+              imageURL: image,
+            },
+          },
+        })
+      }
+    >
       <TextContainer>
-        <TaskTitle>{title}</TaskTitle>
-        <TaskXP>+{EXP} EXP</TaskXP>
+        <TaskTitle>{taskData?.title}</TaskTitle>
+        <TaskXP>+{taskData?.exp} EXP</TaskXP>
       </TextContainer>
       <ImageContainer source={{ uri: image || null }} />
       <CheckMark onPress={completeTask}>
