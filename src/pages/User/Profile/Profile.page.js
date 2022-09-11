@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
 import axios from "axios";
+import { Text } from "react-native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
@@ -48,7 +49,6 @@ function Profile({ navigation }) {
     totalWaterSaved: 0,
     totalData: null,
   });
-
   const getUser = async () => {
     const date_ob = new Date();
     const previousMonth = date_ob.getMonth();
@@ -146,6 +146,7 @@ function Profile({ navigation }) {
           setLoading(false);
         })
         .catch((error) => {
+          console.log(error);
           switch (error.code) {
             case "storage/object-not-found":
               console.log("not found");
