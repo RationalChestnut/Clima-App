@@ -34,16 +34,17 @@ function PathScreen({ navigation }) {
       },
     ],
   ];
+
   return (
     <PathContainer>
       <TitleText>Your sustainability plan</TitleText>
       <CourseDescription>
         This plan will help you get started on your carbon-zero journey!
       </CourseDescription>
-      {mockData.map((course) => (
-        <SectionContainer>
-          {course.map((section) => (
-            <Item course={section} navigation={navigation} />
+      {mockData.map((course, index) => (
+        <SectionContainer key={index}>
+          {course.map((section, i) => (
+            <Item course={section} navigation={navigation} key={i} />
           ))}
         </SectionContainer>
       ))}

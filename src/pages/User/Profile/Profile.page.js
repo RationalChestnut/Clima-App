@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
+import "firebase/storage";
 import axios from "axios";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 
@@ -91,10 +91,12 @@ function Profile({ navigation }) {
       const wasteRemovedDiff = thisMonthWasteRemoved - lastMonthWasteRemovedPerDay * currentDay;
       const waterSavedDiff = thisMonthWaterSaved - lastMonthWaterSavedPerDay * currentDay;
 
-      const imageRef = ref(storage, `users/${userContext.user}`);
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`users/${userContext.user}`);
       let profilePicture;
 
-      getDownloadURL(imageRef)
+      imageRef
+        .getDownloadURL()
         .then((url) => {
           profilePicture = url;
           setUser({

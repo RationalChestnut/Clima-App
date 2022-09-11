@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import "firebase/storage";
+// import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from "expo-image-picker";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
-import { View } from "react-native";
 
 import {
   SettingsPageContainer,
@@ -58,12 +58,15 @@ function Settings({ navigation, route }) {
   const handleSave = async () => {
     try {
       setLoading(true);
-      const imageRef = ref(storage, `users/${user.user}`);
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`users/${user.user}`);
+      // const imageRef = ref(storage, `users/${user.user}`);
 
       const img = await fetch(photo);
       const bytes = await img.blob();
 
-      await uploadBytes(imageRef, bytes);
+      // await uploadBytes(imageRef, bytes);
+      await imageRef.put(bytes);
 
       setSaveButtonDisabled(true);
 
