@@ -93,72 +93,69 @@ function Profile({ navigation }) {
 
       const storageRef = storage.ref();
       const imageRef = storageRef.child(`users/${userContext.user}`);
-      let profilePicture;
 
-      imageRef
-        .getDownloadURL()
-        .then((url) => {
-          profilePicture = url;
-          setUser({
-            ...data,
-            ...totalExpToLevel(data.exp),
-            profilePicture,
-            stats: [
-              {
-                description: "CO2 removed",
-                number: totalCO2Removed,
-                unit: "kg",
-                negative: CO2RemovedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthCO2RemovedPerDay &&
-                  lastMonthCO2RemovedPerDay !== 0 &&
-                  lastMonthCO2RemovedPerDay !== Infinity,
-              },
-              {
-                description: "Waste removed",
-                number: totalWasteRemoved,
-                unit: "kg",
-                negative: wasteRemovedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthWasteRemovedPerDay &&
-                  lastMonthWasteRemovedPerDay !== 0 &&
-                  lastMonthWasteRemovedPerDay !== Infinity,
-              },
-              {
-                description: "Water saved",
-                number: totalWaterSaved,
-                unit: "L",
-                negative: waterSavedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthWaterSavedPerDay &&
-                  lastMonthWaterSavedPerDay !== 0 &&
-                  lastMonthWaterSavedPerDay !== Infinity,
-              },
-            ],
-          });
-          setLoading(false);
-        })
-        .catch((error) => {
-          switch (error.code) {
-            case "storage/object-not-found":
-              console.log("not found");
-              profilePicture = null;
-              break;
-            case "storage/unknown":
-              break;
-            default:
-              break;
-          }
-        });
+      let profilePicture;
+      try {
+        profilePicture = await imageRef.getDownloadURL();
+      } catch (err) {
+        switch (err.code) {
+          case "storage/object-not-found":
+            console.log("not found");
+            profilePicture = null;
+            break;
+          case "storage/unknown":
+            break;
+          default:
+            break;
+        }
+      }
+      setUser({
+        ...data,
+        ...totalExpToLevel(data.exp),
+        profilePicture,
+        stats: [
+          {
+            description: "CO2 removed",
+            number: totalCO2Removed,
+            unit: "kg",
+            negative: CO2RemovedDiff < 0,
+            percent: Math.round(
+              (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthCO2RemovedPerDay &&
+              lastMonthCO2RemovedPerDay !== 0 &&
+              lastMonthCO2RemovedPerDay !== Infinity,
+          },
+          {
+            description: "Waste removed",
+            number: totalWasteRemoved,
+            unit: "kg",
+            negative: wasteRemovedDiff < 0,
+            percent: Math.round(
+              (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthWasteRemovedPerDay &&
+              lastMonthWasteRemovedPerDay !== 0 &&
+              lastMonthWasteRemovedPerDay !== Infinity,
+          },
+          {
+            description: "Water saved",
+            number: totalWaterSaved,
+            unit: "L",
+            negative: waterSavedDiff < 0,
+            percent: Math.round(
+              (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
+            ),
+            valid:
+              lastMonthWaterSavedPerDay &&
+              lastMonthWaterSavedPerDay !== 0 &&
+              lastMonthWaterSavedPerDay !== Infinity,
+          },
+        ],
+      });
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }

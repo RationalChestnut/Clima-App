@@ -23,14 +23,27 @@ function Player({ user, rank }) {
   const [level, setLevel] = useState(0);
 
   const getUserData = async () => {
-    let image;
     try {
       const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
       const allData = res.data.data;
 
       const storageRef = storage.ref();
       const imageRef = storageRef.child(`users/${user}`);
-      image = await imageRef.getDownloadURL();
+
+      let image;
+      try {
+        image = await imageRef.getDownloadURL();
+      } catch (err) {
+        switch (err.code) {
+          case "storage/object-not-found":
+            image = null;
+            break;
+          case "storage/unknown":
+            break;
+          default:
+            break;
+        }
+      }
 
       setName(allData.name);
       setPoints(allData.exp);

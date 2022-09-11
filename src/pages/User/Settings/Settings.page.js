@@ -57,7 +57,9 @@ function Settings({ navigation, route }) {
 
   const handleSave = async () => {
     try {
+      setSaveButtonDisabled(true);
       setLoading(true);
+
       const storageRef = storage.ref();
       const imageRef = storageRef.child(`users/${user.user}`);
       // const imageRef = ref(storage, `users/${user.user}`);
@@ -67,8 +69,6 @@ function Settings({ navigation, route }) {
 
       // await uploadBytes(imageRef, bytes);
       await imageRef.put(bytes);
-
-      setSaveButtonDisabled(true);
 
       // await getDownloadURL(imageRef);
       setProfileUpdated(true);

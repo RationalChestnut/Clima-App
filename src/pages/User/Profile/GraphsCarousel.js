@@ -56,6 +56,7 @@ export function GraphsCarousel(props) {
       carouselData[0].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
         data:
+          totalData &&
           totalData[currentYear] &&
           totalData[currentYear][currentMonth] &&
           totalData[currentYear][currentMonth].monthlyCO2Removed
@@ -66,6 +67,7 @@ export function GraphsCarousel(props) {
       carouselData[1].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
         data:
+          totalData &&
           totalData[currentYear] &&
           totalData[currentYear][currentMonth] &&
           totalData[currentYear][currentMonth].monthlyWasteRemoved
@@ -76,6 +78,7 @@ export function GraphsCarousel(props) {
       carouselData[2].data.unshift({
         month: new Date(null, currentMonth - 1).toLocaleDateString("en", { month: "long" }),
         data:
+          totalData &&
           totalData[currentYear] &&
           totalData[currentYear][currentMonth] &&
           totalData[currentYear][currentMonth].monthlyWaterSaved
