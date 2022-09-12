@@ -36,8 +36,26 @@ function ActivityScreen({ navigation, route }) {
   const completeTask = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${item.id}`);
-      const { exp, userExp } = res.data;
-      navigation.navigate("Completion", { exp, userExp });
+      const {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      } = res.data;
+      navigation.navigate("Completion", {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      });
     } catch (err) {
       console.log(err);
     }

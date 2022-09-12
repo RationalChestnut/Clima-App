@@ -37,7 +37,27 @@ function SavedTask({ task, navigation }) {
   const completeTask = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${task}`);
+      const {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      } = res.data;
       setIsCompleted(true);
+      navigation.navigate("Completion", {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      });
     } catch (err) {
       console.log(err);
     }

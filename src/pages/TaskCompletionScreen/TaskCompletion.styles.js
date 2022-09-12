@@ -7,18 +7,17 @@ export const TaskCompletionScreenContainer = styled(View)`
 `;
 
 export const CompletionText = styled(Text)`
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  padding: 30px 8px 0px 8px;
   color: ${(props) => props.theme.colors.highlightGreen};
+  font-size: 24px;
+  text-align: center;
+  margin-top: 12px;
 `;
 
 export const Cannon = styled(ConfettiCannon).attrs({
   count: 100,
   autoStart: true,
   explosionSpeed: 1500,
-  fallSpeed: 8000,
+  fallSpeed: 4000,
   fadeOut: true,
 })``;
 
@@ -52,4 +51,18 @@ export const ValueNumber = styled(Text)`
 export const AddText = styled(Text)`
   font-size: 16px;
   color: grey;
+`;
+
+export const UpperSectionContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px 0px 20px;
+`;
+
+export const TitleText = styled(Text)`
+  margin-left: auto;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: ${(props) => props.theme.colors.highlightGreen};
 `;
