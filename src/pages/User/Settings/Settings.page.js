@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+
+import { AntDesign } from "@expo/vector-icons";
 import "firebase/storage";
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from "expo-image-picker";
+import { LinearGradient } from "expo-linear-gradient";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -15,6 +17,7 @@ import {
   SaveButton,
   BackArrowComponent,
   BackArrowButton,
+  UploadText,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -97,9 +100,51 @@ function Settings({ navigation, route }) {
           </NavBar>
           <ProfilePictureButton onPress={pickImage}>
             {photo ? (
-              <ProfilePicture source={{ uri: photo }} />
+              <ProfilePicture
+                source={{ uri: photo }}
+                imageStyle={{ borderRadius: 100, backgroundColor: "#D5DCDC" }}
+              >
+                <LinearGradient
+                  colors={["transparent", "rgba(0,0,0,0.7)"]}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 100,
+                  }}
+                >
+                  <UploadText>
+                    <AntDesign name="upload" size={16} /> Upload
+                  </UploadText>
+                </LinearGradient>
+              </ProfilePicture>
             ) : (
-              <ProfilePicture source={anonymousimage} />
+              <ProfilePicture
+                source={anonymousimage}
+                imageStyle={{ borderRadius: 100, backgroundColor: "#D5DCDC" }}
+              >
+                <LinearGradient
+                  colors={["transparent", "rgba(0,0,0,0.7)"]}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 100,
+                  }}
+                >
+                  <UploadText>
+                    <AntDesign name="upload" size={16} /> Upload
+                  </UploadText>
+                </LinearGradient>
+              </ProfilePicture>
             )}
           </ProfilePictureButton>
           <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
