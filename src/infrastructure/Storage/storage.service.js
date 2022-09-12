@@ -1,4 +1,4 @@
-import { getStorage, ref } from "firebase/storage";
+import "firebase/storage";
 import { app } from "../Authentication/authentication.service";
 
-export const storage = getStorage(app);
+export const storage = app.storage();

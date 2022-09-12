@@ -1,4 +1,13 @@
-import { View, Text, FlatList, ScrollView, Image, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Button,
+  ImageBackground,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import styled from "styled-components/native";
 
@@ -33,13 +42,18 @@ export const ProfilePictureButton = styled(TouchableOpacity)`
   margin: ${(props) => props.theme.sizes.md}px auto;
 `;
 
-export const ProfilePicture = styled(Image)`
+export const ProfilePicture = styled(ImageBackground)`
   width: undefined;
   height: undefined;
   resize-mode: contain;
   aspect-ratio: 1;
-  border-radius: ${(props) => props.theme.sizes.xxl}px;
-  background-color: ${(props) => props.theme.colors.lightGray};
+  align-items: center;
+  justify-content: center;
+`;
+
+export const UploadText = styled(Text)`
+  color: white;
+  font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
 export const SaveButton = styled(Button)``;

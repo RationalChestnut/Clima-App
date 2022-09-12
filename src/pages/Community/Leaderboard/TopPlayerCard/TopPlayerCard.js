@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
+import "firebase/storage";
 import { StyleSheet, Image } from "react-native";
 import axios from "axios";
 import {
@@ -10,6 +11,7 @@ import {
   Rank,
   RankBackground,
 } from "./TopPlayerCard.style";
+import { storage } from "../../../../infrastructure/Storage/storage.service";
 import anonymousimage from "../../../../../assets/images/anonymousimage.jpeg";
 import { totalExpToLevel } from "../../../../utils/utils";
 
@@ -23,9 +25,28 @@ function TopPlayerCard({ style, rank, user }) {
     try {
       const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
       const allData = res.data;
+
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`users/${user}`);
+
+      let image;
+      try {
+        image = await imageRef.getDownloadURL();
+      } catch (err) {
+        switch (err.code) {
+          case "storage/object-not-found":
+            image = null;
+            break;
+          case "storage/unknown":
+            break;
+          default:
+            break;
+        }
+      }
+
       setName(allData.name);
       setPoints(allData.exp);
-      setProfilePicture(allData.profilePicture || anonymousimage);
+      setProfilePicture(image);
       setLevel(totalExpToLevel(allData.exp).lvl);
     } catch (err) {
       console.log(err);
@@ -38,7 +59,12 @@ function TopPlayerCard({ style, rank, user }) {
 
   return (
     <CardContainer style={[style, rank === 1 ? { transform: [{ scale: 1.15 }] } : null]}>
-      <Image style={styles.image} source={profilePicture} />
+      {profilePicture ? (
+        <Image style={styles.image} source={{ uri: profilePicture }} />
+      ) : (
+        <Image style={styles.image} source={anonymousimage} />
+      )}
+
       <RankBackground
         style={[
           rank === 1

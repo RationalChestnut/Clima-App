@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
-
-import { initializeApp } from "firebase/app";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDYPkZU4HTNz2Bgcvxuc7ohvpWk1s8DjXo",
@@ -14,13 +14,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // eslint-disable-next-line no-unused-vars
-export const app = initializeApp(firebaseConfig);
+export const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
 
 // Providers
+export const auth = firebase.auth(app);
 
-export const auth = getAuth();
-
-export const loginRequest = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const loginRequest = (email, password) =>
+  auth.signInWithEmailAndPassword(auth, email, password);
 
 export const signupRequest = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
+  auth.createUserWithEmailAndPassword(auth, email, password);

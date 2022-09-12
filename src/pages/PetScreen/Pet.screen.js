@@ -35,7 +35,7 @@ function PetScreen() {
     expOverLevel: 0,
     name: "",
     mood: 0,
-    moodMessage: "Angry",
+    moodMessage: "Happy",
   });
   const [pet, setPet] = useState({
     name: "",
@@ -43,11 +43,20 @@ function PetScreen() {
     image: null,
   });
   const [loading, setLoading] = useState(true);
+  const [moodColor, setMoodColor] = useState("#1494DC");
 
   const getStats = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
       const { data } = res;
+
+      if (data.moodMessage === "Gloomy") {
+        setMoodColor("#FFA800");
+      }
+
+      if (data.moodMessage === "Angry") {
+        setMoodColor("#C54F46");
+      }
 
       setStats({ ...data, ...totalExpToLevel(data.exp) });
 
@@ -108,7 +117,7 @@ function PetScreen() {
       </BarContainer>
       <BarContainer>
         <InfoContainer>
-          <MoodText>Your Pets Mood</MoodText>
+          <MoodText style={moodColor}>Your Pets Mood</MoodText>
           <Tooltip
             popover={
               <Text>
@@ -122,9 +131,9 @@ function PetScreen() {
           >
             <QuestionMarkComponent />
           </Tooltip>
-          <Mood color="#1494DC">{stats.moodMessage}</Mood>
+          <Mood color={moodColor}>{stats.moodMessage}</Mood>
         </InfoContainer>
-        <BarComponent percentage={stats.mood * 100} color="#FFA800" />
+        <BarComponent percentage={stats.mood * 100} color={moodColor} />
       </BarContainer>
     </>
   );
