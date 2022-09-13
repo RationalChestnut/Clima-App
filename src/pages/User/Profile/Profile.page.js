@@ -96,72 +96,6 @@ function Profile({ navigation }) {
       const storageRef = storage.ref();
       const imageRef = storageRef.child(`users/${userContext.user}`);
 
-<<<<<<< HEAD
-      getDownloadURL(imageRef)
-        .then((url) => {
-          profilePicture = url;
-          setUser({
-            ...data,
-            ...totalExpToLevel(data.exp),
-            profilePicture,
-            stats: [
-              {
-                description: "CO2 removed",
-                number: totalCO2Removed,
-                unit: "kg",
-                negative: CO2RemovedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(CO2RemovedDiff) / lastMonthCO2RemovedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthCO2RemovedPerDay &&
-                  lastMonthCO2RemovedPerDay !== 0 &&
-                  lastMonthCO2RemovedPerDay !== Infinity,
-              },
-              {
-                description: "Waste removed",
-                number: totalWasteRemoved,
-                unit: "kg",
-                negative: wasteRemovedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(wasteRemovedDiff) / lastMonthWasteRemovedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthWasteRemovedPerDay &&
-                  lastMonthWasteRemovedPerDay !== 0 &&
-                  lastMonthWasteRemovedPerDay !== Infinity,
-              },
-              {
-                description: "Water saved",
-                number: totalWaterSaved,
-                unit: "L",
-                negative: waterSavedDiff < 0,
-                percent: Math.round(
-                  (Math.abs(waterSavedDiff) / lastMonthWaterSavedPerDay) * currentDay
-                ),
-                valid:
-                  lastMonthWaterSavedPerDay &&
-                  lastMonthWaterSavedPerDay !== 0 &&
-                  lastMonthWaterSavedPerDay !== Infinity,
-              },
-            ],
-          });
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          switch (error.code) {
-            case "storage/object-not-found":
-              console.log("not found");
-              profilePicture = null;
-              break;
-            case "storage/unknown":
-              break;
-            default:
-              break;
-          }
-        });
-=======
       let profilePicture;
       try {
         profilePicture = await imageRef.getDownloadURL();
@@ -224,7 +158,6 @@ function Profile({ navigation }) {
         ],
       });
       setLoading(false);
->>>>>>> 521102029490d3fe88886f3a73d3967ee6078944
     } catch (err) {
       console.log(err);
     }

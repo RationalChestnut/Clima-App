@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
+import "firebase/storage";
+// import { getDownloadURL, ref } from "firebase/storage";
 import {
   ImageContainer,
   SavedTaskContainer,
@@ -23,11 +24,13 @@ function SavedTask({ task, navigation }) {
 
   const taskDataCollector = async () => {
     try {
+      console.log(task);
       const res = await axios.get(`http://localhost:5000/tasks/getTask/${task}`);
       const thisTaskData = res.data; // We have data here
       setTaskData(thisTaskData);
-      const imageRef = ref(storage, `/${thisTaskData.image}`);
-      const validImage = await getDownloadURL(imageRef);
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`${thisTaskData.image}`);
+      const validImage = await imageRef.getDownloadURL();
       setImage(validImage);
     } catch (err) {
       console.log(err);
