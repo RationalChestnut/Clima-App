@@ -36,6 +36,26 @@ function ActivityScreen({ navigation, route }) {
   const completeTask = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${item.id}`);
+      const {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      } = res.data;
+      navigation.navigate("Completion", {
+        userExp,
+        exp,
+        carbonReduced,
+        wasteRemoved,
+        waterSaved,
+        userCarbonReduced,
+        userWasteRemoved,
+        userWaterSaved,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +82,8 @@ function ActivityScreen({ navigation, route }) {
         <ActivityImage source={{ uri: imageURL || null }} />
       </ImageContainer>
       <StatsContainer>
-        <Stat>+50xp</Stat>
+        <Stat>+{item.exp}exp</Stat>
+        <Stat>-{item.carbonReduced}kg CO2</Stat>
         <Stat>-{item.wasteRemoved}kg</Stat>
         <Stat>-{item.waterSaved}L</Stat>
       </StatsContainer>

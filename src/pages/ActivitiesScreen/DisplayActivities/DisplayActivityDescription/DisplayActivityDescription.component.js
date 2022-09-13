@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
 import {
   ActivityImage,
-  AddButton,
   DescriptionContainer,
   DisplayActivityDescriptionContainer,
   ExpText,
-  SaveText,
   Title,
 } from "./DisplayActivityDescription.styles";
 import { storage } from "../../../../infrastructure/Storage/storage.service";
@@ -33,11 +31,7 @@ function DisplayActivityDescription({ item, navigation }) {
 
   return (
     <DisplayActivityDescriptionContainer onPress={handleNavigation}>
-      <ActivityImage source={{ uri: imageURL || null }}>
-        <AddButton>
-          <SaveText>+</SaveText>
-        </AddButton>
-      </ActivityImage>
+      <ActivityImage source={{ uri: imageURL || null }} />
       <DescriptionContainer>
         <Title>{item.title}</Title>
         <ExpText>+{item.exp} exp</ExpText>

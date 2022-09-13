@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import ActivitiesScreen from "../../pages/ActivitiesScreen/ActivitiesScreen.navigator";
-import Home from "../../pages/Home/Home.page";
 import PetScreen from "../../pages/PetScreen/Pet.screen";
 import User from "../../pages/User/UserRouteNavigator";
 import Community from "../../pages/Community/CommunityRouteNavigator.routes";
+import HomeScreen from "../../pages/Home/HomeScreenNavigator.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +31,7 @@ const createScreenOptions = ({ route }) => {
 function MainNavigator() {
   return (
     <Tab.Navigator screenOptions={createScreenOptions}>
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Activities" component={ActivitiesScreen} />
       <Tab.Screen name="Your Tree" component={PetScreen} />
       <Tab.Screen name="Leaderboard" component={Community} />

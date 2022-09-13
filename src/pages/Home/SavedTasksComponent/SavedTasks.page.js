@@ -31,7 +31,7 @@ function SavedTasksPage({ navigation }) {
       <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
         {data?.map((item) => (
-          <SavedTask task={item} key={item.id} />
+          <SavedTask task={item} key={item.id} navigation={navigation} />
         ))}
       </FlatListContainer>
       <AddMoreButton

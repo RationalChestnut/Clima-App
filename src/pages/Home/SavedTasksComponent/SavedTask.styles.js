@@ -2,7 +2,7 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 
-export const SavedTaskContainer = styled(View)`
+export const SavedTaskContainer = styled(TouchableOpacity)`
   flex-direction: row;
   height: 100px;
   border-radius: 20px;

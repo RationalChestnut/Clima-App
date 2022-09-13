@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import PathScreen from "./Path/Path.screen";
 import DisplayActivityInfo from "./DisplayActivityInfo/DisplayActivityInfo.page";
 import AllActivitiesScreenNavigator from "./AllActivitiesScreen.navigator";
+import TaskCompletionScreen from "../TaskCompletionScreen/TaskCompletion.screen";
 
 const Tab = createMaterialTopTabNavigator();
 const PathStack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ function PathStackScreen() {
     >
       <PathStack.Screen name="PathScreen" component={PathScreen} />
       <PathStack.Screen name="DisplayActivityInfoScreen" component={DisplayActivityInfo} />
+      <PathStack.Screen name="CompletionScreen" component={TaskCompletionScreen} />
     </PathStack.Navigator>
   );
 }
