@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-<<<<<<< HEAD
-=======
 import "firebase/storage";
-// import { getDownloadURL, ref } from "firebase/storage";
->>>>>>> 8052843c554bb73dceac9341fe1b30172ee0ed1f
 import {
   ImageContainer,
   SavedTaskContainer,
