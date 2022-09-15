@@ -10,12 +10,7 @@ export const ExploreTasksPage = styled(ScrollView)`
 export const ExploreTasksPageContainer = styled(View)`
   flex: 1;
   padding: ${(props) => props.theme.sizes.md}px;
-`;
-
-export const ActionsSearchBar = styled(Searchbar).attrs({
-  placeholder: "Search Actions",
-})`
-  align-self: center;
+  padding-top: 0px;
 `;
 
 export const TextContainer = styled(View)`

@@ -15,8 +15,12 @@ function SavedTasksPage({ navigation }) {
   const { user } = useContext(AuthenticationContext);
   const getTaskData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
-      setData(res.data || []);
+      const savedRed = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
+      const userSavedTaskList = savedRed.data;
+      const res = await axios.post(`http://localhost:5000/tasks/getMultipleTasks`, {
+        listOfTaskIds: userSavedTaskList,
+      });
+      setData(res.data.listOfTasks || []);
     } catch (err) {
       console.log(err);
     }
@@ -30,8 +34,8 @@ function SavedTasksPage({ navigation }) {
     <PageContainer>
       <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
-        {data?.map((item) => (
-          <SavedTask task={item} key={item.id} navigation={navigation} />
+        {data?.map((task) => (
+          <SavedTask task={task.data} key={task.id} navigation={navigation} />
         ))}
       </FlatListContainer>
       <AddMoreButton

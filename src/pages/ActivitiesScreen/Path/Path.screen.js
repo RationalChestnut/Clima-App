@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Item from "./Components/Item/Item.component";
 import {
   CourseDescription,
@@ -7,33 +8,21 @@ import {
   TitleText,
 } from "./Path.screen.styles";
 
-import background from "../../../../assets/images/background.jpeg";
-
 function PathScreen({ navigation }) {
-  const mockData = [
-    [
-      {
-        name: "At home activities",
-        type: "Course",
-        icon: background,
-        totalCarbonRemoved: 0,
-        totalWasteRemoved: 0,
-        totalWaterSaved: 0,
-        exp: 430,
-        tasks: ["Qxs2THMxMiavcZhnwwZS", "Qxs2THMxMiavcZhnwwZS"],
-        resources: [
-          {
-            type: "video",
-            link: "alskfajs",
-          },
-          {
-            type: "article",
-            link: "artjalskfj",
-          },
-        ],
-      },
-    ],
-  ];
+  const [pathData, setPathsData] = useState([]);
+
+  const getPaths = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/path/all");
+      setPathsData(res.data.paths);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getPaths();
+  }, []);
 
   return (
     <PathContainer>
@@ -41,10 +30,10 @@ function PathScreen({ navigation }) {
       <CourseDescription>
         This plan will help you get started on your carbon-zero journey!
       </CourseDescription>
-      {mockData.map((course, index) => (
+      {pathData.map((section, index) => (
         <SectionContainer key={index}>
-          {course.map((section, i) => (
-            <Item course={section} navigation={navigation} key={i} />
+          {section.listOfSection.map((course, i) => (
+            <Item course={course} navigation={navigation} key={course.title} />
           ))}
         </SectionContainer>
       ))}

@@ -57,7 +57,6 @@ export function AuthenticationContextProvider({ children }) {
             setIsLoading(false);
           }
         });
-        console.log("Run");
       } catch (err) {
         // error reading value
         setUser(null);

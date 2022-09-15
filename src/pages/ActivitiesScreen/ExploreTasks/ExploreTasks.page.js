@@ -45,7 +45,6 @@ function ExploreTasks({ navigation }) {
   return (
     <ExploreTasksPage>
       <ExploreTasksPageContainer>
-        <ActionsSearchBar />
         <TextContainer>
           <Title>Actions</Title>
           <Description>

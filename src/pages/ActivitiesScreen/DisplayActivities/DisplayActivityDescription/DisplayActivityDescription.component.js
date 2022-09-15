@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
 import {
   ActivityImage,
   DescriptionContainer,
@@ -13,8 +12,9 @@ function DisplayActivityDescription({ item, navigation }) {
   const [imageURL, setImageURL] = useState("");
   const getImage = async () => {
     try {
-      const imageRef = ref(storage, `/${item.image}`);
-      const validImage = await getDownloadURL(imageRef);
+      const imageRef = storage.ref();
+      const imageRefImage = imageRef.child(`/${item.image}`);
+      const validImage = await imageRefImage.getDownloadURL();
       setImageURL(validImage);
     } catch (err) {
       console.log(err);

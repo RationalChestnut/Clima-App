@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
 import {
   ImageContainer,
   SavedTaskContainer,
@@ -18,17 +17,16 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 function SavedTask({ task, navigation }) {
   const [image, setImage] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [taskData, setTaskData] = useState();
   const { user } = useContext(AuthenticationContext);
 
-  const taskDataCollector = async () => {
+  const imageCollector = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/tasks/getTask/${task}`);
-      const thisTaskData = res.data; // We have data here
-      setTaskData(thisTaskData);
-      const imageRef = ref(storage, `/${thisTaskData.image}`);
-      const validImage = await getDownloadURL(imageRef);
-      setImage(validImage);
+      if (task) {
+        const imageRef = storage.ref();
+        const imageRefImage = imageRef.child(`/${task.image}`);
+        const validImage = await imageRefImage.getDownloadURL();
+        setImage(validImage);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -36,7 +34,7 @@ function SavedTask({ task, navigation }) {
 
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${task}`);
+      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${task.id}`);
       const {
         userExp,
         exp,
@@ -64,7 +62,7 @@ function SavedTask({ task, navigation }) {
   };
 
   useEffect(() => {
-    taskDataCollector();
+    imageCollector();
   }, []);
 
   return (
@@ -75,7 +73,7 @@ function SavedTask({ task, navigation }) {
           params: {
             screen: "Activity",
             params: {
-              item: { ...taskData },
+              item: task,
               imageURL: image,
             },
           },
@@ -83,8 +81,8 @@ function SavedTask({ task, navigation }) {
       }
     >
       <TextContainer>
-        <TaskTitle>{taskData?.title}</TaskTitle>
-        <TaskXP>+{taskData?.exp} EXP</TaskXP>
+        <TaskTitle>{task.title}</TaskTitle>
+        <TaskXP>+{task.exp} EXP</TaskXP>
       </TextContainer>
       <ImageContainer source={{ uri: image || null }} />
       <CheckMark onPress={completeTask}>

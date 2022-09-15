@@ -15,8 +15,7 @@ export const CourseTypeText = styled(Text)`
 
 export const Title = styled(Text)`
   margin-top: ${(props) => props.theme.sizes.xs}px;
-  font-size: ${(props) => props.theme.fontSizes.body};
-  max-width: 100px;
+  font-size: 18px;
   text-align: center;
   color: #36384c;
 `;
