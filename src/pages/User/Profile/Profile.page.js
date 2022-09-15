@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import "firebase/storage";
 import axios from "axios";
-import { Text } from "react-native";
+import { ThemeContext } from "styled-components";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
@@ -19,6 +19,7 @@ import StatCard from "./StatCard";
 import Calendar from "./Calendar";
 import { totalExpToLevel } from "../../../utils/utils";
 import { GraphsCarousel } from "./GraphsCarousel";
+import Loading from "../../../components/Loading/Loading";
 
 const monthNames = [
   "January",
@@ -37,6 +38,7 @@ const monthNames = [
 
 // eslint-disable-next-line react/prop-types
 function Profile({ navigation }) {
+  const theme = useContext(ThemeContext);
   const userContext = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({
@@ -205,7 +207,11 @@ function Profile({ navigation }) {
 
   return (
     <ProfilePageContainer>
-      {!loading ? <Calendar data={user.totalData} before={beforeCalendar} /> : null}
+      {!loading ? (
+        <Calendar data={user.totalData} before={beforeCalendar} />
+      ) : (
+        <Loading color={theme.colors.lightGreen} />
+      )}
     </ProfilePageContainer>
   );
 }

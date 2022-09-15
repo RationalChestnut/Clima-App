@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { ThemeContext } from "styled-components/native";
 
 import { Text } from "react-native";
 import Tooltip from "rn-tooltip";
@@ -19,6 +20,7 @@ import {
   NameInput,
   Pet,
 } from "./Pet.style";
+import Loading from "../../components/Loading/Loading";
 import habitat from "../../../assets/images/habitat.png";
 import seed from "../../../assets/images/seed.png";
 import sapling from "../../../assets/images/sapling.png";
@@ -27,6 +29,7 @@ import tree from "../../../assets/images/tree.png";
 import { totalExpToLevel } from "../../utils/utils";
 
 function PetScreen() {
+  const theme = useContext(ThemeContext);
   const user = useContext(AuthenticationContext);
   const [stats, setStats] = useState({
     lvl: 0,
@@ -138,7 +141,11 @@ function PetScreen() {
     </>
   );
 
-  return <PetScreenContainer>{!loading ? pageContent : null}</PetScreenContainer>;
+  return (
+    <PetScreenContainer>
+      {!loading ? pageContent : <Loading color={theme.colors.lightGreen} />}
+    </PetScreenContainer>
+  );
 }
 
 export default PetScreen;
