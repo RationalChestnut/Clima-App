@@ -15,11 +15,10 @@ import {
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function SavedTask({ task, navigation }) {
+function SavedTask({ task, navigation, id }) {
   const [image, setImage] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
-
   const imageCollector = async () => {
     try {
       if (task) {
@@ -35,7 +34,7 @@ function SavedTask({ task, navigation }) {
 
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${task.id}`);
+      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${id}`);
       const {
         userExp,
         exp,

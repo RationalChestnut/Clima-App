@@ -35,7 +35,7 @@ function Activities({ tasksList, navigation }) {
       </BarContainer>
       <TasksContainer>
         {tasks?.map((task) => (
-          <SavedTask task={task.data} navigation={navigation} key={task.id} />
+          <SavedTask task={task.data} navigation={navigation} key={task.id} id={task.id} />
         ))}
       </TasksContainer>
     </ActivitiesPageContainer>
