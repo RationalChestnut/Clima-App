@@ -17,7 +17,7 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 
 function SavedTask({ task, navigation, id, isTaskCompleted }) {
   const [image, setImage] = useState(null);
-  const [isCompleted, setIsCompleted] = useState(isTaskCompleted || false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
   const imageCollector = async () => {
     try {
@@ -86,7 +86,7 @@ function SavedTask({ task, navigation, id, isTaskCompleted }) {
       </TextContainer>
       <ImageContainer source={{ uri: image || null }} />
       <CheckMark onPress={completeTask}>
-        {isCompleted ? (
+        {isTaskCompleted || isCompleted ? (
           <InnerCheckMark>
             <Check />
           </InnerCheckMark>

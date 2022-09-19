@@ -57,7 +57,7 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
             navigation={navigation}
             key={task.id}
             id={task.id}
-            isTaskCompleted={completedTasks.includes(task.id)}
+            isTaskCompleted={completedTasks?.includes(task.id)}
           />
         ))}
       </TasksContainer>
