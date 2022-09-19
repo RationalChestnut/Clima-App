@@ -9,6 +9,7 @@ export const ActivityScreenContainer = styled(ScrollView).attrs({
 })`
   flex: 1;
   padding: 12px;
+  background-color: white;
 `;
 
 export const UpperBar = styled(View)`
@@ -28,7 +29,7 @@ export const TextContainer = styled(View)`
 export const TitleText = styled(Text)`
   padding-top: ${(props) => props.theme.fontSizes.title};
   font-size: ${(props) => props.theme.sizes.lg}px;
-  color: #4e4e4e;
+  color: black;
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 

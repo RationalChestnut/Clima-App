@@ -3,7 +3,7 @@ import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 
 export const Circle = styled(View)`
   border-radius: 1000px;
-  background-color: #5479e1;
+  background-color: ${(props) => props.theme.colors.highlightGreen};
   position: absolute;
   z-index: -100;
   width: ${Dimensions.get("window").width}px;
@@ -34,6 +34,6 @@ export const ButtonView = styled(TouchableOpacity)`
 `;
 
 export const ShareText = styled(Text)`
-  color: #5479e1;
+  color: ${(props) => props.theme.colors.highlightGreen};
   font-size: 20px;
 `;

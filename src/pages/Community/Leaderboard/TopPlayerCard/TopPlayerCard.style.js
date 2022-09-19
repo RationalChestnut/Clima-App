@@ -27,7 +27,7 @@ export const TopPlayerCardContainer = styled(View)`
 export const ProfilePhoto = styled(Image)``;
 
 export const PlayerName = styled(Text)`
-  color: #3876c4;
+  color: ${(props) => props.theme.colors.highlightGreen};
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.heading};
   margin-top: ${(props) => props.theme.sizes.xs}px;

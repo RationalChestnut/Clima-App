@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 export const ProfilePageContainer = styled(View)`
   flex: 1;
   padding: ${(props) => props.theme.sizes.sm}px;
+  background-color: white;
 `;
 
 export const ProfilePageScrollView = styled(ScrollView)``;

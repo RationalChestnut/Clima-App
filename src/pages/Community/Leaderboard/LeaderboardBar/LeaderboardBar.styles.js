@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 export const LeaderBoardBar = styled(View)`
   width: 90%;
-  background-color: #5479e1;
+  background-color: ${(props) => props.theme.colors.highlightGreen};
   padding: ${(props) => props.theme.sizes.sm}px 5%;
   border-radius: 5px;
   flex-direction: row;

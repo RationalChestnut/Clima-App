@@ -1,6 +1,5 @@
 import { FlatList, Text, View } from "react-native";
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
 
 export const DisplayActivitiesPage = styled(View)``;
 
@@ -16,8 +15,3 @@ export const Title = styled(Text)`
 `;
 
 export const ActivitiesList = styled(FlatList)``;
-
-export const FilterIcon = styled(Ionicons).attrs({ name: "filter", size: 24, color: "black" })`
-  margin-left: auto;
-  margin-right: 12px;
-`;

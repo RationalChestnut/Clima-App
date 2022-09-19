@@ -3,9 +3,8 @@ import styled from "styled-components/native";
 
 export const DisplayActivityInfoPageContainer = styled(View)`
   flex: 1;
+  background-color: white;
 `;
-
-export const Overlay = styled(View)``;
 
 export const ActivityPageBackground = styled(ImageBackground).attrs({ resizeMode: "cover" })`
   width: 100%;

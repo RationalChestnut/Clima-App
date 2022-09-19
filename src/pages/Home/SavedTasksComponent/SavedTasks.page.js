@@ -13,6 +13,7 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 function SavedTasksPage({ navigation }) {
   const [data, setData] = useState([]);
   const { user } = useContext(AuthenticationContext);
+
   const getTaskData = async () => {
     try {
       const savedRed = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);

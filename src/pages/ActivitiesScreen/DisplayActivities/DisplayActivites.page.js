@@ -44,7 +44,6 @@ function DisplayActivitiesPage({ navigation, route }) {
       <TopBar>
         <BackArrow navigation={navigation} style={{ marginLeft: 12 }} />
         <Title>{type}</Title>
-        <FilterIcon />
       </TopBar>
       <ActivitiesList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} />
     </DisplayActivityInfoPageContainer>

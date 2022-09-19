@@ -1,10 +1,10 @@
 import { ScrollView, View, Text, ImageBackground, FlatList, TouchableOpacity } from "react-native";
-import { Searchbar } from "react-native-paper";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const ExploreTasksPage = styled(ScrollView)`
   flex: 1;
+  background-color: white;
 `;
 
 export const ExploreTasksPageContainer = styled(View)`

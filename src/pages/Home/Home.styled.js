@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 export const HomePageContainer = styled(View)`
   flex: 1;
+  background-color: white;
 `;
 
 export const PaddingAdder = styled(View)`

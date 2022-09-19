@@ -13,7 +13,11 @@ function Navigation() {
   }
   return (
     <NavigationContainer>
-      {isAuthenticated ? <MainNavigator /> : <UnAuthNavigator />}
+      {isAuthenticated ? (
+        <MainNavigator styles={{ backgroundColor: "white" }} />
+      ) : (
+        <UnAuthNavigator />
+      )}
     </NavigationContainer>
   );
 }

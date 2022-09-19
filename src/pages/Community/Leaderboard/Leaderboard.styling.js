@@ -4,6 +4,7 @@ import { View } from "react-native";
 export const LeaderboardPageContainer = styled(View)`
   flex: 1;
   padding: ${(props) => props.theme.sizes.md}px 0px;
+  background-color: white;
 `;
 
 export const TopPlayersContainer = styled(View)`

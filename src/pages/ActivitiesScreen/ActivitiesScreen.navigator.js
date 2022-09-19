@@ -26,7 +26,9 @@ function PathStackScreen() {
 
 function ActivitiesScreen() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{ headerShown: false, tabBarIndicatorStyle: { backgroundColor: "#0FA958" } }}
+    >
       <Tab.Screen name="Path" component={PathStackScreen} />
       <Tab.Screen name="All Activities" component={AllActivitiesScreenNavigator} />
     </Tab.Navigator>

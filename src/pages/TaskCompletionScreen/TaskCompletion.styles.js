@@ -4,6 +4,7 @@ import ConfettiCannon from "react-native-confetti-cannon";
 
 export const TaskCompletionScreenContainer = styled(View)`
   flex: 1;
+  background-color: white;
 `;
 
 export const CompletionText = styled(Text)`

@@ -3,8 +3,10 @@ import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 
 export const PetScreenContainer = styled(View)`
-  flex: 0.96;
+  flex: 1;
   align-items: center;
+  background-color: white;
+  padding-bottom: 35px;
 `;
 
 export const PetInfoContainer = styled(View)`
