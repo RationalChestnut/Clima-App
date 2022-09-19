@@ -52,7 +52,13 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
       </BarContainer>
       <TasksContainer>
         {tasks?.map((task) => (
-          <SavedTask task={task.data} navigation={navigation} key={task.id} id={task.id} />
+          <SavedTask
+            task={task.data}
+            navigation={navigation}
+            key={task.id}
+            id={task.id}
+            isTaskCompleted={completedTasks.includes(task.id)}
+          />
         ))}
       </TasksContainer>
     </ActivitiesPageContainer>

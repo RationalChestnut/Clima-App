@@ -15,9 +15,9 @@ import {
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function SavedTask({ task, navigation, id }) {
+function SavedTask({ task, navigation, id, isTaskCompleted }) {
   const [image, setImage] = useState(null);
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(isTaskCompleted || false);
   const { user } = useContext(AuthenticationContext);
   const imageCollector = async () => {
     try {
