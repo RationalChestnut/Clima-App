@@ -4,7 +4,7 @@ import { ItemContainer, CourseTypeText, Title } from "./Item.styled";
 import IconComponent from "../Icon/Icon.component";
 import { storage } from "../../../../../infrastructure/Storage/storage.service";
 
-function Item({ course, navigation }) {
+function Item({ course, navigation, pathNumber, sectionNumber }) {
   const [image, setImage] = useState("");
 
   const loadImage = async () => {
@@ -25,7 +25,13 @@ function Item({ course, navigation }) {
   return (
     <ItemContainer
       onPress={() =>
-        navigation.navigate("DisplayActivityInfoScreen", { pathItem: course, navigation, image })
+        navigation.navigate("DisplayActivityInfoScreen", {
+          pathItem: course,
+          navigation,
+          image,
+          pathNumber,
+          sectionNumber,
+        })
       }
     >
       <IconComponent image={image || null} />

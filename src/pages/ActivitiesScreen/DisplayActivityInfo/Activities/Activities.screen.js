@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import BarComponent from "../../../PetScreen/Bar/Bar.component";
 import {
@@ -8,9 +8,12 @@ import {
   TasksContainer,
 } from "./Activities.styles";
 import SavedTask from "../../../Home/SavedTasksComponent/SavedTask.component";
+import { AuthenticationContext } from "../../../../infrastructure/Authentication/AuthenticationContext";
 
-function Activities({ tasksList, navigation }) {
+function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
   const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const { user } = useContext(AuthenticationContext);
 
   const getAllTasks = async () => {
     try {
@@ -23,15 +26,29 @@ function Activities({ tasksList, navigation }) {
     }
   };
 
+  const getCompletedTasks = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/path/getCompletedPathTask/${user}/${pathNumber}/${sectionNumber}/`
+      );
+      setCompletedTasks(res.data.completedPathTasks);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getAllTasks();
+    getCompletedTasks();
   }, []);
 
   return (
     <ActivitiesPageContainer>
-      <ProgressText>0/10 activities completed</ProgressText>
+      <ProgressText>
+        {completedTasks?.length}/{tasks?.length} activities completed
+      </ProgressText>
       <BarContainer>
-        <BarComponent color="#0FA958" percentage={20} />
+        <BarComponent color="#0FA958" percentage={(completedTasks.length / tasks.length) * 100} />
       </BarContainer>
       <TasksContainer>
         {tasks?.map((task) => (

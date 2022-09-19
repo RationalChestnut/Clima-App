@@ -33,7 +33,13 @@ function PathScreen({ navigation }) {
       {pathData.map((section, index) => (
         <SectionContainer key={index}>
           {section.listOfSection.map((course, i) => (
-            <Item course={course} navigation={navigation} key={course.title} />
+            <Item
+              course={course}
+              navigation={navigation}
+              key={course.title}
+              pathNumber={index + 1}
+              sectionNumber={i}
+            />
           ))}
         </SectionContainer>
       ))}

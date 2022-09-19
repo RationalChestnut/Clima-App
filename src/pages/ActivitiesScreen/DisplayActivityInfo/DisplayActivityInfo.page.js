@@ -13,7 +13,7 @@ import Activities from "./Activities/Activities.screen";
 import Learn from "../../Learn/Learn.page";
 
 function DisplayActivityInfo({ route }) {
-  const { pathItem, navigation, image } = route.params;
+  const { pathItem, navigation, image, pathNumber, sectionNumber } = route.params;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -25,7 +25,15 @@ function DisplayActivityInfo({ route }) {
     // eslint-disable-next-line default-case
     switch (route.key) {
       case "activities":
-        return <Activities tasksList={pathItem.tasks} navigation={navigation} jumpTo={jumpTo} />;
+        return (
+          <Activities
+            tasksList={pathItem.tasks}
+            navigation={navigation}
+            jumpTo={jumpTo}
+            pathNumber={pathNumber}
+            sectionNumber={sectionNumber}
+          />
+        );
       default:
         return <Learn articlesList={pathItem.articles} navigation={navigation} jumpTo={jumpTo} />;
     }
