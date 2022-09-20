@@ -5,8 +5,11 @@ import "firebase/storage";
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import { ThemeContext } from "styled-components/native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
+import Loading from "../../../components/Loading/Loading";
 
 import {
   SettingsPageContainer,
@@ -18,16 +21,23 @@ import {
   BackArrowComponent,
   BackArrowButton,
   UploadText,
+  NameEditTextBox,
+  NameEditContainer,
+  NameEditLabel,
+  NameEmptyWarning,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
 // eslint-disable-next-line react/prop-types
 function Settings({ navigation, route }) {
   const user = useContext(AuthenticationContext);
+  const theme = useContext(ThemeContext);
+  const [photoUpdated, setPhotoUpdated] = useState(false);
   const [photo, setPhoto] = useState(route.params.profilePicture);
+  const [displayWarning, setDisplayWarning] = useState(false);
+  const [name, setName] = useState(route.params.name);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [profileUpdated, setProfileUpdated] = useState(false);
 
   useEffect(() => {
     requestPermission();
@@ -55,26 +65,46 @@ function Settings({ navigation, route }) {
     if (!result.cancelled) {
       setSaveButtonDisabled(false);
       setPhoto(result.uri);
+      setPhotoUpdated(true);
+    }
+  };
+
+  const handleNameEdit = (text) => {
+    setName(text);
+
+    if (saveButtonDisabled) {
+      setSaveButtonDisabled(false);
     }
   };
 
   const handleSave = async () => {
     try {
-      setSaveButtonDisabled(true);
       setLoading(true);
+      setSaveButtonDisabled(true);
 
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child(`users/${user.user}`);
-      // const imageRef = ref(storage, `users/${user.user}`);
+      if (!name || name.trim() === "") {
+        return setDisplayWarning(true);
+      }
 
-      const img = await fetch(photo);
-      const bytes = await img.blob();
+      setDisplayWarning(false);
 
-      // await uploadBytes(imageRef, bytes);
-      await imageRef.put(bytes);
+      if (name !== route.params.name) {
+        await axios.patch("http://localhost:5000/user/updateUser", {
+          userId: user.user,
+          name: name.trim(),
+        });
+      }
 
-      // await getDownloadURL(imageRef);
-      setProfileUpdated(true);
+      if (photoUpdated) {
+        const storageRef = storage.ref();
+        const imageRef = storageRef.child(`users/${user.user}`);
+
+        const img = await fetch(photo);
+        const bytes = await img.blob();
+
+        await imageRef.put(bytes);
+      }
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -88,9 +118,7 @@ function Settings({ navigation, route }) {
           <NavBar>
             <BackArrowButton
               onPress={() => {
-                navigation.navigate("Profile", {
-                  updated: profileUpdated,
-                });
+                navigation.navigate("Profile", { updated: true });
               }}
               style={{ position: "absolute", left: 15 }}
             >
@@ -147,10 +175,15 @@ function Settings({ navigation, route }) {
               </ProfilePicture>
             )}
           </ProfilePictureButton>
+          <NameEditContainer>
+            <NameEditLabel>Name: </NameEditLabel>
+            <NameEditTextBox value={name} onChangeText={handleNameEdit} />
+          </NameEditContainer>
+          {displayWarning ? <NameEmptyWarning>Name field cannot be empty!</NameEmptyWarning> : null}
           <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
         </>
       ) : (
-        <></>
+        <Loading color={theme.colors.lightGreen} />
       )}
     </SettingsPageContainer>
   );

@@ -84,7 +84,7 @@ function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel, naviga
           <Name>{name}</Name>
           <Level>Lvl. {level}</Level>
           <SettingsButton
-            onPress={() => navigation.navigate("Settings", { profilePicture: picture })}
+            onPress={() => navigation.navigate("Settings", { profilePicture: picture, name })}
           >
             <FontAwesome name="gear" size={20} />
           </SettingsButton>

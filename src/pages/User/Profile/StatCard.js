@@ -14,7 +14,7 @@ const StatCardContainer = styled(View)`
 const Data = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.h5};
+  font-size: ${(props) => props.theme.fontSizes.title};
 `;
 
 const Description = styled(Text)`
@@ -48,7 +48,7 @@ function StatCard({ negative, number, unit, description, percent, valid }) {
       style={{ backgroundColor: negative ? theme.colors.red : theme.colors.lightGreen }}
     >
       <Data>
-        {number}
+        {number >= 10000 ? `${number / 1000}.${number % 1000}k ` : number}
         {unit}
       </Data>
       <Description>{description}</Description>

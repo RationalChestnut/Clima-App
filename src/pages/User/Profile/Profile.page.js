@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
 import "firebase/storage";
 import axios from "axios";
 import { ThemeContext } from "styled-components";
@@ -20,6 +20,7 @@ import Calendar from "./Calendar";
 import { totalExpToLevel } from "../../../utils/utils";
 import { GraphsCarousel } from "./GraphsCarousel";
 import Loading from "../../../components/Loading/Loading";
+import { useFocusEffect } from "@react-navigation/native";
 
 const monthNames = [
   "January",
@@ -163,10 +164,11 @@ function Profile({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getUser();
+    }, [])
+  );
 
   const today = new Date();
 
