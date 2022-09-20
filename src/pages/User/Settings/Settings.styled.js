@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  FlatList,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Button,
-  ImageBackground,
-} from "react-native";
+import { View, Text, TouchableOpacity, Button, ImageBackground, TextInput } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import styled from "styled-components/native";
 
@@ -57,3 +48,29 @@ export const UploadText = styled(Text)`
 `;
 
 export const SaveButton = styled(Button)``;
+
+export const NameEmptyWarning = styled(Text)`
+  color: ${(props) => props.theme.colors.orange};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  text-align: center;
+`;
+
+export const NameEditContainer = styled(View)`
+  flex-direction: row;
+  width: undefined;
+  margin: 0 auto;
+  align-items: center;
+`;
+
+export const NameEditLabel = styled(Text)`
+  font-size: ${(props) => props.theme.fontSizes.body};
+`;
+
+export const NameEditTextBox = styled(TextInput)`
+  width: 30%;
+  margin: ${(props) => props.theme.sizes.md}px auto;
+  height: ${(props) => props.theme.sizes.lg}px;
+  padding: ${(props) => props.theme.sizes.xs}px;
+  border: 1px solid ${(props) => props.theme.colors.gray};
+  border-radius: ${(props) => props.theme.sizes.xs}px;
+`;
