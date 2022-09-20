@@ -15,6 +15,7 @@ import Player from "./Player/Player";
 import TopPlayerCard from "./TopPlayerCard/TopPlayerCard";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
+import InviteFriendBox from "./InviteFriendBox/InviteFriendBox.component";
 
 function LeaderboardPage({ navigation }) {
   const theme = useContext(ThemeContext);
@@ -61,13 +62,17 @@ function LeaderboardPage({ navigation }) {
       </TopPlayersContainer>
       <LeaderboardContainer>
         <LeaderboardBarComponent />
-        <ListContainer>
-          <FlatList
-            data={users}
-            renderItem={({ item, index }) => <Player user={item} rank={index + 4} />}
-            key={(item) => item}
-          />
-        </ListContainer>
+        {users.length < 4 ? (
+          <InviteFriendBox navigation={navigation} />
+        ) : (
+          <ListContainer>
+            <FlatList
+              data={users}
+              renderItem={({ item, index }) => <Player user={item} rank={index + 4} />}
+              key={(item) => item}
+            />
+          </ListContainer>
+        )}
       </LeaderboardContainer>
       <InviteFriendsComponent navigation={navigation} />
     </LeaderboardPageContainer>
