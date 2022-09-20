@@ -5,7 +5,7 @@ export const InviteFriendBoxContainer = styled(View)`
   margin-top: 12px;
   width: 90%;
   height: 200px;
-  background-color: ${(props) => props.theme.colors.lightGrey};
+  background-color: ${(props) => props.theme.colors.lightGray};
   border-radius: 20px;
   padding: 18px;
 `;
