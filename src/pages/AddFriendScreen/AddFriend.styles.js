@@ -1,11 +1,12 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
+import { LinearGradient } from "expo-linear-gradient";
 import pet from "../../../assets/images/pet.png";
 
 export const AddFriendScreenContainer = styled(View)`
   flex: 1;
-  background-color: ${(props) => props.theme.colors.muteGreen};
   align-items: center;
+  background-color: white;
 `;
 
 export const ProfileComponent = styled(View)`
@@ -14,7 +15,7 @@ export const ProfileComponent = styled(View)`
   margin-top: ${(props) => props.theme.sizes.md}px;
   padding: ${(props) => props.theme.sizes.md}px;
   border-radius: 10px;
-  border: 5px solid ${(props) => props.theme.colors.defaultGreen};
+  border: 5px solid ${(props) => props.theme.colors.lightGray};
   position: relative;
 `;
 
@@ -47,12 +48,14 @@ export const ProfileImage = styled(Image).attrs({ source: pet })`
 export const CodeText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
-  color: #2f2f2f;
+  color: ${(props) => props.theme.colors.gray};
   margin: 0px 15px;
 `;
 
-export const CodeContainer = styled(View)`
-  background-color: ${(props) => props.theme.colors.defaultGreen};
+export const CodeContainer = styled(LinearGradient).attrs({
+  colors: ["#2A9B60", "#3A887C"],
+  start: { x: 0.7, y: 0.1 },
+})`
   width: 95%;
   border-radius: 10px;
   align-items: center;
@@ -95,7 +98,6 @@ export const CodeInputWrapper = styled(View)`
   background-color: white;
   width: 80%;
   border-radius: 5px;
-  border: 3px solid ${(props) => props.theme.colors.highlightGreen};
   padding: ${(props) => props.theme.sizes.sm}px;
   margin-top: ${(props) => props.theme.sizes.md}px;
 `;
@@ -128,7 +130,7 @@ export const SendText = styled(Text)`
 `;
 
 export const Border = styled(View)`
-  background-color: black;
+  background-color: ${(props) => props.theme.colors.gray};
   width: 100px;
   height: 1px;
 `;

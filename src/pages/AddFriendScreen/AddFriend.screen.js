@@ -47,7 +47,7 @@ function AddFriendScreen({ navigation }) {
     <AddFriendScreenContainer>
       <BackArrow
         navigation={navigation}
-        color="white"
+        color="black"
         marginLeft={20}
         style={{ marginRight: "auto", paddingLeft: 20, paddingTop: 20 }}
       />
