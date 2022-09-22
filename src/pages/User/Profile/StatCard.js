@@ -48,7 +48,11 @@ function StatCard({ negative, number, unit, description, percent, valid }) {
       style={{ backgroundColor: negative ? theme.colors.red : theme.colors.lightGreen }}
     >
       <Data>
-        {number >= 10000 ? `${number / 1000}.${number % 1000}k ` : number}
+        {/* {number >= 10000 ? `${number / 1000}.${number % 1000}k ` : number} */}
+        {`${Intl.NumberFormat("en-US", {
+          notation: "compact",
+          maximumFractionDigits: 1,
+        }).format(number)} `}
         {unit}
       </Data>
       <Description>{description}</Description>
