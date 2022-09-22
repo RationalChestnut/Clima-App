@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState, useContext, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
+import { ThemeContext } from "styled-components";
 import { Dimensions } from "react-native";
 import AnimateNumber from "react-native-animate-number-renewed";
+import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import BackArrow from "../../components/BackArrow.component";
+import Loading from "../../components/Loading/Loading";
+import habitat from "../../../assets/images/habitat.png";
+import sapling from "../../../assets/images/sapling.png";
+import tree from "../../../assets/images/tree.png";
+import seed from "../../../assets/images/seed.png";
+import { totalExpToLevel } from "../../utils/utils";
 
 import {
   AddText,
@@ -15,9 +25,54 @@ import {
   TitleText,
   UpperSectionContainer,
   ValueNumber,
+  PetImage,
+  Pet,
+  PetContainer,
 } from "./TaskCompletion.styles";
 
 function TaskCompletionScreen({ navigation, route }) {
+  const theme = useContext(ThemeContext);
+  const user = useContext(AuthenticationContext);
+  const [pet, setPet] = useState({
+    name: "",
+    type: "",
+    image: null,
+  });
+  const [loading, setLoading] = useState(true);
+
+  const getPet = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
+      const { data } = res;
+
+      const petProperties = { type: "Seed", image: seed, name: data.name, width: 50, height: 50 };
+      if (totalExpToLevel(data.exp).lvl >= 15) {
+        petProperties.type = "Sapling";
+        petProperties.image = sapling;
+        petProperties.width = 50;
+        petProperties.height = 160;
+      }
+
+      if (totalExpToLevel(data.exp).lvl >= 30) {
+        petProperties.type = "Tree";
+        petProperties.image = tree;
+        petProperties.width = 150;
+        petProperties.height = 200;
+      }
+
+      setPet({ ...petProperties });
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      getPet();
+    }, [])
+  );
+
   const {
     userExp,
     exp,
@@ -96,6 +151,24 @@ function TaskCompletionScreen({ navigation, route }) {
           <AddText>+{waterSaved}</AddText>
         </StatContainer>
       </Container>
+      <PetContainer>
+        {!loading ? (
+          <PetImage source={habitat}>
+            {pet.image ? (
+              <Pet
+                source={pet.image}
+                resizeMode="contain"
+                style={{
+                  width: pet.width,
+                  height: pet.height,
+                }}
+              />
+            ) : null}
+          </PetImage>
+        ) : (
+          <Loading color={theme.colors.lightGreen} />
+        )}
+      </PetContainer>
     </TaskCompletionScreenContainer>
   );
 }
