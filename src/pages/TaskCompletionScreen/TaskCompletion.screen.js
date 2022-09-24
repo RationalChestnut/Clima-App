@@ -28,6 +28,7 @@ import {
   PetImage,
   Pet,
   PetContainer,
+  Label,
 } from "./TaskCompletion.styles";
 
 function TaskCompletionScreen({ navigation, route }) {
@@ -100,6 +101,24 @@ function TaskCompletionScreen({ navigation, route }) {
       <CompletionText>One step closer to a better world</CompletionText>
       <Cannon origin={{ x: Dimensions.get("window").width - 10, y: 0 }} autoStartDelay={200} />
       <Cannon origin={{ x: 0, y: 0 }} fadeOut />
+      <PetContainer>
+        {!loading ? (
+          <PetImage source={habitat}>
+            {pet.image ? (
+              <Pet
+                source={pet.image}
+                resizeMode="contain"
+                style={{
+                  width: pet.width,
+                  height: pet.height,
+                }}
+              />
+            ) : null}
+          </PetImage>
+        ) : (
+          <Loading color={theme.colors.lightGreen} />
+        )}
+      </PetContainer>
       <Container>
         <LifeTimeStats>Lifetime Stats</LifeTimeStats>
         <StatContainer>
@@ -123,6 +142,7 @@ function TaskCompletionScreen({ navigation, route }) {
               startAt={1000}
               formatter={(val) => `${parseFloat(val).toFixed(0)}`}
             />
+            <Label>kg</Label>
           </ValueNumber>
           <AddText>+{carbonReduced}</AddText>
         </StatContainer>
@@ -135,6 +155,7 @@ function TaskCompletionScreen({ navigation, route }) {
               startAt={1000}
               formatter={(val) => `${parseFloat(val).toFixed(0)}`}
             />
+            <Label>kg</Label>
           </ValueNumber>
           <AddText>+{wasteRemoved}</AddText>
         </StatContainer>
@@ -147,28 +168,11 @@ function TaskCompletionScreen({ navigation, route }) {
               startAt={1000}
               formatter={(val) => `${parseFloat(val).toFixed(0)}`}
             />
+            <Label>L</Label>
           </ValueNumber>
           <AddText>+{waterSaved}</AddText>
         </StatContainer>
       </Container>
-      <PetContainer>
-        {!loading ? (
-          <PetImage source={habitat}>
-            {pet.image ? (
-              <Pet
-                source={pet.image}
-                resizeMode="contain"
-                style={{
-                  width: pet.width,
-                  height: pet.height,
-                }}
-              />
-            ) : null}
-          </PetImage>
-        ) : (
-          <Loading color={theme.colors.lightGreen} />
-        )}
-      </PetContainer>
     </TaskCompletionScreenContainer>
   );
 }

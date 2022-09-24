@@ -1,4 +1,4 @@
-import { Text, View, ImageBackground, TextInput, Image } from "react-native";
+import { Text, View, ImageBackground, Image } from "react-native";
 import styled from "styled-components/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 
@@ -24,8 +24,8 @@ export const Cannon = styled(ConfettiCannon).attrs({
 
 export const LifeTimeStats = styled(Text)`
   font-size: 28px;
-  margin-top: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  text-align: center;
 `;
 
 export const Container = styled(View)`
@@ -35,10 +35,22 @@ export const Container = styled(View)`
 export const StatContainer = styled(View)`
   flex-direction: row;
   align-items: center;
+  margin-top: 8px;
+  justify-content: center;
 `;
 
 export const StatText = styled(Text)`
-  font-size: 18px;
+  font-size: 20px;
+  text-align: center;
+`;
+
+export const Label = styled(Text)`
+  color: ${(props) => props.theme.colors.defaultGreen};
+  font-weight: bold;
+  margin-left: 8px;
+  margin-right: 4px;
+  font-size: 20px;
+  text-align: center;
 `;
 
 export const ValueNumber = styled(Text)`
@@ -46,11 +58,12 @@ export const ValueNumber = styled(Text)`
   font-weight: bold;
   margin-left: 8px;
   margin-right: 4px;
-  font-size: 18px;
+  font-size: 20px;
+  text-align: center;
 `;
 
 export const AddText = styled(Text)`
-  font-size: 16px;
+  font-size: 18px;
   color: grey;
 `;
 
@@ -69,23 +82,19 @@ export const TitleText = styled(Text)`
 `;
 
 export const PetContainer = styled(View)`
-  width: 90%;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  margin: 12px auto;
+  margin-bottom: 0px;
 `;
 
 export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
-  position: relative;
   width: 100%;
-  height: 250px;
+  height: 400px;
   opacity: 1;
+  align-items: center;
+  z-index: 999;
 `;
 
 export const Pet = styled(Image)`
-  position: absolute;
-  bottom: 3%;
-  left: 27%;
-  ${"" /* transform: translate(50%, -50%); */}
-  background-color: rgba(0, 240, 64, 0.1);
+  margin-top: 225px;
 `;

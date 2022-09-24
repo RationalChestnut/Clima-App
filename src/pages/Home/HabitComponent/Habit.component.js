@@ -33,6 +33,7 @@ function Habit({ navigation }) {
         if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
           setActionsLogged(
             userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
+              .numTasksCompleted
           );
         }
 
@@ -53,10 +54,6 @@ function Habit({ navigation }) {
               dayCounter = new Date(currentYear, monthCounter, 0).getDate();
               dateDataToAppend.push(userTotalData[currentYear][monthCounter][4][dayCounter] || "");
             } else {
-              console.log(
-                "Hello",
-                userTotalData[currentYear][currentMonth][currentWeek][daysOfTheWeek[i]]
-              );
               dateDataToAppend.push(
                 userTotalData[currentYear][currentMonth][currentWeek][daysOfTheWeek[i]] || ""
               );
@@ -91,7 +88,6 @@ function Habit({ navigation }) {
 
             // const assignedDayValue = thisWeekData[]; // ERROR THIS PROBABLY WILL NOT WORK
             if (dateDataToAppend[i] && dateDataToAppend[i] !== "") {
-              console.log("asdgfas", dateDataToAppend[i]);
               dataToAppend.push({ ...objectToPush, day: dayName, completed: true });
             } else {
               dataToAppend.push({ ...objectToPush, day: dayName });

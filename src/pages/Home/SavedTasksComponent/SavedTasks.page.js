@@ -21,7 +21,31 @@ function SavedTasksPage({ navigation }) {
       const res = await axios.post(`http://localhost:5000/tasks/getMultipleTasks`, {
         listOfTaskIds: userSavedTaskList,
       });
-      setData(res.data.listOfTasks || []);
+
+      await axios.get(`http://localhost:5000/user/getUser/${user}`).then((response) => {
+        const userTotalData = response.data.totalData;
+        const date_ob = new Date();
+        const currentMonth = date_ob.getMonth() + 1;
+        const currentYear = date_ob.getFullYear();
+        const day = date_ob.getDate();
+        const currentWeek = Math.ceil(day / 7);
+        if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
+          const completedTasks =
+            userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
+              .tasksCompletedIDs;
+          completedTasks?.forEach((completedTask) => {
+            const resultingData = res.data.listOfTasks.filter((task) => task.id === completedTask);
+            resultingData?.forEach((task) => {
+              // eslint-disable-next-line no-param-reassign
+              task.isCompleted = true;
+            });
+          });
+
+          setData(res.data.listOfTasks || []);
+        } else {
+          setData(res.data.listOfTasks || []);
+        }
+      });
     } catch (err) {
       console.log(err);
     }
@@ -36,7 +60,13 @@ function SavedTasksPage({ navigation }) {
       <SavedTasksText>Habits</SavedTasksText>
       <FlatListContainer>
         {data?.map((task) => (
-          <SavedTask task={task.data} key={task.id} navigation={navigation} id={task.id} />
+          <SavedTask
+            task={task.data}
+            key={task.id}
+            navigation={navigation}
+            id={task.id}
+            isTaskCompleted={task.isCompleted || false}
+          />
         ))}
       </FlatListContainer>
       <AddMoreButton
