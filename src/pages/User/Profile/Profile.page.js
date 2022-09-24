@@ -1,7 +1,8 @@
-import React, { useEffect, useContext, useState, useCallback } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import "firebase/storage";
 import axios from "axios";
 import { ThemeContext } from "styled-components";
+import { useFocusEffect } from "@react-navigation/native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
@@ -20,7 +21,6 @@ import Calendar from "./Calendar";
 import { totalExpToLevel } from "../../../utils/utils";
 import { GraphsCarousel } from "./GraphsCarousel";
 import Loading from "../../../components/Loading/Loading";
-import { useFocusEffect } from "@react-navigation/native";
 
 const monthNames = [
   "January",

@@ -46,7 +46,7 @@ function PetScreen() {
     image: null,
   });
   const [loading, setLoading] = useState(true);
-  const [moodColor, setMoodColor] = useState("#1494DC");
+  const [moodColor, setMoodColor] = useState("#FFA800");
 
   const getStats = async () => {
     try {

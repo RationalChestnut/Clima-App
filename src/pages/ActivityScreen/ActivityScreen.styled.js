@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, Touchable } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
 import MarkedList from "@jsamr/react-native-li";
@@ -39,7 +39,7 @@ export const SubText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
 `;
 
-export const ImageContainer = styled(View)`
+export const ImageContainer = styled(TouchableOpacity)`
   align-items: center;
   margin-top: ${(props) => props.theme.sizes.sm}px;
 `;
@@ -113,7 +113,7 @@ export const SectionTitle = styled(Text)`
 export const SectionText = styled(Text)`
   margin-top: ${(props) => props.theme.sizes.sm}px;
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: 14px;
+  font-size: 18px;
 `;
 
 export const SecondSectionTitle = styled(Text)`
@@ -134,10 +134,27 @@ export const ListItem = styled(Text)`
   flex-shrink: 1;
   font-family: ${(props) => props.theme.fonts.body};
   line-height: 23px;
+  font-size: 18px;
 `;
 
 export const RecommendedTasksContainer = styled(View)`
   padding-bottom: ${(props) => props.theme.sizes.lg}px;
   height: 240px;
   margin-right: -12px;
+`;
+
+export const LinkToPurchaseContainer = styled(TouchableOpacity)`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 14px;
+  padding-bottom: 14px;
+`;
+
+export const LinkToPurchaseTitle = styled(Text)`
+  font-size: 22px;
+`;
+
+export const LinkToPurchase = styled(Text)`
+  font-size: 18px;
+  margin-left: 4px;
 `;

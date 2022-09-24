@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import axios from "axios";
+import * as WebBrowser from "expo-web-browser";
 import {
   ActivityScreenContainer,
   UpperBar,
@@ -25,6 +26,9 @@ import {
   ListItemsContainer,
   RecommendedTasksContainer,
   OptionIconContainer,
+  LinkToPurchaseContainer,
+  LinkToPurchase,
+  LinkToPurchaseTitle,
 } from "./ActivityScreen.styled";
 import BackArrow from "../../components/BackArrow.component";
 import Tasks from "../../components/Tasks/Tasks";
@@ -68,7 +72,6 @@ function ActivityScreen({ navigation, route }) {
       console.log(err);
     }
   };
-
   return (
     <ActivityScreenContainer>
       <UpperBar>
@@ -78,7 +81,7 @@ function ActivityScreen({ navigation, route }) {
         <TitleText>{item.title}</TitleText>
         <SubText>{item.type}</SubText>
       </TextContainer>
-      <ImageContainer>
+      <ImageContainer onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}>
         <ActivityImage source={{ uri: imageURL || null }} />
       </ImageContainer>
       <StatsContainer>
@@ -121,10 +124,11 @@ function ActivityScreen({ navigation, route }) {
             ))}
           </ListContainer>
         </ListItemsContainer>
+        <LinkToPurchaseContainer onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}>
+          <LinkToPurchaseTitle>Purchase:</LinkToPurchaseTitle>
+          <LinkToPurchase>{item.linkToPurchase}</LinkToPurchase>
+        </LinkToPurchaseContainer>
       </InfoContainer>
-      <RecommendedTasksContainer>
-        <Tasks navigation={navigation} />
-      </RecommendedTasksContainer>
     </ActivityScreenContainer>
   );
 }
