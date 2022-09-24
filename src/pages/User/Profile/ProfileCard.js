@@ -90,7 +90,7 @@ function ProfileCard({ picture, name, level, levelTotalExp, expOverLevel, naviga
           </SettingsButton>
         </NameContainer>
         <ExpContainer>
-          <CurrentExp>{expOverLevel} / </CurrentExp>
+          <CurrentExp>{Math.round(expOverLevel)} / </CurrentExp>
           <TotalExp>{levelTotalExp} EXP</TotalExp>
         </ExpContainer>
         <ExpBar

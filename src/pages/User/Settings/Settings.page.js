@@ -60,8 +60,6 @@ function Settings({ navigation, route }) {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setSaveButtonDisabled(false);
       setPhoto(result.uri);

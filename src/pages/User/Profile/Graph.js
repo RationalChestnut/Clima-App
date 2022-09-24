@@ -19,7 +19,6 @@ const GraphTitle = styled(Text)`
 
 function Graph({ data }) {
   const theme = useContext(ThemeContext);
-
   return (
     <Container>
       <GraphTitle>{data.title}</GraphTitle>

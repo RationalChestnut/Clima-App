@@ -76,7 +76,7 @@ function generateMonth(data) {
       continue;
     }
     if (fullMonth[i]) {
-      returnMonthData.push({ date: i, tasks: fullMonth[i].tasksCompleted });
+      returnMonthData.push({ date: i, tasks: fullMonth[i].tasksCompleted.numTasksCompleted });
     } else {
       returnMonthData.push({ date: i, tasks: 0 });
     }
