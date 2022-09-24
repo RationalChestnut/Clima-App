@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, ImageBackground, TextInput, Image } from "react-native";
 import styled from "styled-components/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 
@@ -66,4 +66,26 @@ export const TitleText = styled(Text)`
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.colors.highlightGreen};
+`;
+
+export const PetContainer = styled(View)`
+  width: 90%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
+  position: relative;
+  width: 100%;
+  height: 250px;
+  opacity: 1;
+`;
+
+export const Pet = styled(Image)`
+  position: absolute;
+  bottom: 3%;
+  left: 27%;
+  ${"" /* transform: translate(50%, -50%); */}
+  background-color: rgba(0, 240, 64, 0.1);
 `;
