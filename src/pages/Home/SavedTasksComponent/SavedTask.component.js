@@ -75,6 +75,7 @@ function SavedTask({ task, navigation, id, isTaskCompleted }) {
             params: {
               item: task,
               imageURL: image,
+              destination: "HomeScreen",
             },
           },
         })

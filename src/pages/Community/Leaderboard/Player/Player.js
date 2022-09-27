@@ -48,7 +48,7 @@ function Player({ user, rank }) {
       setName(allData.name);
       setPoints(allData.exp);
       setProfilePicture(image);
-      setLevel(totalExpToLevel(allData.exp).lvl);
+      setLevel(Math.round(totalExpToLevel(allData.exp).lvl));
     } catch (err) {
       switch (err.code) {
         case "storage/object-not-found":

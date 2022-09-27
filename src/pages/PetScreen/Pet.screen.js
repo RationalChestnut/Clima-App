@@ -113,7 +113,7 @@ function PetScreen() {
             <QuestionMarkComponent />
           </Tooltip>
           <StatusText>
-            {stats.expOverLevel} / <Green>{stats.lvlTotalExp}</Green>
+            {Math.round(stats.expOverLevel)} / <Green>{stats.lvlTotalExp}</Green>
           </StatusText>
         </InfoContainer>
         <BarComponent percentage={(stats.expOverLevel / stats.lvlTotalExp) * 100} color="#0FA958" />

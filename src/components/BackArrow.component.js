@@ -8,11 +8,16 @@ const BackArrowComponent = styled(AntDesign).attrs({
   size: 28,
 })``;
 
-function BackArrow({ color, navigation, style, icon, iconStyle }) {
+function BackArrow({ color, navigation, style, icon, iconStyle, destination }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.goBack();
+        if (destination) {
+          navigation.navigate("All Activities Screen");
+          navigation.navigate(destination);
+        } else {
+          navigation.goBack();
+        }
       }}
       style={style}
     >

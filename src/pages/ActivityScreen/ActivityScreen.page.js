@@ -24,18 +24,16 @@ import {
   ListItem,
   SecondSectionTitle,
   ListItemsContainer,
-  RecommendedTasksContainer,
   OptionIconContainer,
   LinkToPurchaseContainer,
   LinkToPurchase,
   LinkToPurchaseTitle,
 } from "./ActivityScreen.styled";
 import BackArrow from "../../components/BackArrow.component";
-import Tasks from "../../components/Tasks/Tasks";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
 function ActivityScreen({ navigation, route }) {
-  const { item, imageURL } = route.params;
+  const { item, imageURL, destination } = route.params;
   const { user } = useContext(AuthenticationContext);
   const completeTask = async () => {
     try {
@@ -75,7 +73,7 @@ function ActivityScreen({ navigation, route }) {
   return (
     <ActivityScreenContainer>
       <UpperBar>
-        <BackArrow navigation={navigation} />
+        <BackArrow navigation={navigation} destination={destination} />
       </UpperBar>
       <TextContainer>
         <TitleText>{item.title}</TitleText>
@@ -107,7 +105,6 @@ function ActivityScreen({ navigation, route }) {
           <OptionIconContainer>
             <EntypoOptionIcon name="share" />
           </OptionIconContainer>
-
           <OptionText>Share</OptionText>
         </Option>
       </OptionsContainer>

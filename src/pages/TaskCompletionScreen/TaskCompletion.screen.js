@@ -99,8 +99,7 @@ function TaskCompletionScreen({ navigation, route }) {
       </UpperSectionContainer>
 
       <CompletionText>One step closer to a better world</CompletionText>
-      <Cannon origin={{ x: Dimensions.get("window").width - 10, y: 0 }} autoStartDelay={200} />
-      <Cannon origin={{ x: 0, y: 0 }} fadeOut />
+
       <PetContainer>
         {!loading ? (
           <PetImage source={habitat}>
@@ -173,6 +172,8 @@ function TaskCompletionScreen({ navigation, route }) {
           <AddText>+{waterSaved}</AddText>
         </StatContainer>
       </Container>
+      <Cannon origin={{ x: Dimensions.get("window").width - 10, y: 0 }} autoStartDelay={200} />
+      <Cannon origin={{ x: 0, y: 0 }} fadeOut />
     </TaskCompletionScreenContainer>
   );
 }

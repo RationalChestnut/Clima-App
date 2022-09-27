@@ -23,7 +23,7 @@ function DisplayActivityDescription({ item, navigation }) {
   };
 
   const handleNavigation = () => {
-    navigation.navigate("Activity", { item, imageURL });
+    navigation.navigate("Activity", { item, imageURL, destination: "All Activities Screen" });
   };
 
   useEffect(() => {

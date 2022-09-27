@@ -85,7 +85,7 @@ function TopPlayerCard({ style, rank, user }) {
         </Rank>
       </RankBackground>
       <PlayerName>{name}</PlayerName>
-      <Points>{points} EXP</Points>
+      <Points>{Math.round(points)} EXP</Points>
       <Level>Level {level}</Level>
     </CardContainer>
   );

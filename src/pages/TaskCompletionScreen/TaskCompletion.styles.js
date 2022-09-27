@@ -1,8 +1,8 @@
-import { Text, View, ImageBackground, Image } from "react-native";
+import { Text, View, ImageBackground, Image, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 
-export const TaskCompletionScreenContainer = styled(View)`
+export const TaskCompletionScreenContainer = styled(ScrollView)`
   flex: 1;
   background-color: white;
 `;
@@ -92,7 +92,7 @@ export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
   height: 400px;
   opacity: 1;
   align-items: center;
-  z-index: 999;
+  z-index: 998;
 `;
 
 export const Pet = styled(Image)`

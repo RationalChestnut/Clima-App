@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DisplayActivityInfoPageContainer } from "../DisplayActivityInfo/DisplayActivityInfo.styles";
-import { ActivitiesList, FilterIcon, Title, TopBar } from "./DisplayActivities.styles";
+import { ActivitiesList, Title, TopBar } from "./DisplayActivities.styles";
 import BackArrow from "../../../components/BackArrow.component";
 import DisplayActivityDescription from "./DisplayActivityDescription/DisplayActivityDescription.component";
 

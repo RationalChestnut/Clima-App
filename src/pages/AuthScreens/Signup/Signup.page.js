@@ -25,7 +25,7 @@ import { AuthenticationContext } from "../../../infrastructure/Authentication/Au
 
 // eslint-disable-next-line react/prop-types
 function Signup({ email, navigation }) {
-  const { onRegister, googleSignIn } = useContext(AuthenticationContext);
+  const { onRegister } = useContext(AuthenticationContext);
   const [nameState, setNameState] = useState("");
   const [emailState, setEmailState] = useState(email || "");
   const [passwordState, setPasswordState] = useState(null);
@@ -58,17 +58,6 @@ function Signup({ email, navigation }) {
           <ButtonTextSecondary>Login</ButtonTextSecondary>
           <RightArrow color="#0FA958" />
         </ButtonSecondary>
-        <ContinueWithText>or continue with</ContinueWithText>
-        <AuthContainer>
-          <FacebookSignIn>
-            <Facebook />
-            <ThirdPartySignInTextFacebook>Facebook</ThirdPartySignInTextFacebook>
-          </FacebookSignIn>
-          <GoogleSignIn onPress={() => googleSignIn()}>
-            <Google />
-            <ThirdPartySignInTextGoogle>Google</ThirdPartySignInTextGoogle>
-          </GoogleSignIn>
-        </AuthContainer>
       </FormContainer>
     </SignUpScreenContainer>
   );
