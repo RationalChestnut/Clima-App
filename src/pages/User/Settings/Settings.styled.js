@@ -47,30 +47,33 @@ export const UploadText = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
-export const SaveButton = styled(Button)``;
+export const SaveButton = styled(Button)`
+  margin-top: ${(props) => props.theme.sizes.md}px;
+`;
 
-export const NameEmptyWarning = styled(Text)`
+export const Warning = styled(Text)`
   color: ${(props) => props.theme.colors.orange};
   font-size: ${(props) => props.theme.fontSizes.body};
   text-align: center;
 `;
 
-export const NameEditContainer = styled(View)`
-  flex-direction: row;
-  width: undefined;
-  margin: 0 auto;
-  align-items: center;
-`;
-
-export const NameEditLabel = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.body};
-`;
-
-export const NameEditTextBox = styled(TextInput)`
-  width: 30%;
+export const InputContainer = styled(View)`
+  flex-direction: column;
+  width: 80%;
   margin: ${(props) => props.theme.sizes.md}px auto;
+  margin-top: 0;
+  align-self: stretch;
+  align-items: stretch;
+`;
+
+export const TextboxLabel = styled(Text)`
+  color: ${(props) => props.theme.colors.gray};
+  margin-bottom: 2px;
+  font-size: ${(props) => props.theme.fontSizes.caption};
+`;
+
+export const Textbox = styled(TextInput)`
   height: ${(props) => props.theme.sizes.lg}px;
-  padding: ${(props) => props.theme.sizes.xs}px;
-  border: 1px solid ${(props) => props.theme.colors.gray};
-  border-radius: ${(props) => props.theme.sizes.xs}px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.colors.gray};
 `;

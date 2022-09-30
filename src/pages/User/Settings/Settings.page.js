@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
+import firebase from "firebase/app";
+import "firebase/auth";
 import "firebase/storage";
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from "expo-image-picker";
@@ -21,21 +23,28 @@ import {
   BackArrowComponent,
   BackArrowButton,
   UploadText,
-  NameEditTextBox,
-  NameEditContainer,
-  NameEditLabel,
-  NameEmptyWarning,
+  InputContainer,
+  TextboxLabel,
+  Textbox,
+  Warning,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
 // eslint-disable-next-line react/prop-types
 function Settings({ navigation, route }) {
   const user = useContext(AuthenticationContext);
+  const firebaseUser = firebase.auth().currentUser;
   const theme = useContext(ThemeContext);
   const [photoUpdated, setPhotoUpdated] = useState(false);
   const [photo, setPhoto] = useState(route.params.profilePicture);
   const [displayWarning, setDisplayWarning] = useState(false);
+  const [displayWrongPassWarning, setDisplayWrongPassWarning] = useState(false);
+  const [newPassTooShortWarning, setNewPassTooShortWarning] = useState(false);
   const [name, setName] = useState(route.params.name);
+  const [email, setEmail] = useState(firebaseUser.email);
+  const [newPassword, setNewPassword] = useState(null);
+  const [currentPassword, setCurrentPassword] = useState(null);
+  const [passwordUpdated, setPasswordUpdated] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +56,7 @@ function Settings({ navigation, route }) {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== "granted") {
-      alert("Sorry, we need camera roll permissions to make this work!");
+      alert("We need camera roll permissions to make this work!");
     }
   };
 
@@ -75,16 +84,53 @@ function Settings({ navigation, route }) {
     }
   };
 
+  const handleEmailEdit = (text) => {
+    setEmail(text);
+
+    if (saveButtonDisabled) {
+      setSaveButtonDisabled(false);
+    }
+  };
+
+  const handleCurrentPasswordEdit = (text) => {
+    setCurrentPassword(text);
+  };
+
+  const handleNewPasswordEdit = (text) => {
+    setNewPassword(text);
+
+    if (!passwordUpdated) {
+      setPasswordUpdated(true);
+    }
+
+    if (saveButtonDisabled) {
+      setSaveButtonDisabled(false);
+    }
+  };
+
   const handleSave = async () => {
     try {
       setLoading(true);
       setSaveButtonDisabled(true);
 
-      if (!name || name.trim() === "") {
+      if (
+        !name ||
+        name.trim() === "" ||
+        !email ||
+        email.trim() === "" ||
+        !currentPassword ||
+        currentPassword.trim() === ""
+      ) {
         return setDisplayWarning(true);
       }
 
       setDisplayWarning(false);
+
+      await firebaseUser.reauthenticateWithCredential(
+        firebase.auth.EmailAuthProvider.credential(firebaseUser.email, currentPassword)
+      );
+
+      setDisplayWrongPassWarning(false);
 
       if (name !== route.params.name) {
         await axios.patch("http://localhost:5000/user/updateUser", {
@@ -92,6 +138,16 @@ function Settings({ navigation, route }) {
           name: name.trim(),
         });
       }
+
+      if (email !== firebaseUser.email) {
+        await firebaseUser.updateEmail(email.trim());
+      }
+
+      if (passwordUpdated) {
+        await firebaseUser.updatePassword(newPassword);
+      }
+
+      setNewPassTooShortWarning(false);
 
       if (photoUpdated) {
         const storageRef = storage.ref();
@@ -103,9 +159,26 @@ function Settings({ navigation, route }) {
         await imageRef.put(bytes);
       }
 
+      setCurrentPassword(null);
+      setNewPassword(null);
       setLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err.code);
+      console.log(err);
+
+      if (err.code === "auth/wrong-password") {
+        setDisplayWrongPassWarning(true);
+      }
+
+      if (err.code === "auth/weak-password") {
+        setNewPassTooShortWarning(true);
+      }
+
+      setEmail(firebaseUser.email);
+      setNewPassword(null);
+      setName(route.params.name);
+      setCurrentPassword(null);
+      setLoading(false);
     }
   };
 
@@ -173,11 +246,33 @@ function Settings({ navigation, route }) {
               </ProfilePicture>
             )}
           </ProfilePictureButton>
-          <NameEditContainer>
-            <NameEditLabel>Name: </NameEditLabel>
-            <NameEditTextBox value={name} onChangeText={handleNameEdit} />
-          </NameEditContainer>
-          {displayWarning ? <NameEmptyWarning>Name field cannot be empty!</NameEmptyWarning> : null}
+          <InputContainer>
+            <TextboxLabel>Name</TextboxLabel>
+            <Textbox value={name} onChangeText={handleNameEdit} />
+          </InputContainer>
+          <InputContainer>
+            <TextboxLabel>Email</TextboxLabel>
+            <Textbox value={email} onChangeText={handleEmailEdit} />
+          </InputContainer>
+          <InputContainer>
+            <TextboxLabel>New Password</TextboxLabel>
+            <Textbox value={newPassword} onChangeText={handleNewPasswordEdit} secureTextEntry />
+          </InputContainer>
+          <InputContainer>
+            <TextboxLabel>Current Password</TextboxLabel>
+            <Textbox
+              value={currentPassword}
+              onChangeText={handleCurrentPasswordEdit}
+              secureTextEntry
+            />
+          </InputContainer>
+          {displayWarning ? (
+            <Warning>Name, email, and current password cannot be empty!</Warning>
+          ) : null}
+          {displayWrongPassWarning ? <Warning>Incorrect password!</Warning> : null}
+          {newPassTooShortWarning ? (
+            <Warning>New password should be at least 6 characters!</Warning>
+          ) : null}
           <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
         </>
       ) : (
