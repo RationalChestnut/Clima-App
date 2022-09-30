@@ -247,7 +247,7 @@ function Settings({ navigation, route }) {
             )}
           </ProfilePictureButton>
           <InputContainer>
-            <TextboxLabel>Name</TextboxLabel>
+            <TextboxLabel>Username</TextboxLabel>
             <Textbox value={name} onChangeText={handleNameEdit} />
           </InputContainer>
           <InputContainer>

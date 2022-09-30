@@ -59,7 +59,7 @@ export const Warning = styled(Text)`
 
 export const InputContainer = styled(View)`
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: ${(props) => props.theme.sizes.md}px auto;
   margin-top: 0;
   align-self: stretch;
