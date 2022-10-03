@@ -77,7 +77,7 @@ function TaskCompletionScreen({ navigation, route }) {
   const {
     userExp,
     exp,
-    carbonReduced,
+    carbonRemoved,
     wasteRemoved,
     waterSaved,
     userCarbonReduced,
@@ -137,13 +137,13 @@ function TaskCompletionScreen({ navigation, route }) {
           <ValueNumber>
             <AnimateNumber
               initialValue={userCarbonReduced}
-              value={userCarbonReduced + carbonReduced}
+              value={userCarbonReduced + carbonRemoved}
               startAt={1000}
               formatter={(val) => `${parseFloat(val).toFixed(0)}`}
             />
             <Label>kg</Label>
           </ValueNumber>
-          <AddText>+{carbonReduced}</AddText>
+          <AddText>+{carbonRemoved}</AddText>
         </StatContainer>
         <StatContainer>
           <StatText>Total Waste Removed:</StatText>

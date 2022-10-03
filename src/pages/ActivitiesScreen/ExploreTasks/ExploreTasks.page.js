@@ -5,7 +5,6 @@ import aBetterFutureImage from "../../../../assets/images/a_better_future.jpg";
 import {
   ExploreTasksPage,
   ExploreTasksPageContainer,
-  ActionsSearchBar,
   Title,
   Description,
   TextContainer,
@@ -20,28 +19,9 @@ import {
 } from "./ExploreTasks.styles";
 
 import SliderComponent from "./CategorySlider/SliderComponent.component";
+import { categories } from "../../../data/categories.data";
 
 function ExploreTasks({ navigation }) {
-  const [data, setData] = useState([]);
-
-  const getAllCategories = async () => {
-    try {
-      const collectionResponse = await axios.get("http://localhost:5000/tasks/getCollectionInfo");
-      const arrayVersion = Object.entries(collectionResponse.data);
-      const dataToSet = [];
-      for (let i = 0; i < arrayVersion.length; i += 1) {
-        dataToSet.push(arrayVersion[i][1]);
-      }
-      setData(dataToSet);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategories();
-  }, []);
-
   return (
     <ExploreTasksPage>
       <ExploreTasksPageContainer>
@@ -68,8 +48,8 @@ function ExploreTasks({ navigation }) {
         </Touchable>
         <ActionTitle>Browse by category</ActionTitle>
         <Slider
-          data={data}
-          keyExtractor={(item) => item.title}
+          data={categories}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <SliderComponent image={item.image} title={item.title} navigation={navigation} />
           )}

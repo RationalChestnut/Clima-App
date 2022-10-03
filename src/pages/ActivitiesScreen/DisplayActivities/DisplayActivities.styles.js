@@ -14,4 +14,6 @@ export const Title = styled(Text)`
   margin-left: 8px;
 `;
 
-export const ActivitiesList = styled(FlatList)``;
+export const ActivitiesList = styled(FlatList)`
+  flex: 1;
+`;

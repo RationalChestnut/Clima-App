@@ -4,28 +4,11 @@ import { DisplayActivityInfoPageContainer } from "../DisplayActivityInfo/Display
 import { ActivitiesList, Title, TopBar } from "./DisplayActivities.styles";
 import BackArrow from "../../../components/BackArrow.component";
 import DisplayActivityDescription from "./DisplayActivityDescription/DisplayActivityDescription.component";
+import { tasks } from "../../../data/tasks.data";
 
 function DisplayActivitiesPage({ navigation, route }) {
   const { type } = route.params;
   const [data, setData] = useState([]);
-
-  const getAllTasks = async () => {
-    try {
-      const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getSpecificType = async () => {
-    try {
-      const res = await axios.get(`http://localhost:5000/tasks/getAllTasks/${type}`);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const renderItem = ({ item }) => (
     <DisplayActivityDescription item={item} navigation={navigation} />
@@ -33,9 +16,9 @@ function DisplayActivitiesPage({ navigation, route }) {
 
   useEffect(() => {
     if (type === "All Actions") {
-      getAllTasks();
+      setData(tasks);
     } else {
-      getSpecificType();
+      setData(tasks.filter((task) => task.type === type));
     }
   }, []);
 

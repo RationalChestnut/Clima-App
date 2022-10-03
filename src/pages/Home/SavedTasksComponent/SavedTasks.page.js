@@ -9,18 +9,19 @@ import {
   AddMoreText,
 } from "./SavedTasks.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
+import { tasks } from "../../../data/tasks.data";
 
 function SavedTasksPage({ navigation }) {
   const [data, setData] = useState([]);
   const { user } = useContext(AuthenticationContext);
-
   const getTaskData = async () => {
     try {
-      const savedRed = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
-      const userSavedTaskList = savedRed.data;
+      const savedRes = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
+      const userSavedTaskList = savedRes.data;
       const res = await axios.post(`http://localhost:5000/tasks/getMultipleTasks`, {
         listOfTaskIds: userSavedTaskList,
       });
+      const dataToAppend = [];
 
       await axios.get(`http://localhost:5000/user/getUser/${user}`).then((response) => {
         const userTotalData = response.data.totalData;
@@ -29,22 +30,17 @@ function SavedTasksPage({ navigation }) {
         const currentYear = date_ob.getFullYear();
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
-        if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
-          const completedTasks =
-            userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
-              .tasksCompletedIDs;
-          completedTasks?.forEach((completedTask) => {
-            const resultingData = res.data.listOfTasks.filter((task) => task.id === completedTask);
-            resultingData?.forEach((task) => {
-              // eslint-disable-next-line no-param-reassign
-              task.isCompleted = true;
-            });
-          });
-
-          setData(res.data.listOfTasks || []);
-        } else {
-          setData(res.data.listOfTasks || []);
+        const completedTasks =
+          userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
+            .tasksCompletedIDs;
+        for (let i = 0; i < userSavedTaskList.length; i += 1) {
+          const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
+          if (completedTasks.includes(correspondingTask[0].id)) {
+            correspondingTask[0].isCompleted = true;
+          }
+          dataToAppend.push(correspondingTask[0]);
         }
+        setData(dataToAppend);
       });
     } catch (err) {
       console.log(err);
@@ -61,10 +57,9 @@ function SavedTasksPage({ navigation }) {
       <FlatListContainer>
         {data?.map((task) => (
           <SavedTask
-            task={task.data}
+            task={task}
             key={task.id}
             navigation={navigation}
-            id={task.id}
             isTaskCompleted={task.isCompleted || false}
           />
         ))}

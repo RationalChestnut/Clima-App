@@ -12,44 +12,31 @@ import {
   Check,
 } from "./SavedTask.styles";
 
-import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function SavedTask({ task, navigation, id, isTaskCompleted }) {
-  const [image, setImage] = useState(null);
+function SavedTask({ task, navigation, isTaskCompleted }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
-  const imageCollector = async () => {
-    try {
-      if (task) {
-        const imageRef = storage.ref();
-        const imageRefImage = imageRef.child(`/${task.image}`);
-        const validImage = await imageRefImage.getDownloadURL();
-        setImage(validImage);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${id}`);
+      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
+        task,
+      });
       const {
         userExp,
         exp,
-        carbonReduced,
+        carbonRemoved,
         wasteRemoved,
         waterSaved,
         userCarbonReduced,
         userWasteRemoved,
         userWaterSaved,
       } = res.data;
-      setIsCompleted(true);
       navigation.navigate("Completion", {
         userExp,
         exp,
-        carbonReduced,
+        carbonRemoved,
         wasteRemoved,
         waterSaved,
         userCarbonReduced,
@@ -61,10 +48,6 @@ function SavedTask({ task, navigation, id, isTaskCompleted }) {
     }
   };
 
-  useEffect(() => {
-    imageCollector();
-  }, []);
-
   return (
     <SavedTaskContainer
       onPress={() =>
@@ -74,7 +57,7 @@ function SavedTask({ task, navigation, id, isTaskCompleted }) {
             screen: "Activity",
             params: {
               item: task,
-              imageURL: image,
+              imageURL: task.image,
               destination: "HomeScreen",
             },
           },
@@ -85,7 +68,7 @@ function SavedTask({ task, navigation, id, isTaskCompleted }) {
         <TaskTitle>{task.title}</TaskTitle>
         <TaskXP>+{task.exp} EXP</TaskXP>
       </TextContainer>
-      <ImageContainer source={{ uri: image || null }} />
+      <ImageContainer source={task.image} />
       <CheckMark onPress={completeTask}>
         {isTaskCompleted || isCompleted ? (
           <InnerCheckMark>

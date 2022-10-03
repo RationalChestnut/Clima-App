@@ -33,15 +33,17 @@ import BackArrow from "../../components/BackArrow.component";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
 function ActivityScreen({ navigation, route }) {
-  const { item, imageURL, destination } = route.params;
+  const { item, destination } = route.params;
   const { user } = useContext(AuthenticationContext);
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}/${item.id}`);
+      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
+        task: item,
+      });
       const {
         userExp,
         exp,
-        carbonReduced,
+        carbonRemoved,
         wasteRemoved,
         waterSaved,
         userCarbonReduced,
@@ -51,7 +53,7 @@ function ActivityScreen({ navigation, route }) {
       navigation.navigate("Completion", {
         userExp,
         exp,
-        carbonReduced,
+        carbonRemoved,
         wasteRemoved,
         waterSaved,
         userCarbonReduced,
@@ -70,6 +72,7 @@ function ActivityScreen({ navigation, route }) {
       console.log(err);
     }
   };
+
   return (
     <ActivityScreenContainer>
       <UpperBar>
@@ -80,11 +83,11 @@ function ActivityScreen({ navigation, route }) {
         <SubText>{item.type}</SubText>
       </TextContainer>
       <ImageContainer onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}>
-        <ActivityImage source={{ uri: imageURL || null }} />
+        <ActivityImage source={item.image} />
       </ImageContainer>
       <StatsContainer>
         <Stat>+{item.exp}exp</Stat>
-        <Stat>-{item.carbonReduced}kg CO2</Stat>
+        <Stat>-{item.carbonRemoved}kg CO2</Stat>
         <Stat>-{item.wasteRemoved}kg</Stat>
         <Stat>-{item.waterSaved}L</Stat>
       </StatsContainer>

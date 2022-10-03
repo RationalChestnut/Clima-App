@@ -23,6 +23,7 @@ export const DescriptionContainer = styled(View)`
 
 export const Title = styled(Text)`
   font-size: 24px;
+  width: 300px;
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 

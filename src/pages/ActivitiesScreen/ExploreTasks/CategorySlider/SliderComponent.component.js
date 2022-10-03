@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "firebase/storage";
-// import { getDownloadURL, ref } from "firebase/storage";
+import React from "react";
 import { Gradient } from "../ExploreTasks.styles";
 import { SliderComponentContainer, SliderTouchable, TitleText } from "./SliderComponent.styles";
-import { storage } from "../../../../infrastructure/Storage/storage.service";
 
 // eslint-disable-next-line react/prop-types
 function SliderComponent({ image, title, navigation }) {
-  const [imageURL, setImageURL] = useState("");
-
-  const getImage = async () => {
-    try {
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child(`/${image}`);
-      const validImage = await imageRef.getDownloadURL(imageRef);
-      setImageURL(validImage);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getImage();
-  }, []);
-
   return (
     <SliderTouchable
       onPress={() => navigation.navigate("DisplayListOfActivities", { type: title })}
     >
-      <SliderComponentContainer source={{ uri: imageURL || null }}>
+      <SliderComponentContainer source={image}>
         <Gradient>
           <TitleText>{title}</TitleText>
         </Gradient>
