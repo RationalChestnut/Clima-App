@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { ThemeContext } from "styled-components";
 import { FlatList } from "react-native";
 import axios from "axios";
@@ -45,9 +46,11 @@ function LeaderboardPage({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    getAllFriends();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAllFriends();
+    }, [])
+  );
 
   return !loading ? (
     <LeaderboardPageContainer>

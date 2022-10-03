@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
 
@@ -27,6 +27,7 @@ import sapling from "../../../assets/images/sapling.png";
 import tree from "../../../assets/images/tree.png";
 
 import { totalExpToLevel } from "../../utils/utils";
+import { useFocusEffect } from "@react-navigation/native";
 
 function PetScreen() {
   const theme = useContext(ThemeContext);
@@ -85,9 +86,11 @@ function PetScreen() {
     }
   };
 
-  useEffect(() => {
-    getStats();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getStats();
+    }, [])
+  );
 
   const pageContent = (
     <>
