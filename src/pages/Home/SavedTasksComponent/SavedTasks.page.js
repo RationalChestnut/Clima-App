@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import SavedTask from "./SavedTask.component";
 import {
@@ -51,9 +52,11 @@ function SavedTasksPage({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    getTaskData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getTaskData();
+    }, [])
+  );
 
   return (
     <PageContainer>
