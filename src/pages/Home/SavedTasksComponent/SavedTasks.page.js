@@ -32,8 +32,8 @@ function SavedTasksPage({ navigation }) {
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
         const completedTasks =
-          userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
-            .tasksCompletedIDs;
+          userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
+            ?.tasksCompletedIDs;
         for (let i = 0; i < userSavedTaskList.length; i += 1) {
           const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
           if (completedTasks.includes(correspondingTask[0].id)) {
@@ -54,19 +54,19 @@ function SavedTasksPage({ navigation }) {
     }, [])
   );
 
+  const renderSavedTask = ({ item }) => (
+    <SavedTask
+      task={item}
+      key={item.id}
+      navigation={navigation}
+      isTaskCompleted={item.isCompleted || false}
+    />
+  );
+
   return (
     <PageContainer>
       <SavedTasksText>Habits</SavedTasksText>
-      <FlatListContainer>
-        {data?.map((task) => (
-          <SavedTask
-            task={task}
-            key={task.id}
-            navigation={navigation}
-            isTaskCompleted={task.isCompleted || false}
-          />
-        ))}
-      </FlatListContainer>
+      <FlatListContainer data={data} renderItem={renderSavedTask} />
       <AddMoreButton
         onPress={() =>
           navigation.navigate("Activities", {

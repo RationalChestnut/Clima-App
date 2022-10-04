@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 
 export const SavedTasksText = styled(Text)`
@@ -7,7 +7,9 @@ export const SavedTasksText = styled(Text)`
   padding-left: 5px;
 `;
 
-export const FlatListContainer = styled(View)``;
+export const FlatListContainer = styled(FlatList)`
+  height: 400px;
+`;
 
 export const PageContainer = styled(View)`
   margin-bottom: ${(props) => props.theme.sizes.lg}px;
