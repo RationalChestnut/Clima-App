@@ -36,7 +36,7 @@ function SavedTasksPage({ navigation }) {
             ?.tasksCompletedIDs;
         for (let i = 0; i < userSavedTaskList.length; i += 1) {
           const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
-          if (completedTasks.includes(correspondingTask[0].id)) {
+          if (completedTasks?.includes(correspondingTask[0].id)) {
             correspondingTask[0].isCompleted = true;
           }
           dataToAppend.push(correspondingTask[0]);
