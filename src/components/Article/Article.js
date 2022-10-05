@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { AntDesign } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
-import { storage } from "../../infrastructure/Storage/storage.service";
 
 const ArticleLink = styled(TouchableOpacity)`
   flex: 1;
@@ -18,7 +17,8 @@ const ArticleContainer = styled(View)`
 `;
 
 const ArticleImage = styled(Image)`
-  flex: 1.1;
+  flex: 1;
+  max-height: 80px;
   border-radius: 15px;
   resize-mode: cover;
   align-self: stretch;
@@ -55,25 +55,6 @@ const Icon = styled(AntDesign)`
 `;
 // eslint-disable-next-line react/prop-types
 function Article({ title, image, link }) {
-  const [imageURI, setImageURI] = useState("");
-
-  const imageCollector = async () => {
-    try {
-      if (image) {
-        const imageRef = storage.ref();
-        const imageRefImage = imageRef.child(`/${image}`);
-        const validImage = await imageRefImage.getDownloadURL();
-        setImageURI(validImage);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    imageCollector();
-  }, []);
-
   return (
     <ArticleLink
       onPress={() => {
@@ -81,7 +62,7 @@ function Article({ title, image, link }) {
       }}
     >
       <ArticleContainer>
-        <ArticleImage source={{ uri: imageURI || null }} />
+        <ArticleImage source={image} />
         <Content>
           <Type>Article</Type>
           <Title>{title}</Title>

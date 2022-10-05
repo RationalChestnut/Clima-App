@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { loginRequest, signupRequest, auth } from "./authentication.service";
@@ -65,12 +66,14 @@ export function AuthenticationContextProvider({ children }) {
     },
     []
   );
+
   useEffect(() => {
     getData();
   }, []);
 
   return (
     <AuthenticationContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         isAuthenticated: !!user,
         user,

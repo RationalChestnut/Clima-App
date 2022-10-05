@@ -11,6 +11,7 @@ function Navigation() {
   if (isLoading) {
     return <SplashScreen />;
   }
+
   return (
     <NavigationContainer>
       {isAuthenticated ? (

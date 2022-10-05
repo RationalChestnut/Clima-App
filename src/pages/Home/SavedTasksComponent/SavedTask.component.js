@@ -14,11 +14,23 @@ import {
 
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
-function SavedTask({ task, navigation, isTaskCompleted }) {
+function SavedTask({
+  task,
+  navigation,
+  isTaskCompleted,
+  isPathTask = false,
+  pathNumber = 0,
+  sectionNumber = 0,
+}) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
 
   const completeTask = async () => {
+    if (isPathTask) {
+      const response = await axios.patch(
+        `http://localhost:5000/path/complete/${user}/${pathNumber}/${sectionNumber}/${task.id}`
+      );
+    }
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
         task,
@@ -43,6 +55,7 @@ function SavedTask({ task, navigation, isTaskCompleted }) {
         userWasteRemoved,
         userWaterSaved,
       });
+      setIsCompleted(true);
     } catch (err) {
       console.log(err);
     }

@@ -25,7 +25,6 @@ export const BrandText = styled(Text)`
 
 export const ImageContainer = styled(Image).attrs({ source: authImage })`
   height: 300px;
-  background-color: blue;
 `;
 
 export const FormContainer = styled(View)`

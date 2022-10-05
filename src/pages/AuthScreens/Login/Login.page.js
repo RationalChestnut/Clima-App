@@ -12,14 +12,8 @@ import {
   RightArrow,
   ButtonSecondary,
   ButtonTextSecondary,
-  ContinueWithText,
-  ThirdPartySignInTextFacebook,
-  FacebookSignIn,
-  GoogleSignIn,
-  AuthContainer,
-  ThirdPartySignInTextGoogle,
-  Facebook,
-  Google,
+  ForgotPassword,
+  ForgotPasswordText,
 } from "./Login.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -57,17 +51,9 @@ function Login({ navigation, email }) {
           <ButtonTextSecondary>Signup</ButtonTextSecondary>
           <RightArrow color="#0FA958" />
         </ButtonSecondary>
-        <ContinueWithText>or continue with</ContinueWithText>
-        <AuthContainer>
-          <FacebookSignIn>
-            <Facebook />
-            <ThirdPartySignInTextFacebook>Facebook</ThirdPartySignInTextFacebook>
-          </FacebookSignIn>
-          <GoogleSignIn>
-            <Google />
-            <ThirdPartySignInTextGoogle>Google</ThirdPartySignInTextGoogle>
-          </GoogleSignIn>
-        </AuthContainer>
+        <ForgotPassword onPress={() => navigation.navigate("Reset")}>
+          <ForgotPasswordText>Reset password</ForgotPasswordText>
+        </ForgotPassword>
       </FormContainer>
     </SignUpScreenContainer>
   );

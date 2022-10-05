@@ -6,7 +6,7 @@ function IconComponent({ image }) {
   return (
     <IconLayerOne>
       <IconLayerTwo>
-        <Icon source={{ uri: image }} />
+        <Icon source={image} />
       </IconLayerTwo>
     </IconLayerOne>
   );

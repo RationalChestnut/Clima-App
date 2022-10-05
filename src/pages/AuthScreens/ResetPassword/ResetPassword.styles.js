@@ -11,15 +11,21 @@ export const SignUpScreenContainer = styled(View)`
 `;
 
 export const UpperBar = styled(View)`
-  flex-direction: row;
-  align-items: center;
   margin-top: 20px;
+  margin-left: -20px;
 `;
 
 export const BrandText = styled(Text)`
   color: white;
-  font-size: 42px;
+  font-size: 36px;
   font-family: ${(props) => props.theme.fonts.heading};
+  margin-top: 8px;
+`;
+
+export const SubBrandText = styled(Text)`
+  color: white;
+  font-family: ${(props) => props.theme.fonts.heading};
+  margin-top: 8px;
 `;
 
 export const ImageContainer = styled(View)`
@@ -43,7 +49,7 @@ export const Input = styled(TextInput).attrs({
 })`
   width: 90%;
   background-color: white;
-  margin-top: 5px;
+  margin-top: 25px;
 `;
 
 export const Button = styled(TouchableOpacity)`
@@ -54,29 +60,11 @@ export const Button = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   border-radius: 10px;
-  margin-top: ${(props) => props.theme.sizes.md}px;
-`;
-
-export const ButtonSecondary = styled(TouchableOpacity)`
-  width: 90%;
-  padding: 10px;
-  height: 50px;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid ${(props) => props.theme.colors.highlightGreen};
-  border-radius: 10px;
-  margin-top: ${(props) => props.theme.sizes.md}px;
+  margin-top: 75px;
 `;
 
 export const ButtonText = styled(Text).attrs({ includeFontPadding: false })`
   color: white;
-  font-size: 20px;
-  font-family: ${(props) => props.theme.fonts.heading};
-  padding-left: 20px;
-`;
-
-export const ButtonTextSecondary = styled(Text).attrs({ includeFontPadding: false })`
-  color: ${(props) => props.theme.colors.highlightGreen};
   font-size: 20px;
   font-family: ${(props) => props.theme.fonts.heading};
   padding-left: 20px;

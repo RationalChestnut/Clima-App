@@ -5,6 +5,7 @@ import Login from "../../pages/AuthScreens/Login/Login.page";
 import Signup from "../../pages/AuthScreens/Signup/Signup.page";
 import OnboardingPage from "../../pages/Onboarding/Onboarding.page";
 import SplashScreen from "../../pages/SplashScreen/SplashScreen.page";
+import ResetPassword from "../../pages/AuthScreens/ResetPassword/ResetPassword.page";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ function UnAuthNavigator() {
       {isFirstLaunch ? <Stack.Screen name="Onboard" component={OnboardingPage} /> : null}
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Reset" component={ResetPassword} />
     </Stack.Navigator>
   );
 }

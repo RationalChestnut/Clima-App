@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 export const ActivitiesPageContainer = styled(ScrollView)`
@@ -17,6 +17,6 @@ export const BarContainer = styled(View)`
   margin-top: 8px;
 `;
 
-export const TasksContainer = styled(View)`
+export const TasksContainer = styled(FlatList)`
   padding-bottom: 40px;
 `;

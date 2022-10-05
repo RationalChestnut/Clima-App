@@ -23,3 +23,5 @@ export const loginRequest = (email, password) => auth.signInWithEmailAndPassword
 
 export const signupRequest = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
+
+export const resetEmail = (email) => auth.sendPasswordResetEmail(email);

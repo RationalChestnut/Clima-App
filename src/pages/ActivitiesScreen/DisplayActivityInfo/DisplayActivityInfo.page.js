@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { TabView, TabBar } from "react-native-tab-view";
 import { useWindowDimensions } from "react-native";
 import {
   DisplayActivityInfoPageContainer,
@@ -13,7 +13,7 @@ import Activities from "./Activities/Activities.screen";
 import Learn from "../../Learn/Learn.page";
 
 function DisplayActivityInfo({ route }) {
-  const { pathItem, navigation, image, pathNumber, sectionNumber } = route.params;
+  const { pathItem, navigation, pathNumber, sectionNumber } = route.params;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -51,7 +51,7 @@ function DisplayActivityInfo({ route }) {
   );
   return (
     <DisplayActivityInfoPageContainer>
-      <ActivityPageBackground source={{ uri: image }}>
+      <ActivityPageBackground source={pathItem.image}>
         <Spacer>
           <BackArrow color="white" navigation={navigation} />
           <ActivityTitle>{pathItem.title}</ActivityTitle>
