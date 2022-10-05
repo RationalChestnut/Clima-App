@@ -4,6 +4,7 @@ import { ThemeContext } from "styled-components/native";
 
 import { Text } from "react-native";
 import Tooltip from "rn-tooltip";
+import { useFocusEffect } from "@react-navigation/native";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import QuestionMarkComponent from "../../components/QuestionMark/QuestionMark.component";
 import BarComponent from "./Bar/Bar.component";
@@ -27,7 +28,6 @@ import sapling from "../../../assets/images/sapling.png";
 import tree from "../../../assets/images/tree.png";
 
 import { totalExpToLevel } from "../../utils/utils";
-import { useFocusEffect } from "@react-navigation/native";
 
 function PetScreen() {
   const theme = useContext(ThemeContext);

@@ -8,10 +8,10 @@ import { tasks } from "../../../data/tasks.data";
 
 function DisplayActivitiesPage({ navigation, route }) {
   const { type } = route.params;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   const renderItem = ({ item }) => (
-    <DisplayActivityDescription item={item} navigation={navigation} />
+    <DisplayActivityDescription item={item} navigation={navigation} key={item.id} />
   );
 
   useEffect(() => {
@@ -28,7 +28,9 @@ function DisplayActivitiesPage({ navigation, route }) {
         <BackArrow navigation={navigation} style={{ marginLeft: 12 }} />
         <Title>{type}</Title>
       </TopBar>
-      <ActivitiesList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} />
+      {data ? (
+        <ActivitiesList data={data} renderItem={renderItem} initialNumToRender={data.length} />
+      ) : null}
     </DisplayActivityInfoPageContainer>
   );
 }
