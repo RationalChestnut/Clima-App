@@ -14,6 +14,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // eslint-disable-next-line no-unused-vars
+
 export const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
 
 // Providers
@@ -25,3 +26,5 @@ export const signupRequest = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 
 export const resetEmail = (email) => auth.sendPasswordResetEmail(email);
+
+export const logout = () => auth.signOut();

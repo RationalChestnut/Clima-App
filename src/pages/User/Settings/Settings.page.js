@@ -182,6 +182,10 @@ function Settings({ navigation, route }) {
     }
   };
 
+  const handleLogout = () => {
+    user.logout();
+  };
+
   return (
     <SettingsPageContainer>
       {!loading ? (
@@ -274,6 +278,7 @@ function Settings({ navigation, route }) {
             <Warning>New password should be at least 6 characters!</Warning>
           ) : null}
           <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
+          <SaveButton title="Logout" onPress={handleLogout} />
         </>
       ) : (
         <Loading color={theme.colors.lightGreen} />

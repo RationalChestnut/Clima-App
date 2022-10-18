@@ -9,6 +9,10 @@ import plug from "../../assets/images/plug.png";
 import thermostat from "../../assets/images/thermostat.jpeg";
 import water_heater from "../../assets/images/water-heater.jpeg";
 import unplug from "../../assets/images/unplug.png";
+import treeGrowing from "../../assets/images/treeGrowing.png";
+import compost from "../../assets/images/compost.jpeg";
+import runningTap from "../../assets/images/runningTap.png";
+import grass from "../../assets/images/grass.jpeg";
 
 // eslint-disable-next-line import/prefer-default-export
 export const tasks = [
@@ -209,5 +213,81 @@ export const tasks = [
     ],
     linkToPurchase: "https://amzn.to/3CnBqCE",
     image: filter,
+  },
+
+  {
+    id: "dsaofuhg87858324",
+    title: "Plant a Tree",
+    type: "Outdoor Activities",
+    description:
+      "Planting a tree is a well known but effective way to reduce carbon emissions. Trees absorb carbon dioxide from the atmosphere and store it. The best part? Trees continuously absorb carbon dioxide for decades on end making them a worthwhile investment.",
+    exp: 100,
+    carbonRemoved: 25,
+    wasteRemoved: 5,
+    waterSaved: 0,
+    statistics: [
+      "In one year a mature tree will absorb 25kg of carbon dioxide and release oxygen in exchange!",
+      "Trees’ roots also help keep soil in place reducing erosion",
+      "Trees also absorb heat and cool the ground beneath themselves",
+    ],
+    linkToPurchase: "https://amzn.to/3Rseart",
+    image: treeGrowing,
+  },
+
+  {
+    id: "a8s7dh785",
+    title: "Check & Fix Any Water Leaks",
+    type: "Conserve Water",
+    description:
+      "According to the EPA, the average household's leaks can account for nearly 10,000 gallons of water wasted every year and ten percent of homes have leaks that waste 90 gallons or more per day. Common types of leaks found in the home are worn toilet flappers, dripping faucets, and other leaking valves. ",
+    exp: 360,
+    carbonRemoved: 0,
+    wasteRemoved: 0,
+    waterSaved: 90,
+    statistics: [
+      "Check your water meter before and after a two-hour period when no water is being used",
+      "Take a look at your water usage during a colder month, such as January or February. If a family of four exceeds 12,000 gallons per month, there are serious leaks.",
+      "Examine faucet gaskets and pipe fittings for any water on the outside of the pipe to check for surface leaks.",
+    ],
+    linkToPurchase: "https://amzn.to/3CnBqCE",
+    image: runningTap,
+  },
+
+  {
+    id: "sdf6876r5tfd7s",
+    title: "Start a Compost",
+    type: "Outdoor Activities",
+    description:
+      "Composting organic waste versus landfilling can reduce more than 50% of carbon dioxide-equivalent greenhouse gas emissions of the waste. Composting is a natural way to provide nutrients to plants and enhances productivity while also storing carbon in the soil. Composts act as carbon sinks.",
+    exp: 1652,
+    carbonRemoved: 413,
+    wasteRemoved: 240,
+    waterSaved: 0,
+    statistics: [
+      "American families produce an average of 9kg of food waste a month",
+      "Every kilogram of food thrown away results in 3.8kg of greehouse gas emissions",
+      "Begin composting to reduce this number by 50%! Boost your plants while lowering carbon emissions!",
+    ],
+    linkToPurchase: "https://amzn.to/3SFJjJv",
+    image: compost,
+  },
+  {
+    id: "23946374932",
+    title: "Leave grass clippings on the yard",
+    type: "Outdoor Activities",
+    description:
+      "Leaving your grass clippings in the yard may seem counterintuitive, but doing so actually saves you time while also helping the environment.",
+    exp: 20,
+    carbonRemoved: 1,
+    wasteRemoved: 3,
+    waterSaved: 2,
+    statistics: [
+      "Leaving lawn clippings out provides your lawn with free food. As the clippings decompose, nitrogen and potassium are absorbed by the soil.",
+      "Clippings in fact do not cause thatch and are mostly made of water.",
+      "Saves the need to buy environmentally unfriendly fertilizer.",
+      "If you see signs of lawn disease, do throw away your clippings to prevent the disease from spreading.",
+    ],
+    linkToPurchase: "https://amzn.to/3MFC2ad",
+    image: grass,
   },
 ];

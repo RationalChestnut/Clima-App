@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import "firebase/storage";
 import {
   ImageContainer,

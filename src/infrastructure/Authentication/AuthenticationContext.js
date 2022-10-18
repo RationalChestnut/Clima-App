@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import { loginRequest, signupRequest, auth } from "./authentication.service";
+import { loginRequest, signupRequest, auth, logout } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
@@ -81,6 +81,7 @@ export function AuthenticationContextProvider({ children }) {
         error,
         onLogin,
         onRegister,
+        logout,
       }}
     >
       {children}

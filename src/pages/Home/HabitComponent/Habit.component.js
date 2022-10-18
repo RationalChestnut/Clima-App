@@ -1,6 +1,7 @@
 /* eslint-disable radix */
 /* eslint-disable no-nested-ternary */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import {
   HabitsContainer,
@@ -18,6 +19,16 @@ function Habit({ navigation }) {
   const { user } = useContext(AuthenticationContext);
   const [actionsLogged, setActionsLogged] = useState(0);
 
+  const weekCount = (year, month_number) => {
+    // month_number is in the range 1..12
+    const firstOfMonth = new Date(year, month_number - 1, 1);
+    const lastOfMonth = new Date(year, month_number - 1, 0);
+
+    const used = firstOfMonth.getDay() + 6 + lastOfMonth.getDate();
+
+    return Math.floor(used / 7);
+  };
+
   const getWeekData = async () => {
     try {
       axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
@@ -28,118 +39,106 @@ function Habit({ navigation }) {
         const currentDay = date_ob.getDay();
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
-        const dataToAppend = [];
-
         if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
           setActionsLogged(
             userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
               .numTasksCompleted
           );
-        }
+        } // works
 
+        const dataToAppend = [];
+
+        // console.log(userTotalData[currentYear][currentMonth]);
+
+        const data = [];
         if (
           userTotalData[currentYear] &&
           userTotalData[currentYear][currentMonth] &&
           userTotalData[currentYear][currentMonth][currentWeek]
         ) {
-          const thisWeekData = userTotalData[currentYear][currentMonth][currentWeek];
-          const daysOfTheWeek = Object.keys(thisWeekData);
-          let monthCounter = currentMonth;
-          let dayCounter;
-          const dateDataToAppend = [];
-          for (let i = daysOfTheWeek.length - 1; i >= 0; i -= 1) {
-            if (parseInt(daysOfTheWeek[i]) < 1) {
-              monthCounter -= 1;
-              // Year is broken
-              dayCounter = new Date(currentYear, monthCounter, 0).getDate();
-              dateDataToAppend.push(userTotalData[currentYear][monthCounter][4][dayCounter] || "");
+          let year = currentYear;
+          let month = currentMonth;
+          let week = currentWeek;
+          let thisDay = day;
+          for (let i = currentDay; i > 0; i -= 1) {
+            if (userTotalData[year]?.[month]?.[week]?.[thisDay]) {
+              dataToAppend.push({
+                completed:
+                  userTotalData[year][month][week][thisDay].tasksCompleted.numTasksCompleted,
+                dayOfTheWeek: new Date(year, month - 1, thisDay).getDay(),
+              });
             } else {
-              dateDataToAppend.push(
-                userTotalData[currentYear][currentMonth][currentWeek][daysOfTheWeek[i]] || ""
-              );
-            }
-          }
-          // Issue is when it is the start of the month and it is not a monday
-          // We need to map the current day in terms of the month to the current day in terms of week and get the prior days of the week's data
-
-          // check if theres a 1 in this weekdata thats not monday, figure out how many days we need to fill in the week
-          // if there is we get the last week of last month's data
-          // the last [number] of days from that week
-
-          for (let i = 1; i <= 7; i += 1) {
-            const dayName =
-              i === 1
-                ? "Mon"
-                : i === 2
-                ? "Tue"
-                : i === 3
-                ? "Wed"
-                : i === 4
-                ? "Thu"
-                : i === 5
-                ? "Fri"
-                : i === 6
-                ? "Sat"
-                : "Sun";
-            const objectToPush = {};
-            if (i === currentDay % 7) {
-              objectToPush.currentDay = true;
+              // console.log(userTotalData[year]?.[month]);
+              dataToAppend.push(null);
             }
 
-            // const assignedDayValue = thisWeekData[]; // ERROR THIS PROBABLY WILL NOT WORK
-            if (dateDataToAppend[i] && dateDataToAppend[i] !== "") {
-              dataToAppend.push({ ...objectToPush, day: dayName, completed: true });
+            if (thisDay - 1 >= 1) {
+              thisDay -= 1;
             } else {
-              dataToAppend.push({ ...objectToPush, day: dayName });
-            }
+              const now = new Date();
+              const daysInMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+              thisDay = daysInMonth;
 
-            // if (!assignedDayValue) {
-            //   if (i < currentDay % 7) {
-            //     dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
-            //   } else {
-            //     dataToAppend.push({ ...objectToPush, day: dayName });
-            //   }
-            // } else {
-            //   dataToAppend.push({ ...objectToPush, day: dayName, completed: true });
-            // }
-          }
-        } else {
-          for (let i = 1; i <= 7; i += 1) {
-            const dayName =
-              i === 1
-                ? "Mon"
-                : i === 2
-                ? "Tue"
-                : i === 3
-                ? "Wed"
-                : i === 4
-                ? "Thu"
-                : i === 5
-                ? "Fri"
-                : i === 6
-                ? "Sat"
-                : "Sun";
-            const objectToPush = {};
-            if (i === currentDay % 7) {
-              objectToPush.currentDay = true;
-            }
-            if (i < currentDay % 7) {
-              dataToAppend.push({ ...objectToPush, day: dayName, completed: false });
-            } else {
-              dataToAppend.push({ ...objectToPush, day: dayName });
+              if (month - 1 >= 1) {
+                month -= 1;
+                // Get number of weeks in month
+
+                week = weekCount(year, month);
+              } else {
+                year -= 1;
+                month = 12;
+                week = weekCount(year, month);
+              }
             }
           }
         }
-        setDays(dataToAppend);
+
+        dataToAppend.sort((a, b) => {
+          if (a?.dayOfTheWeek >= b?.dayOfTheWeek) {
+            return 1;
+          }
+          return -1;
+        });
+
+        for (let i = 1; i <= 7; i += 1) {
+          const dayName =
+            i === 1
+              ? "Mon"
+              : i === 2
+              ? "Tue"
+              : i === 3
+              ? "Wed"
+              : i === 4
+              ? "Thu"
+              : i === 5
+              ? "Fri"
+              : i === 6
+              ? "Sat"
+              : "Sun";
+          const objectToPush = {};
+          if (i === currentDay % 7) {
+            objectToPush.currentDay = true;
+          }
+          if (dataToAppend[i - 1]) {
+            data.push({ ...objectToPush, day: dayName, completed: true });
+          } else if (i < currentDay) {
+            data.push({ ...objectToPush, day: dayName, completed: false });
+          } else {
+            data.push({ ...objectToPush, day: dayName });
+          }
+        }
+        setDays(data);
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    getWeekData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getWeekData();
+    }, [])
+  );
 
   return (
     <HabitsContainer>
