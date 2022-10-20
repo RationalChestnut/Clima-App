@@ -12,12 +12,10 @@ function BackArrow({ color, navigation, style, icon, iconStyle, destination }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        if (destination) {
-          navigation.navigate("All Activities Screen");
-          navigation.navigate(destination);
-        } else {
-          navigation.goBack();
+        if (destination === "HomeScreen") {
+          navigation.navigate("Home");
         }
+        navigation.goBack();
       }}
       style={style}
     >

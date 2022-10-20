@@ -28,7 +28,13 @@ function DisplayActivitiesPage({ navigation, route }) {
         <Title>{type}</Title>
       </TopBar>
       {data ? (
-        <ActivitiesList data={data} renderItem={renderItem} initialNumToRender={data.length} />
+        <ActivitiesList
+          data={data}
+          renderItem={renderItem}
+          initialNumToRender={data.length}
+          maxToRenderPerBatch={10}
+          windowSize={200}
+        />
       ) : null}
     </DisplayActivityInfoPageContainer>
   );

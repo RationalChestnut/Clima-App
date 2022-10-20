@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const SettingsPageContainer = styled(View)`
   flex: 1;
+  background-color: white;
 `;
 
 export const BackArrowButton = styled(TouchableOpacity)`

@@ -263,7 +263,7 @@ export const tasks = [
   {
     id: "a8s7dh785",
     title: "Check & Fix Any Water Leaks",
-    type: "Conserve Water",
+    type: "Save Water",
     description:
       "According to the EPA, the average household's leaks can account for nearly 10,000 gallons of water wasted every year and ten percent of homes have leaks that waste 90 gallons or more per day. Common types of leaks found in the home are worn toilet flappers, dripping faucets, and other leaking valves. ",
     exp: 360,
@@ -718,24 +718,6 @@ export const tasks = [
   },
   {
     id: "h218746sad",
-    title: "Timed Shower",
-    type: "Save Water",
-    description:
-      "On average, every minute of shower use uses around 2 gallons of water, and the shower of an average American lasts about 8 minutes. If you’re the person that takes 30-minute showers, you’re using around 60 gallons of water each time! According to the Environmental Protection Agency, if every American cut their shower time by one minute, we would save 165 billion gallons of water per year.",
-    exp: 244,
-    carbonRemoved: 0,
-    wasteRemoved: 0,
-    waterSaved: 61,
-    statistics: [
-      "Set a timer",
-      "Even better, creating a 7 minute shower playlist can help you keep track of how long you’ve been in the shower and remind you when you should be getting out. ",
-      "Stick to a shower routine so you can save the time you spend deciding whether to wash your hair or shave your legs",
-    ],
-    linkToPurchase: "https://amzn.to/3yQpDuz",
-    image: shower,
-  },
-  {
-    id: "9j8264j9",
     title: "Timed Shower",
     type: "Save Water",
     description:

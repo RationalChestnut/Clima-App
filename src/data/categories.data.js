@@ -15,8 +15,10 @@ export const categories = [
     id: "2187346rhagd",
   },
   {
-    title: "Conserve Water",
+    title: "Save Water",
     image: water,
     id: "8grfhb230878f7g",
   },
+
+  // Reduce trash
 ];

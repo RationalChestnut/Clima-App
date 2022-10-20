@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
@@ -14,7 +14,7 @@ export const SignUpScreenContainer = styled(View)`
 export const UpperBar = styled(View)`
   flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 75px;
 `;
 
 export const BrandText = styled(Text)`
@@ -23,18 +23,29 @@ export const BrandText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 
+export const PrivacyPolicy = styled(Text)`
+  margin-top: 20px;
+  font-size: 12px;
+  font-family: ${(props) => props.theme.fonts.body};
+`;
+
 export const ImageContainer = styled(Image).attrs({ source: authImage })`
-  height: 300px;
+  margin-top: 40px;
+  width: 100%;
+  height: 150px;
 `;
 
 export const FormContainer = styled(View)`
+  align-items: center;
+  flex: 1;
   background-color: white;
+  padding-top: 10px;
+`;
+
+export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
   width: 100%;
   flex: 1;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  align-items: center;
-  padding-top: 10px;
+  height: 100px;
 `;
 
 export const Input = styled(TextInput).attrs({

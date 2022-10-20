@@ -21,12 +21,15 @@ export const ImageContainer = styled(Image).attrs((props) => ({
   border-radius: 10px;
 `;
 
-export const TextContainer = styled(View)``;
+export const TextContainer = styled(View)`
+  flex: 1;
+`;
 
 export const TaskTitle = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.title};
   font-family" ${(props) => props.theme.fonts.heading};
   color: #485E6B;
+
 `;
 
 export const TaskXP = styled(Text)`

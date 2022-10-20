@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
@@ -28,13 +28,17 @@ export const ImageContainer = styled(View)`
 `;
 
 export const FormContainer = styled(View)`
-  background-color: white;
-  width: 100%;
-  flex: 1;
+  align-items: center;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
-  align-items: center;
-  padding-top: 10px;
+  flex: 1;
+`;
+
+export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
+  width: 100%;
+  flex: 1;
+  height: 100px;
+  background-color: white;
 `;
 
 export const Input = styled(TextInput).attrs({

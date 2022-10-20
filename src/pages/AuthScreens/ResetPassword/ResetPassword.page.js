@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { Platform } from "react-native";
 import {
-  Logo,
   SignUpScreenContainer,
   UpperBar,
   BrandText,
@@ -11,15 +11,15 @@ import {
   ButtonText,
   RightArrow,
   SubBrandText,
+  KeyboardAvoidingContainer,
 } from "./ResetPassword.styles";
-import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import BackArrow from "../../../components/BackArrow.component";
 import { resetEmail } from "../../../infrastructure/Authentication/authentication.service";
 
 // eslint-disable-next-line react/prop-types
 function Login({ navigation }) {
   const [emailState, setEmailState] = useState("");
-
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
   const handleReset = () => {
     resetEmail(emailState.trim())
       .then(() => {
@@ -37,19 +37,27 @@ function Login({ navigation }) {
         <BrandText>Forgot Password?</BrandText>
         <SubBrandText>Enter your email address to reset your password</SubBrandText>
       </UpperBar>
-      <ImageContainer />
-      <FormContainer>
-        <Input
-          label="Email"
-          onChangeText={(text) => setEmailState(text)}
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <Button onPress={handleReset}>
-          <ButtonText>Request verification email</ButtonText>
-          <RightArrow color="white" />
-        </Button>
-      </FormContainer>
+
+      <KeyboardAvoidingContainer
+        behavior="position"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <ImageContainer />
+
+        <FormContainer>
+          <Input
+            label="Password"
+            onChangeText={(text) => setEmailState(text)}
+            secureTextEntry
+            textContentType="password"
+          />
+          <Button onPress={handleReset}>
+            <ButtonText>Request verification email</ButtonText>
+            <RightArrow color="white" />
+          </Button>
+        </FormContainer>
+      </KeyboardAvoidingContainer>
     </SignUpScreenContainer>
   );
 }

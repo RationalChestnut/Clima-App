@@ -10,7 +10,7 @@ import {
 
 function DisplayActivityDescription({ item, navigation }) {
   const handleNavigation = () => {
-    navigation.navigate("Activity", { destination: "All Activities Screen", item });
+    navigation.navigate("Activity", { destination: item.type, item });
   };
 
   return (

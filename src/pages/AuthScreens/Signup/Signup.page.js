@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Platform } from "react-native";
 import {
   Logo,
   SignUpScreenContainer,
@@ -12,14 +13,8 @@ import {
   RightArrow,
   ButtonSecondary,
   ButtonTextSecondary,
-  ContinueWithText,
-  ThirdPartySignInTextFacebook,
-  FacebookSignIn,
-  GoogleSignIn,
-  AuthContainer,
-  ThirdPartySignInTextGoogle,
-  Facebook,
-  Google,
+  KeyboardAvoidingContainer,
+  PrivacyPolicy,
 } from "./Signup.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -29,36 +24,47 @@ function Signup({ email, navigation }) {
   const [nameState, setNameState] = useState("");
   const [emailState, setEmailState] = useState(email || "");
   const [passwordState, setPasswordState] = useState(null);
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+
   return (
     <SignUpScreenContainer>
       <UpperBar>
         <Logo />
         <BrandText>Clima</BrandText>
       </UpperBar>
-      <ImageContainer />
-      <FormContainer>
-        <Input label="Name" onChangeText={(text) => setNameState(text)} />
-        <Input
-          label="Email"
-          onChangeText={(text) => setEmailState(text)}
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <Input
-          label="Password"
-          onChangeText={(text) => setPasswordState(text)}
-          secureTextEntry
-          textContentType="password"
-        />
-        <Button onPress={() => onRegister(nameState, emailState, passwordState)}>
-          <ButtonText>Signup</ButtonText>
-          <RightArrow color="white" />
-        </Button>
-        <ButtonSecondary onPress={() => navigation.navigate("Login", { email: emailState })}>
-          <ButtonTextSecondary>Login</ButtonTextSecondary>
-          <RightArrow color="#0FA958" />
-        </ButtonSecondary>
-      </FormContainer>
+      <KeyboardAvoidingContainer
+        behavior="position"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <ImageContainer />
+        <FormContainer>
+          <Input label="Name" onChangeText={(text) => setNameState(text)} />
+          <Input
+            label="Email"
+            onChangeText={(text) => setEmailState(text)}
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <Input
+            label="Password"
+            onChangeText={(text) => setPasswordState(text)}
+            secureTextEntry
+            textContentType="password"
+          />
+          <Button onPress={() => onRegister(nameState, emailState, passwordState)}>
+            <ButtonText>Signup</ButtonText>
+            <RightArrow color="white" />
+          </Button>
+          <ButtonSecondary onPress={() => navigation.navigate("Login", { email: emailState })}>
+            <ButtonTextSecondary>Login</ButtonTextSecondary>
+            <RightArrow color="#0FA958" />
+          </ButtonSecondary>
+          <PrivacyPolicy>
+            By signing up, I agree to the privacy policy and terms of use
+          </PrivacyPolicy>
+        </FormContainer>
+      </KeyboardAvoidingContainer>
     </SignUpScreenContainer>
   );
 }
