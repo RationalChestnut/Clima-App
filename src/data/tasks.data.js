@@ -448,10 +448,10 @@ export const tasks = [
     type: "Food & Drink",
     description:
       "We all know that veggies are healthy, but they can also help reduce carbon emissions! For example, cows can burp up to 100kg of methane per year. In comparison, plants burp zero!",
-    exp: 12516,
+    exp: 18000,
     carbonRemoved: 9,
     wasteRemoved: 0,
-    waterSaved: 4163,
+    waterSaved: 9463,
     statistics: [
       "If every American stopped eating meat for just a day each week, in one year around 1.4 billions animals would be spared.",
       "It takes around 1,700 gallons of water to produce a single pound of beef. In comparison, only 39 gallons of water are needed to produce a pound of vegetables.",
@@ -521,7 +521,7 @@ export const tasks = [
     type: "Food & Drink",
     description:
       "We have all seen that local coffee shop switching to paper straws (cough cough Starbucks), but how effective is this? Well, by using a paper straw you are saving around 0.08 grams of CO2 emissions. Worth it? Up to you.",
-    exp: 120,
+    exp: 1,
     carbonRemoved: 0.01,
     wasteRemoved: 0.0004,
     waterSaved: 0,

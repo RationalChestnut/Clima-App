@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../../../assets/images/white_icon.png";
+import loginImage from "../../../../assets/images/loginImage.png";
 
 export const SignUpScreenContainer = styled(View)`
   flex: 1;
@@ -22,9 +23,10 @@ export const BrandText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 
-export const ImageContainer = styled(View)`
-  height: 325px;
-  background-color: blue;
+export const ImageContainer = styled(Image).attrs({ source: loginImage })`
+  height: 310px;
+  width: 100%;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
 `;
 
 export const FormContainer = styled(View)`

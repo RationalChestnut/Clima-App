@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../../../assets/images/white_icon.png";
+import reset from "../../../../assets/images/reset.png";
 
 export const SignUpScreenContainer = styled(View)`
   flex: 1;
@@ -28,9 +29,11 @@ export const SubBrandText = styled(Text)`
   margin-top: 8px;
 `;
 
-export const ImageContainer = styled(View)`
+export const ImageContainer = styled(Image).attrs({
+  source: reset,
+})`
   height: 325px;
-  background-color: blue;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
   width: 100%;
 `;
 
