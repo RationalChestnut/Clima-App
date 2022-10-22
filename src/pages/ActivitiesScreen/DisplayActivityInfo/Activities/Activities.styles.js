@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-export const ActivitiesPageContainer = styled(ScrollView)`
+export const ActivitiesPageContainer = styled(View)`
   width: 100%;
   padding: 20px 10px;
 `;

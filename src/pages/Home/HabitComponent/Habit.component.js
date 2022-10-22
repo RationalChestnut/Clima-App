@@ -39,7 +39,7 @@ function Habit({ navigation }) {
         const currentDay = date_ob.getDay();
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
-        if (userTotalData[currentYear][currentMonth][currentWeek][day]) {
+        if (userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]) {
           setActionsLogged(
             userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted
               .numTasksCompleted
@@ -48,18 +48,17 @@ function Habit({ navigation }) {
 
         const dataToAppend = [];
 
-        // console.log(userTotalData[currentYear][currentMonth]);
-
         const data = [];
         if (
-          userTotalData[currentYear] &&
-          userTotalData[currentYear][currentMonth] &&
-          userTotalData[currentYear][currentMonth][currentWeek]
+          userTotalData?.[currentYear] &&
+          userTotalData?.[currentYear]?.[currentMonth] &&
+          userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]
         ) {
           let year = currentYear;
           let month = currentMonth;
           let week = currentWeek;
           let thisDay = day;
+
           for (let i = currentDay; i > 0; i -= 1) {
             if (userTotalData[year]?.[month]?.[week]?.[thisDay]) {
               dataToAppend.push({
@@ -68,7 +67,6 @@ function Habit({ navigation }) {
                 dayOfTheWeek: new Date(year, month - 1, thisDay).getDay(),
               });
             } else {
-              // console.log(userTotalData[year]?.[month]);
               dataToAppend.push(null);
             }
 
@@ -81,13 +79,21 @@ function Habit({ navigation }) {
 
               if (month - 1 >= 1) {
                 month -= 1;
-                // Get number of weeks in month
 
                 week = weekCount(year, month);
               } else {
                 year -= 1;
                 month = 12;
                 week = weekCount(year, month);
+              }
+            }
+
+            if (thisDay % 7 === 0) {
+              if (week === 1) {
+                month -= 1;
+                week = weekCount(year, month);
+              } else {
+                week -= 1;
               }
             }
           }

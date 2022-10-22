@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useCallback, useState, useContext } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import BarComponent from "../../../PetScreen/Bar/Bar.component";
 import {
@@ -26,32 +27,31 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
   };
   const getCompletedTasks = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/path/getCompletedPathTask/${user}/${pathNumber}/${sectionNumber}/`
-      );
-      setCompletedTasks(res.data);
+      const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
+      setCompletedTasks(res.data.uniqueTasks);
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    getAllTasks();
-    getCompletedTasks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAllTasks();
+      getCompletedTasks();
+    }, [])
+  );
 
   const renderSavedTask = ({ item }) => (
     <SavedTask
       task={item}
       key={item.id}
       navigation={navigation}
-      isTaskCompleted={item.isCompleted || false}
+      isTaskCompleted={completedTasks.includes(item.id)}
       isPathTask
       sectionNumber={sectionNumber}
       pathNumber={pathNumber}
     />
   );
-
   return (
     <ActivitiesPageContainer>
       <ProgressText>

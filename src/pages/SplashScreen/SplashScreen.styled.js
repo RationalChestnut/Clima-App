@@ -12,6 +12,6 @@ export const SplashScreenPage = styled(View)`
 export const SplashImage = styled(Image).attrs({
   source: icon,
 })`
-  width: 125px;
-  height: 125px;
+  width: 65px;
+  height: 65px;
 `;

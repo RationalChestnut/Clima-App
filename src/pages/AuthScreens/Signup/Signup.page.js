@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Platform } from "react-native";
+import * as WebBrowser from "expo-web-browser";
 import {
   Logo,
   SignUpScreenContainer,
@@ -15,6 +16,8 @@ import {
   ButtonTextSecondary,
   KeyboardAvoidingContainer,
   PrivacyPolicy,
+  BrowserLink,
+  BrowserLinkText,
 } from "./Signup.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -61,7 +64,14 @@ function Signup({ email, navigation }) {
             <RightArrow color="#0FA958" />
           </ButtonSecondary>
           <PrivacyPolicy>
-            By signing up, I agree to the privacy policy and terms of use
+            By signing up, I agree to the
+            <BrowserLink
+              onPress={() => {
+                WebBrowser.openBrowserAsync("https://clima-privacy-policy.netlify.app/");
+              }}
+            >
+              <BrowserLinkText> privacy policy</BrowserLinkText>
+            </BrowserLink>
           </PrivacyPolicy>
         </FormContainer>
       </KeyboardAvoidingContainer>

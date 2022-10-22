@@ -14,7 +14,11 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {false ? <MainNavigator styles={{ backgroundColor: "white" }} /> : <UnAuthNavigator />}
+      {isAuthenticated ? (
+        <MainNavigator styles={{ backgroundColor: "white" }} />
+      ) : (
+        <UnAuthNavigator />
+      )}
     </NavigationContainer>
   );
 }

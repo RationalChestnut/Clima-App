@@ -32,23 +32,25 @@ export const SubBrandText = styled(Text)`
 export const ImageContainer = styled(Image).attrs({
   source: reset,
 })`
-  height: 325px;
   background-color: ${(props) => props.theme.colors.defaultGreen};
+  height: 275px;
   width: 100%;
+  margin-bottom: 50px;
 `;
 
 export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
   width: 100%;
   flex: 1;
   height: 100px;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
+  margin-top: 60px;
 `;
 
 export const FormContainer = styled(View)`
-  background-color: white;
   width: 100%;
   align-items: center;
-  padding-top: 10px;
+  flex: 1;
+  background-color: white;
 `;
 
 export const Input = styled(TextInput).attrs({
@@ -68,7 +70,7 @@ export const Button = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   border-radius: 10px;
-  margin-top: 75px;
+  margin-top: 50px;
 `;
 
 export const ButtonText = styled(Text).attrs({ includeFontPadding: false })`

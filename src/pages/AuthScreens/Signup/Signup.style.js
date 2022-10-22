@@ -1,7 +1,7 @@
 import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import logo from "../../../../assets/images/white_icon.png";
 import authImage from "../../../../assets/images/auth.png";
 
@@ -24,9 +24,12 @@ export const BrandText = styled(Text)`
 `;
 
 export const PrivacyPolicy = styled(Text)`
-  margin-top: 20px;
   font-size: 12px;
   font-family: ${(props) => props.theme.fonts.body};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 export const ImageContainer = styled(Image).attrs({ source: authImage })`
@@ -102,64 +105,26 @@ export const RightArrow = styled(AntDesign).attrs((props) => ({
   padding-right: 20px;
 `;
 
-export const HorizontalLine = styled(View)`
-  border-bottom: 1px solid black;
-  width: 50%;
-  height: 1px;
-`;
-
-export const ContinueWithText = styled(Text)`
-  margin-top: ${(props) => props.theme.sizes.md}px;
-`;
-
-export const GoogleSignIn = styled(TouchableOpacity)`
-  width: 45%;
-  height: 50px;
-  border-radius: 40px;
-  padding: 5px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  background-color: #f7f7f7;
-  margin-left: 5px;
-`;
-
-export const FacebookSignIn = styled(TouchableOpacity)`
-  width: 45%;
-  height: 50px;
-  border-radius: 40px;
-  padding: 5px;
-  background-color: #1b76f0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  margin-right: 5px;
-`;
-
-export const Facebook = styled(FontAwesome).attrs({ name: "facebook", size: 24, color: "white" })`
-  margin-right: 10px;
-`;
-export const Google = styled(FontAwesome).attrs({ name: "google", size: 24, color: "red" })`
-  margin-right: 10px;
-`;
-
 export const AuthContainer = styled(View)`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
 `;
 
-export const ThirdPartySignInTextFacebook = styled(Text)`
-  color: white;
-  font-size: 16px;
-`;
-export const ThirdPartySignInTextGoogle = styled(Text)`
-  font-size: 16px;
-`;
-
 export const Logo = styled(Image).attrs({
   source: logo,
 })`
-  width: 70px;
-  height: 70px;
+  width: 55px;
+  height: 55px;
+`;
+
+export const BrowserLink = styled(TouchableOpacity)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const BrowserLinkText = styled(Text)`
+  font-size: 12px;
+  margin-bottom: 0.8px;
 `;

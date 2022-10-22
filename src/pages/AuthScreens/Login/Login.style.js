@@ -106,8 +106,8 @@ export const HorizontalLine = styled(View)`
 export const Logo = styled(Image).attrs({
   source: logo,
 })`
-  width: 70px;
-  height: 70px;
+  width: 55px;
+  height: 55px;
 `;
 
 export const ForgotPassword = styled(TouchableOpacity)`

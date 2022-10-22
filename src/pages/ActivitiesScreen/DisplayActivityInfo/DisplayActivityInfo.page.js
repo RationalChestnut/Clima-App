@@ -20,7 +20,6 @@ function DisplayActivityInfo({ route }) {
     { key: "activities", title: "Activities" },
     { key: "learn_more", title: "Learn More" },
   ]);
-
   const renderScene = ({ route, jumpTo }) => {
     // eslint-disable-next-line default-case
     switch (route.key) {
