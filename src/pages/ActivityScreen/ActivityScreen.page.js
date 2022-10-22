@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import * as WebBrowser from "expo-web-browser";
+import Toast from "react-native-toast-message";
+
 import {
   ActivityScreenContainer,
   UpperBar,
@@ -67,7 +69,14 @@ function ActivityScreen({ navigation, route }) {
 
   const saveTask = async () => {
     try {
-      const res = await axios.patch(`http://localhost:5000/user/saveTask/${user}/${item.id}`);
+      await axios.patch(`http://localhost:5000/user/saveTask/${user}/${item.id}`);
+      Toast.show({
+        type: "success",
+        text1: "Howdy👋 Eco-Activist",
+        text2: "Your task saved sucessfully!",
+        position: "top",
+        onPress: () => Toast.hide(),
+      });
     } catch (err) {
       console.log(err);
     }

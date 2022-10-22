@@ -66,7 +66,8 @@ function SavedTasksPage({ navigation }) {
   return (
     <PageContainer>
       <SavedTasksText>Habits</SavedTasksText>
-      <FlatListContainer data={data} renderItem={renderSavedTask} />
+      {data ? <FlatListContainer data={data} renderItem={renderSavedTask} /> : <></>}
+
       <AddMoreButton
         onPress={() =>
           navigation.navigate("Activities", {

@@ -18,16 +18,42 @@ import {
   PrivacyPolicy,
   BrowserLink,
   BrowserLinkText,
+  ErrorText,
 } from "./Signup.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
 // eslint-disable-next-line react/prop-types
 function Signup({ email, navigation }) {
   const { onRegister } = useContext(AuthenticationContext);
+  const [errorText, setErrorText] = useState("");
   const [nameState, setNameState] = useState("");
   const [emailState, setEmailState] = useState(email || "");
   const [passwordState, setPasswordState] = useState(null);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+
+  const validateEmail = (userEmail) =>
+    String(userEmail)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+
+  const onHandleRegister = async () => {
+    if (
+      nameState &&
+      nameState.trim() !== "" &&
+      !validateEmail(email) &&
+      passwordState &&
+      passwordState.trim() !== ""
+    ) {
+      const signup = await onRegister(nameState.trim(), emailState.trim(), passwordState.trim());
+      if (signup.type === "Error") {
+        setErrorText(signup.message);
+      }
+    } else {
+      setErrorText("Please fill in all fields");
+    }
+  };
 
   return (
     <SignUpScreenContainer>
@@ -55,7 +81,9 @@ function Signup({ email, navigation }) {
             secureTextEntry
             textContentType="password"
           />
-          <Button onPress={() => onRegister(nameState, emailState, passwordState)}>
+          {errorText !== "" && <ErrorText>{errorText}</ErrorText>}
+
+          <Button onPress={onHandleRegister}>
             <ButtonText>Signup</ButtonText>
             <RightArrow color="white" />
           </Button>

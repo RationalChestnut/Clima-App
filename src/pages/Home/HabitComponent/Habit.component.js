@@ -39,6 +39,34 @@ function Habit({ navigation }) {
         const currentDay = date_ob.getDay();
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
+
+        if (res.data.exp === 0) {
+          const data = [];
+          for (let i = 1; i <= 7; i += 1) {
+            const dayName =
+              i === 1
+                ? "Mon"
+                : i === 2
+                ? "Tue"
+                : i === 3
+                ? "Wed"
+                : i === 4
+                ? "Thu"
+                : i === 5
+                ? "Fri"
+                : i === 6
+                ? "Sat"
+                : "Sun";
+            const objectToPush = {};
+            if (i === currentDay % 7) {
+              objectToPush.currentDay = true;
+            }
+            data.push({ ...objectToPush, day: dayName });
+          }
+          setDays(data);
+          return;
+        }
+
         if (userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]) {
           setActionsLogged(
             userTotalData[currentYear][currentMonth][currentWeek][day].tasksCompleted

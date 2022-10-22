@@ -10,24 +10,28 @@ export function AuthenticationContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
 
-  const onLogin = (email, password) => {
-    loginRequest(email, password)
-      .then((u) => {
-        setUser(u.user.uid);
-      })
-      .catch((err) => {
-        setError(err.toString());
-      });
+  const onLogin = async (email, password) => {
+    try {
+      const u = await loginRequest(email, password);
+      setUser(u.user.uid);
+
+      return { type: "Success", message: "User successfully registered" };
+    } catch (err) {
+      setError(err.toString());
+      return { type: "Error", message: err.toString() };
+    }
   };
 
-  const onRegister = (name, email, password) => {
-    signupRequest(email, password)
-      .then((u) => {
-        createNewUser(name, email, u.user.uid); // Creates user in our database
-      })
-      .catch((err) => {
-        setError(err.toString());
-      });
+  const onRegister = async (name, email, password) => {
+    try {
+      const u = await signupRequest(email, password);
+      await createNewUser(name, email, u.user.uid); // Creates user in our database
+
+      return { type: "Success", message: "User successfully registered" };
+    } catch (err) {
+      setError(err.toString());
+      return { type: "Error", message: err.toString() };
+    }
   };
 
   const createNewUser = async (name, email, id) => {

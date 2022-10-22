@@ -12,6 +12,7 @@ import {
   RightArrow,
   SubBrandText,
   KeyboardAvoidingContainer,
+  Message,
 } from "./ResetPassword.styles";
 import BackArrow from "../../../components/BackArrow.component";
 import { resetEmail } from "../../../infrastructure/Authentication/authentication.service";
@@ -19,14 +20,16 @@ import { resetEmail } from "../../../infrastructure/Authentication/authenticatio
 // eslint-disable-next-line react/prop-types
 function Login({ navigation }) {
   const [emailState, setEmailState] = useState("");
+  const [message, setMessage] = useState({ type: "error", message: "" });
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+
   const handleReset = () => {
     resetEmail(emailState.trim())
       .then(() => {
-        console.log("Request email sent");
+        setMessage({ type: "success", message: "Email sent, please check your spam folder" });
       })
       .catch((err) => {
-        console.log(err);
+        setMessage({ type: "error", message: err.message });
       });
   };
 
@@ -47,11 +50,15 @@ function Login({ navigation }) {
 
         <FormContainer>
           <Input
-            label="Password"
+            label="Email"
             onChangeText={(text) => setEmailState(text)}
-            secureTextEntry
-            textContentType="password"
+            textContentType="emailAddress"
           />
+          {message.message !== "" && (
+            <Message style={{ color: message.type === "success" ? "#4BB543" : "#ff0033" }}>
+              {message.message}
+            </Message>
+          )}
           <Button onPress={handleReset}>
             <ButtonText>Request verification email</ButtonText>
             <RightArrow color="white" />

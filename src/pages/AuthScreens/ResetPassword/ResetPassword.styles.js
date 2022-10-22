@@ -70,7 +70,7 @@ export const Button = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 25px;
 `;
 
 export const ButtonText = styled(Text).attrs({ includeFontPadding: false })`
@@ -113,4 +113,12 @@ export const ForgotPasswordText = styled(Text)`
   text-decoration: underline;
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.heading};
+`;
+
+export const Message = styled(Text)`
+  color: #ff0033;
+  font-size: 14px;
+  margin-top: 24px;
+  text-align: center;
+  max-width: 95%;
 `;

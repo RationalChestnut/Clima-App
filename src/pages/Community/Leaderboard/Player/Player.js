@@ -52,7 +52,6 @@ function Player({ user, rank }) {
     } catch (err) {
       switch (err.code) {
         case "storage/object-not-found":
-          console.log("not found");
           image = null;
           break;
         case "storage/unknown":

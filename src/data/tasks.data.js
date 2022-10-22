@@ -448,7 +448,7 @@ export const tasks = [
     type: "Food & Drink",
     description:
       "We all know that veggies are healthy, but they can also help reduce carbon emissions! For example, cows can burp up to 100kg of methane per year. In comparison, plants burp zero!",
-    exp: 18000,
+    exp: 500,
     carbonRemoved: 9,
     wasteRemoved: 0,
     waterSaved: 9463,

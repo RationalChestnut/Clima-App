@@ -122,3 +122,10 @@ export const ForgotPasswordText = styled(Text)`
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.heading};
 `;
+
+export const ErrorText = styled(Text)`
+  margin-top: 12px;
+  color: #ff0033;
+  font-size: 14px;
+  max-width: 95%;
+`;

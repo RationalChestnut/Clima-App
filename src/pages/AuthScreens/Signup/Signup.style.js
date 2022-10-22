@@ -128,3 +128,10 @@ export const BrowserLinkText = styled(Text)`
   font-size: 12px;
   margin-bottom: 0.8px;
 `;
+
+export const ErrorText = styled(Text)`
+  margin-top: 12px;
+  color: #ff0033;
+  font-size: 14px;
+  max-width: 95%;
+`;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import {
@@ -9,6 +9,7 @@ import {
 import { useFonts as useHind, Hind_400Regular } from "@expo-google-fonts/hind";
 import { ThemeProvider } from "styled-components/native";
 
+import Toast from "react-native-toast-message";
 import Navigation from "./src/infrastructure/navigation";
 import theme from "./src/infrastructure/theme";
 import { AuthenticationContextProvider } from "./src/infrastructure/Authentication/AuthenticationContext";
@@ -33,6 +34,7 @@ export default function App() {
         <SafeAreaView style={{ flex: 1 }} edges={["right", "top", "left"]}>
           <AuthenticationContextProvider>
             <Navigation />
+            <Toast />
           </AuthenticationContextProvider>
         </SafeAreaView>
       </ThemeProvider>
