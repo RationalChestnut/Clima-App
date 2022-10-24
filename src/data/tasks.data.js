@@ -737,7 +737,7 @@ export const tasks = [
   {
     id: "p98yrb-92",
     title: "Reuse ink cartridges",
-    type: "Reduce Trash",
+    type: "Reduce Waste",
     description:
       "You can refill your ink cartridges up to four times! Creating an ink cartridge puts about 10.5 pounds of CO2 into the atmosphere. Simple refilling your cartridges can have a huge impact on the environment.",
     exp: 95,
@@ -754,7 +754,7 @@ export const tasks = [
   {
     id: "p98yrb-92194t2y",
     title: "Go thrifting",
-    type: "Reduce Trash",
+    type: "Reduce Waste",
     description:
       "You never know what unique pieces you might find at a local thrift store! Plus, it helps the environment tremendously by keeping clothes away from landfills and saving the water used to produce the cotton used in clothes.",
     exp: 300,
@@ -772,7 +772,7 @@ export const tasks = [
   {
     id: "9374b623df",
     title: "Recycle Bottles",
-    type: "Reduce Trash",
+    type: "Reduce Waste",
     description:
       "Plastic water bottles occupy valuable space in landfills, where they take 450 years to disintegrate, pollute the ocean, damage the natural environment, and may even end up in our water! Yes, harmful chemicals in plastics can contaminate water bodies when not recycled properly, and possibly end up in our drinking water.",
     exp: 2,

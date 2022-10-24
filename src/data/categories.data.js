@@ -1,6 +1,7 @@
 import home from "../../assets/images/home.jpeg";
 import outside from "../../assets/images/outside.jpeg";
 import water from "../../assets/images/water.jpeg";
+import reduceWaste from "../../assets/images/reduceWaste.jpeg";
 
 // eslint-disable-next-line import/prefer-default-export
 export const categories = [
@@ -19,6 +20,9 @@ export const categories = [
     image: water,
     id: "8grfhb230878f7g",
   },
-
-  // Reduce trash
+  {
+    title: "Reduce Waste",
+    image: reduceWaste,
+    id: "3845tigwehdf",
+  },
 ];
