@@ -78,3 +78,9 @@ export const Textbox = styled(TextInput)`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.colors.gray};
 `;
+
+export const Email = styled(Text)`
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 24px;
+`;

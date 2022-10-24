@@ -95,13 +95,7 @@ function PetScreen() {
   const pageContent = (
     <>
       <PetImage source={habitat}>
-        {pet.image ? (
-          <Pet
-            source={pet.image}
-            resizeMode="contain"
-            style={{ width: pet.width, height: pet.height }}
-          />
-        ) : null}
+        {pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}
       </PetImage>
       <NameInput value={`${pet.name} (${pet.type})`} />
       <BarContainer>

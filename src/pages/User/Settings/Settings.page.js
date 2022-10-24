@@ -9,6 +9,7 @@ import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
+import { Text } from "react-native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
@@ -27,6 +28,7 @@ import {
   TextboxLabel,
   Textbox,
   Warning,
+  Email,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -279,6 +281,7 @@ function Settings({ navigation, route }) {
           ) : null}
           <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
           <SaveButton title="Logout" onPress={handleLogout} />
+          <Email>Any questions or suggestions? Email climamobileapp@gmail.com</Email>
         </>
       ) : (
         <Loading color={theme.colors.lightGreen} />

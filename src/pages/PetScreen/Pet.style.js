@@ -5,8 +5,8 @@ import { TextInput } from "react-native-paper";
 export const PetScreenContainer = styled(View)`
   flex: 1;
   align-items: center;
-  background-color: white;
   padding-bottom: 35px;
+  background-color: white;
 `;
 
 export const PetInfoContainer = styled(View)`
@@ -50,19 +50,19 @@ export const Mood = styled(Text)`
   margin-left: auto;
 `;
 
-export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
+export const PetImage = styled(View).attrs({ resizeMode: "cover" })`
   width: 100%;
   height: 525px;
-  opacity: 1;
   align-items: center;
   justify-content: center;
   flex: 6;
 `;
 
 export const Pet = styled(Image)`
+  height: 400px;
+  width: 400px;
   position: absolute;
-  bottom: 50px;
-  background-color: rgba(0, 240, 64, 0.1);
+  bottom: 35px;
 `;
 
 export const NameInput = styled(TextInput).attrs({
