@@ -36,7 +36,7 @@ function Habit({ navigation }) {
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;
         const currentYear = date_ob.getFullYear();
-        const currentDay = date_ob.getDay();
+        const currentDay = date_ob.getDay() === 0 ? 7 : date_ob.getDay();
         const day = date_ob.getDate();
         const currentWeek = Math.ceil(day / 7);
 
@@ -56,9 +56,9 @@ function Habit({ navigation }) {
                 ? "Fri"
                 : i === 6
                 ? "Sat"
-                : "Sun";
+                : i === 7 && "Sun";
             const objectToPush = {};
-            if (i === currentDay % 7) {
+            if (i === currentDay) {
               objectToPush.currentDay = true;
             }
             data.push({ ...objectToPush, day: dayName });
@@ -148,9 +148,9 @@ function Habit({ navigation }) {
               ? "Fri"
               : i === 6
               ? "Sat"
-              : "Sun";
+              : i === 7 && "Sun";
           const objectToPush = {};
-          if (i === currentDay % 7) {
+          if (i === currentDay) {
             objectToPush.currentDay = true;
           }
           if (dataToAppend[i - 1]) {
