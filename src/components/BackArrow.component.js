@@ -22,7 +22,6 @@ function BackArrow({
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log(destination);
         if (destination === "HomeScreen") {
           navigation.navigate("All Activities Screen");
           navigation.navigate("Home");

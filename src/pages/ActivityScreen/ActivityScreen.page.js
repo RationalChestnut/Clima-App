@@ -103,7 +103,11 @@ function ActivityScreen({ navigation, route }) {
         <TitleText>{item.title}</TitleText>
         <SubText>{item.type}</SubText>
       </TextContainer>
-      <ImageContainer onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}>
+      <ImageContainer
+        onPress={() =>
+          item.linkToPurchase !== "" ? WebBrowser.openBrowserAsync(item.linkToPurchase) : null
+        }
+      >
         <ActivityImage source={item.image} />
       </ImageContainer>
       <StatsContainer>
@@ -162,10 +166,15 @@ function ActivityScreen({ navigation, route }) {
             ))}
           </ListContainer>
         </ListItemsContainer>
-        <LinkToPurchaseContainer onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}>
-          <LinkToPurchaseTitle>Purchase:</LinkToPurchaseTitle>
-          <LinkToPurchase>{item.linkToPurchase}</LinkToPurchase>
-        </LinkToPurchaseContainer>
+        {item.linkToPurchase === "" ||
+          (!item.linkToPurchase && (
+            <LinkToPurchaseContainer
+              onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}
+            >
+              <LinkToPurchaseTitle>Purchase:</LinkToPurchaseTitle>
+              <LinkToPurchase>{item.linkToPurchase}</LinkToPurchase>
+            </LinkToPurchaseContainer>
+          ))}
       </InfoContainer>
     </ActivityScreenContainer>
   );
