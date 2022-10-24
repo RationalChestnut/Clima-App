@@ -18,22 +18,19 @@ function SavedTask({
   task,
   navigation,
   isTaskCompleted,
-  isPathTask = false,
-  pathNumber = 0,
-  sectionNumber = 0,
+  isPathPage = false,
+  pathNumber,
+  sectionNumber,
+  pathItem,
 }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
 
   const completeTask = async () => {
-    if (isPathTask) {
-      const response = await axios.patch(
-        `http://localhost:5000/path/complete/${user}/${pathNumber}/${sectionNumber}/${task.id}`
-      );
-    }
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
         task,
+        sliderValue: 1,
       });
       const {
         userExp,
@@ -57,6 +54,7 @@ function SavedTask({
       });
       setIsCompleted(true);
     } catch (err) {
+      console.log(task);
       console.log(err);
     }
   };
@@ -71,7 +69,10 @@ function SavedTask({
             params: {
               item: task,
               imageURL: task.image,
-              destination: "HomeScreen",
+              pathNumber,
+              sectionNumber,
+              destination: isPathPage ? "Path" : "HomeScreen",
+              pathItem,
             },
           },
         })

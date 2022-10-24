@@ -40,7 +40,7 @@ import BackArrow from "../../components/BackArrow.component";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
 function ActivityScreen({ navigation, route }) {
-  const { item, destination } = route.params;
+  const { item, destination, pathNumber, sectionNumber, pathItem } = route.params;
   const { user } = useContext(AuthenticationContext);
   const [sliderValue, setSliderValue] = useState(0);
   const completeTask = async () => {
@@ -91,7 +91,13 @@ function ActivityScreen({ navigation, route }) {
   return (
     <ActivityScreenContainer>
       <UpperBar>
-        <BackArrow navigation={navigation} destination={destination} />
+        <BackArrow
+          navigation={navigation}
+          destination={destination}
+          pathNumber={pathNumber}
+          sectionNumber={sectionNumber}
+          pathItem={pathItem}
+        />
       </UpperBar>
       <TextContainer>
         <TitleText>{item.title}</TitleText>
@@ -101,10 +107,12 @@ function ActivityScreen({ navigation, route }) {
         <ActivityImage source={item.image} />
       </ImageContainer>
       <StatsContainer>
-        <Stat>+{item.exp * sliderValue}exp</Stat>
-        <Stat>-{item.carbonRemoved * sliderValue}kg CO2</Stat>
-        <Stat>-{item.wasteRemoved}kg</Stat>
-        <Stat>-{item.waterSaved}L</Stat>
+        <Stat>+{item.exp * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}exp</Stat>
+        <Stat>
+          -{item.carbonRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}kg CO2
+        </Stat>
+        <Stat>-{item.wasteRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}kg</Stat>
+        <Stat>-{item.waterSaved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}L</Stat>
       </StatsContainer>
       <SliderValue>
         {sliderValue === 0 ? sliderValue + item.minValue : sliderValue} {item.valueMessage}

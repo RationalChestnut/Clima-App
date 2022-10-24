@@ -8,13 +8,31 @@ const BackArrowComponent = styled(AntDesign).attrs({
   size: 28,
 })``;
 
-function BackArrow({ color, navigation, style, icon, iconStyle, destination }) {
+function BackArrow({
+  color,
+  navigation,
+  style,
+  icon,
+  iconStyle,
+  destination,
+  pathNumber,
+  sectionNumber,
+  pathItem,
+}) {
   return (
     <TouchableOpacity
       onPress={() => {
         if (destination === "HomeScreen") {
           navigation.navigate("All Activities Screen");
           navigation.navigate("Home");
+        } else if (destination === "Path") {
+          navigation.navigate("All Activities Screen");
+          navigation.navigate("DisplayActivityInfoScreen", {
+            pathNumber,
+            sectionNumber,
+            pathItem,
+            navigation,
+          });
         } else if (destination) {
           navigation.navigate("DisplayListOfActivities", { type: destination });
         } else {

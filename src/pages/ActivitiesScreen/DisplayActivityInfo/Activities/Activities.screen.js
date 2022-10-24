@@ -12,7 +12,7 @@ import SavedTask from "../../../Home/SavedTasksComponent/SavedTask.component";
 import { AuthenticationContext } from "../../../../infrastructure/Authentication/AuthenticationContext";
 import { tasks } from "../../../../data/tasks.data";
 
-function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
+function Activities({ tasksList, navigation, pathNumber, sectionNumber, pathItem }) {
   const [tasksData, setTasksData] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const { user } = useContext(AuthenticationContext);
@@ -28,7 +28,8 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
   const getCompletedTasks = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
-      setCompletedTasks(res.data.uniqueTasks);
+      const intersection = tasksList.filter((element) => res.data.uniqueTasks.includes(element));
+      setCompletedTasks(intersection);
     } catch (err) {
       console.log(err);
     }
@@ -50,6 +51,8 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber }) {
       isPathTask
       sectionNumber={sectionNumber}
       pathNumber={pathNumber}
+      isPathPage
+      pathItem={pathItem}
     />
   );
   return (

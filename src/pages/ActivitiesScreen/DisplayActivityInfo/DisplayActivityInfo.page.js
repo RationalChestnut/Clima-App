@@ -31,6 +31,7 @@ function DisplayActivityInfo({ route }) {
             jumpTo={jumpTo}
             pathNumber={pathNumber}
             sectionNumber={sectionNumber}
+            pathItem={pathItem}
           />
         );
       default:
