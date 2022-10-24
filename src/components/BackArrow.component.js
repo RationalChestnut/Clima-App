@@ -13,9 +13,13 @@ function BackArrow({ color, navigation, style, icon, iconStyle, destination }) {
     <TouchableOpacity
       onPress={() => {
         if (destination === "HomeScreen") {
+          navigation.navigate("All Activities Screen");
           navigation.navigate("Home");
+        } else if (destination) {
+          navigation.navigate("DisplayListOfActivities", { type: destination });
+        } else {
+          navigation.goBack();
         }
-        navigation.goBack();
       }}
       style={style}
     >

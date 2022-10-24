@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import * as WebBrowser from "expo-web-browser";
 import Toast from "react-native-toast-message";
@@ -30,6 +30,11 @@ import {
   LinkToPurchaseContainer,
   LinkToPurchase,
   LinkToPurchaseTitle,
+  ValueSlider,
+  SliderDescription,
+  SliderDescriptionLeft,
+  SliderDescriptionRight,
+  SliderValue,
 } from "./ActivityScreen.styled";
 import BackArrow from "../../components/BackArrow.component";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
@@ -37,10 +42,12 @@ import { AuthenticationContext } from "../../infrastructure/Authentication/Authe
 function ActivityScreen({ navigation, route }) {
   const { item, destination } = route.params;
   const { user } = useContext(AuthenticationContext);
+  const [sliderValue, setSliderValue] = useState(0);
   const completeTask = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
         task: item,
+        sliderValue,
       });
       const {
         userExp,
@@ -81,7 +88,6 @@ function ActivityScreen({ navigation, route }) {
       console.log(err);
     }
   };
-
   return (
     <ActivityScreenContainer>
       <UpperBar>
@@ -95,11 +101,25 @@ function ActivityScreen({ navigation, route }) {
         <ActivityImage source={item.image} />
       </ImageContainer>
       <StatsContainer>
-        <Stat>+{item.exp}exp</Stat>
-        <Stat>-{item.carbonRemoved}kg CO2</Stat>
+        <Stat>+{item.exp * sliderValue}exp</Stat>
+        <Stat>-{item.carbonRemoved * sliderValue}kg CO2</Stat>
         <Stat>-{item.wasteRemoved}kg</Stat>
         <Stat>-{item.waterSaved}L</Stat>
       </StatsContainer>
+      <SliderValue>
+        {sliderValue === 0 ? sliderValue + item.minValue : sliderValue} {item.valueMessage}
+      </SliderValue>
+      <ValueSlider
+        onValueChange={setSliderValue}
+        minimumValue={item.minValue}
+        maximumValue={item.maxValue}
+        step={item.isWhole ? 1 : 0.5}
+        value={item.minValue}
+      />
+      <SliderDescription>
+        <SliderDescriptionLeft>{item.minValue}</SliderDescriptionLeft>
+        <SliderDescriptionRight>{item.maxValue}</SliderDescriptionRight>
+      </SliderDescription>
       <OptionsContainer>
         <Option onPress={completeTask}>
           <OptionIconContainer>
@@ -120,6 +140,7 @@ function ActivityScreen({ navigation, route }) {
           <OptionText>Share</OptionText>
         </Option>
       </OptionsContainer>
+
       <InfoContainer>
         <SectionTitle>Description</SectionTitle>
         <SectionText>{item.description}</SectionText>

@@ -29,3 +29,21 @@ export const AddMoreText = styled(Text)`
   color: white;
   font-size: 17px;
 `;
+
+export const TasksToBeSavedContainer = styled(View)`
+  width: 90%;
+  height: 300px;
+  background-color: ${(props) => props.theme.colors.lightGray};
+  margin: 0 auto;
+  border-radius: 16px;
+  padding: 22px;
+`;
+
+export const TasksToBeSavedText = styled(Text)`
+  font-size: 34px;
+`;
+
+export const Description = styled(Text)`
+  font-size: 22px;
+  margin-top: 8px;
+`;

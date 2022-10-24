@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
 import MarkedList from "@jsamr/react-native-li";
 import disc from "@jsamr/counter-style/presets/disc";
+import Slider from "@react-native-community/slider";
 
 export const ActivityScreenContainer = styled(ScrollView).attrs({
   showsVerticalScrollIndicator: false,
@@ -157,4 +158,23 @@ export const LinkToPurchaseTitle = styled(Text)`
 export const LinkToPurchase = styled(Text)`
   font-size: 18px;
   margin-left: 4px;
+`;
+
+export const ValueSlider = styled(Slider).attrs({
+  minimumTrackTintColor: "#0FA958",
+  maximumTrackTintColor: "#0FA958",
+  tapToSeek: true,
+})``;
+
+export const SliderDescription = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const SliderDescriptionLeft = styled(Text)``;
+
+export const SliderDescriptionRight = styled(Text)``;
+
+export const SliderValue = styled(Text)`
+  margin: 12px auto 0px auto;
 `;

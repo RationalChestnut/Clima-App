@@ -66,8 +66,8 @@ export const tasks = [
     type: "At-home Activities",
     description:
       "Switching to LEDs is a no brainer. The average person will save 463.2kg of carbon dioxide per year from switching to LED lightbulbs! LEDs also last longer which saves both time and money. Talk about efficiency! ",
-    exp: 1401,
-    carbonRemoved: 463.2,
+    exp: 400,
+    carbonRemoved: 100,
     wasteRemoved: 0,
     waterSaved: 0,
     statistics: [
@@ -78,6 +78,10 @@ export const tasks = [
     ],
     linkToPurchase: "https://amzn.to/3d2JA9A",
     image: lightbulb,
+    minValue: 1,
+    maxValue: 12,
+    valueMessage: "lightbulbs replaced",
+    isWhole: true,
   },
   {
     id: "5VmJf7tLDPgXf3p2fn7Y",
@@ -535,7 +539,7 @@ export const tasks = [
   },
   {
     id: "h12873612",
-    title: "Use Reusable Water Bottles",
+    title: "Refill a Reusable Water Bottles",
     type: "Food & Drink",
     description:
       "Most of us own a reusable water bottle, but how often do we use it? After refilling a reusable water bottle about 17 times, you start to have a positive effect on the environment saving about 54 grams CO2 per refill.",

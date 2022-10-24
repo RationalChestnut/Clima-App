@@ -8,6 +8,9 @@ import {
   PageContainer,
   AddMoreButton,
   AddMoreText,
+  TasksToBeSavedContainer,
+  TasksToBeSavedText,
+  Description,
 } from "./SavedTasks.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import { tasks } from "../../../data/tasks.data";
@@ -45,6 +48,7 @@ function SavedTasksPage({ navigation }) {
       });
     } catch (err) {
       console.log(err);
+      setData(null);
     }
   };
 
@@ -62,11 +66,24 @@ function SavedTasksPage({ navigation }) {
       isTaskCompleted={item.isCompleted || false}
     />
   );
-
   return (
     <PageContainer>
-      <SavedTasksText>Habits</SavedTasksText>
-      {data ? <FlatListContainer data={data} renderItem={renderSavedTask} /> : <></>}
+      {data && data !== [] ? <SavedTasksText>Habits</SavedTasksText> : <></>}
+
+      {data && data !== [] ? (
+        <FlatListContainer data={data} renderItem={renderSavedTask} />
+      ) : (
+        <TasksToBeSavedContainer>
+          <TasksToBeSavedText>Welcome to Clima!</TasksToBeSavedText>
+          <Description>
+            We are an app to help gamify reductions in carbon emissions. Let's go ahead and get
+            started.
+          </Description>
+          <Description>
+            Click explore more and browse our tasks. Try to complete one and try to save one.
+          </Description>
+        </TasksToBeSavedContainer>
+      )}
 
       <AddMoreButton
         onPress={() =>
