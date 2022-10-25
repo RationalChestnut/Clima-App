@@ -20,32 +20,36 @@ function SavedTasksPage({ navigation }) {
   const { user } = useContext(AuthenticationContext);
   const getTaskData = async () => {
     try {
-      const savedRes = await axios.get(`http://localhost:5000/user/savedTasks/${user}`);
+      const savedRes = await axios.get(
+        `https://clima-backend.herokuapp.com/user/savedTasks/${user}`
+      );
       const userSavedTaskList = savedRes.data;
-      const res = await axios.post(`http://localhost:5000/tasks/getMultipleTasks`, {
+      const res = await axios.post(`https://clima-backend.herokuapp.com/tasks/getMultipleTasks`, {
         listOfTaskIds: userSavedTaskList,
       });
       const dataToAppend = [];
 
-      await axios.get(`http://localhost:5000/user/getUser/${user}`).then((response) => {
-        const userTotalData = response.data.totalData;
-        const date_ob = new Date();
-        const currentMonth = date_ob.getMonth() + 1;
-        const currentYear = date_ob.getFullYear();
-        const day = date_ob.getDate();
-        const currentWeek = Math.ceil(day / 7);
-        const completedTasks =
-          userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
-            ?.tasksCompletedIDs;
-        for (let i = 0; i < userSavedTaskList.length; i += 1) {
-          const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
-          if (completedTasks?.includes(correspondingTask[0].id)) {
-            correspondingTask[0].isCompleted = true;
+      await axios
+        .get(`https://clima-backend.herokuapp.com/user/getUser/${user}`)
+        .then((response) => {
+          const userTotalData = response.data.totalData;
+          const date_ob = new Date();
+          const currentMonth = date_ob.getMonth() + 1;
+          const currentYear = date_ob.getFullYear();
+          const day = date_ob.getDate();
+          const currentWeek = Math.ceil(day / 7);
+          const completedTasks =
+            userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
+              ?.tasksCompletedIDs;
+          for (let i = 0; i < userSavedTaskList.length; i += 1) {
+            const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
+            if (completedTasks?.includes(correspondingTask[0].id)) {
+              correspondingTask[0].isCompleted = true;
+            }
+            dataToAppend.push(correspondingTask[0]);
           }
-          dataToAppend.push(correspondingTask[0]);
-        }
-        setData(dataToAppend);
-      });
+          setData(dataToAppend);
+        });
     } catch (err) {
       console.log(err);
       setData(null);

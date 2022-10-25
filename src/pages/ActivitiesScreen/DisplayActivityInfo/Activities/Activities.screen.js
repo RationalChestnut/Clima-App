@@ -27,7 +27,7 @@ function Activities({ tasksList, navigation, pathNumber, sectionNumber, pathItem
   };
   const getCompletedTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
+      const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
       const intersection = tasksList.filter((element) => res.data.uniqueTasks.includes(element));
       setCompletedTasks(intersection);
     } catch (err) {

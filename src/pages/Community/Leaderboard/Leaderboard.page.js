@@ -28,7 +28,7 @@ function LeaderboardPage({ navigation }) {
   const getAllFriends = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/leaderboard/get/${user}`);
+      const res = await axios.get(`https://clima-backend.herokuapp.com/leaderboard/get/${user}`);
       const listOfFriends = res.data;
       const topThreeFriends = listOfFriends.slice(0, 3);
       const firstItem = topThreeFriends[0];

@@ -33,7 +33,7 @@ function AddFriendScreen({ navigation }) {
 
   const addFriend = async () => {
     try {
-      const res = await axios.patch(`http://localhost:5000/friends/addFriend`, {
+      const res = await axios.patch(`https://clima-backend.herokuapp.com/friends/addFriend`, {
         userId: user,
         friendId: code,
       });

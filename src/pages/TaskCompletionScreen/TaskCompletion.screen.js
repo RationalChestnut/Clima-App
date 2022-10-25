@@ -59,7 +59,7 @@ function TaskCompletionScreen({ navigation, route }) {
 
   const getPet = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
+      const res = await axios.get(`https://clima-backend.herokuapp.com/user/${user.user}/pet`);
       const { data } = res;
 
       const petProperties = { type: "Seed", image: seed, name: data.name };

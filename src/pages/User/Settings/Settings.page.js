@@ -135,7 +135,7 @@ function Settings({ navigation, route }) {
       setDisplayWrongPassWarning(false);
 
       if (name !== route.params.name) {
-        await axios.patch("http://localhost:5000/user/updateUser", {
+        await axios.patch("https://clima-backend.herokuapp.com/user/updateUser", {
           userId: user.user,
           name: name.trim(),
         });

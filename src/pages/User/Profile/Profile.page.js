@@ -61,7 +61,9 @@ function Profile({ navigation }) {
     const daysInPreviousMonth = new Date(currentYear, previousMonth, 0).getDate();
 
     try {
-      const { data } = await axios.get(`http://localhost:5000/user/getUser/${userContext.user}`);
+      const { data } = await axios.get(
+        `https://clima-backend.herokuapp.com/user/getUser/${userContext.user}`
+      );
 
       const { totalCO2Removed, totalWasteRemoved, totalWaterSaved } = data;
       let thisMonthCO2Removed = 0;

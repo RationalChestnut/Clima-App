@@ -56,7 +56,7 @@ function PetScreen() {
 
   const getStats = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
+      const res = await axios.get(`https://clima-backend.herokuapp.com/user/${user.user}/pet`);
       const { data } = res;
 
       if (data.moodMessage === "Gloomy") {
@@ -101,7 +101,9 @@ function PetScreen() {
     if (e.nativeEvent.key === "Enter") {
       Keyboard.dismiss();
       try {
-        await axios.patch(`http://localhost:5000/user/${user}/pet`, { name: pet.name });
+        await axios.patch(`https://clima-backend.herokuapp.com/user/${user}/pet`, {
+          name: pet.name,
+        });
       } catch (err) {
         console.log(err);
       }

@@ -23,7 +23,7 @@ function TopPlayerCard({ style, rank, user }) {
 
   const getUserData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/getUser/${user}`);
+      const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
       const allData = res.data;
 
       const storageRef = storage.ref();

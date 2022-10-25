@@ -45,10 +45,13 @@ function ActivityScreen({ navigation, route }) {
   const [sliderValue, setSliderValue] = useState(0);
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
-        task: item,
-        sliderValue,
-      });
+      const res = await axios.post(
+        `https://clima-backend.herokuapp.com/user/completeTask/${user}`,
+        {
+          task: item,
+          sliderValue,
+        }
+      );
       const {
         userExp,
         exp,
@@ -76,7 +79,7 @@ function ActivityScreen({ navigation, route }) {
 
   const saveTask = async () => {
     try {
-      await axios.patch(`http://localhost:5000/user/saveTask/${user}/${item.id}`);
+      await axios.patch(`https://clima-backend.herokuapp.com/user/saveTask/${user}/${item.id}`);
       Toast.show({
         type: "success",
         text1: "Howdy👋 Eco-Activist",

@@ -31,7 +31,7 @@ function Habit({ navigation }) {
 
   const getWeekData = async () => {
     try {
-      axios.get(`http://localhost:5000/user/getUser/${user}`).then((res) => {
+      axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`).then((res) => {
         const userTotalData = res.data.totalData;
         const date_ob = new Date();
         const currentMonth = date_ob.getMonth() + 1;

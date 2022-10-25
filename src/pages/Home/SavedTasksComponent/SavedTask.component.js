@@ -28,10 +28,13 @@ function SavedTask({
 
   const completeTask = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/user/completeTask/${user}`, {
-        task,
-        sliderValue: 1,
-      });
+      const res = await axios.post(
+        `https://clima-backend.herokuapp.com/user/completeTask/${user}`,
+        {
+          task,
+          sliderValue: 1,
+        }
+      );
       const {
         userExp,
         exp,

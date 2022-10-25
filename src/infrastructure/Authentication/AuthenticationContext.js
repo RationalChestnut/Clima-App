@@ -36,7 +36,7 @@ export function AuthenticationContextProvider({ children }) {
 
   const createNewUser = async (name, email, id) => {
     try {
-      const res = await axios.post("http://localhost:5000/user/createUser", {
+      const res = await axios.post("https://clima-backend.herokuapp.com/user/createUser", {
         name,
         email,
         id,
