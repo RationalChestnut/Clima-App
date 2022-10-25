@@ -798,28 +798,6 @@ export const tasks = [
     isWhole: false,
   },
   {
-    id: "3246234",
-    title: "Check and fix any water leaks",
-    type: "Save Water",
-    description:
-      "According to the EPA, the average household's leaks can account for nearly 10,000 gallons of water wasted every year and ten percent of homes have leaks that waste 90 gallons or more per day. Common types of leaks found in the home are worn toilet flappers, dripping faucets, and other leaking valves. ",
-    exp: 200,
-    carbonRemoved: 0,
-    wasteRemoved: 0,
-    waterSaved: 50,
-    statistics: [
-      "Check your water meter before and after a two-hour period when no water is being used.",
-      "Take a look at your water usage during a colder month, such as January or February. If a family of four exceeds 12,000 gallons per month, there are serious leaks.",
-      "Examine faucet gaskets and pipe fittings for any water on the outside of the pipe to check for surface leaks.",
-    ],
-    linkToPurchase: "https://amzn.to/3TbtD0B",
-    image: leak,
-    minValue: 1,
-    maxValue: 5,
-    valueMessage: "leaks fixed",
-    isWhole: true,
-  },
-  {
     id: "h01284612",
     title: "Install toilet tank banks",
     type: "Save Water",

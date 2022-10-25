@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import aBetterFutureImage from "../../../../assets/images/a_better_future.jpg";
+import aBetterFutureImage from "../../../../assets/images/a_better_future.jpeg";
 
 import {
   ExploreTasksPage,

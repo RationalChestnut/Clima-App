@@ -17,14 +17,16 @@ function PathScreen({ navigation }) {
         This plan will help you get started on your carbon-zero journey!
       </CourseDescription>
       {paths.map((section, index) => (
-        <SectionContainer key={section.id}>
-          <Item
-            course={section}
-            navigation={navigation}
-            key={section.title}
-            pathNumber={index + 1}
-            sectionNumber={section.number}
-          />
+        <SectionContainer key={index}>
+          {section.map((course) => (
+            <Item
+              course={course}
+              navigation={navigation}
+              key={course.id}
+              pathNumber={index + 1}
+              sectionNumber={section.number}
+            />
+          ))}
         </SectionContainer>
       ))}
     </PathContainer>
