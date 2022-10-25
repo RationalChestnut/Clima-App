@@ -7,10 +7,11 @@ import AnimateNumber from "react-native-animate-number-renewed";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import BackArrow from "../../components/BackArrow.component";
 import Loading from "../../components/Loading/Loading";
-import habitat from "../../../assets/images/habitat.png";
-import sapling from "../../../assets/images/sapling.png";
-import tree from "../../../assets/images/tree.png";
 import seed from "../../../assets/images/seed.png";
+import sapling from "../../../assets/images/sapling.png";
+import babyTree from "../../../assets/images/babyTree.png";
+import bigTree from "../../../assets/images/bigTree.png";
+import biggestTree from "../../../assets/images/biggestTree.png";
 import { totalExpToLevel } from "../../utils/utils";
 
 import {
@@ -41,24 +42,45 @@ function TaskCompletionScreen({ navigation, route }) {
   });
   const [loading, setLoading] = useState(true);
 
+  const {
+    userExp,
+    exp,
+    carbonRemoved,
+    wasteRemoved,
+    waterSaved,
+    userCarbonReduced,
+    userWasteRemoved,
+    userWaterSaved,
+    sectionNumber,
+    pathItem,
+    pathNumber,
+    isPathPage = false,
+  } = route.params;
+
   const getPet = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/user/${user.user}/pet`);
       const { data } = res;
 
-      const petProperties = { type: "Seed", image: seed, name: data.name, width: 50, height: 50 };
-      if (totalExpToLevel(data.exp).lvl >= 15) {
+      const petProperties = { type: "Seed", image: seed, name: data.name };
+      if (totalExpToLevel(data.exp).lvl >= 4) {
         petProperties.type = "Sapling";
         petProperties.image = sapling;
-        petProperties.width = 50;
-        petProperties.height = 160;
       }
 
-      if (totalExpToLevel(data.exp).lvl >= 30) {
+      if (totalExpToLevel(data.exp).lvl >= 7) {
+        petProperties.type = "Baby Tree";
+        petProperties.image = babyTree;
+      }
+
+      if (totalExpToLevel(data.exp).lvl >= 11) {
         petProperties.type = "Tree";
-        petProperties.image = tree;
-        petProperties.width = 150;
-        petProperties.height = 200;
+        petProperties.image = bigTree;
+      }
+
+      if (totalExpToLevel(data.exp).lvl >= 18) {
+        petProperties.type = "Big Tree";
+        petProperties.image = biggestTree;
       }
 
       setPet({ ...petProperties });
@@ -74,16 +96,6 @@ function TaskCompletionScreen({ navigation, route }) {
     }, [])
   );
 
-  const {
-    userExp,
-    exp,
-    carbonRemoved,
-    wasteRemoved,
-    waterSaved,
-    userCarbonReduced,
-    userWasteRemoved,
-    userWaterSaved,
-  } = route.params;
   return (
     <TaskCompletionScreenContainer>
       <UpperSectionContainer>
@@ -95,6 +107,10 @@ function TaskCompletionScreen({ navigation, route }) {
           }}
           icon="X"
           iconStyle={{ fontWeight: "bold", fontSize: 24 }}
+          destination={isPathPage ? "Path" : null}
+          pathNumber={pathNumber}
+          sectionNumber={sectionNumber}
+          pathItem={pathItem}
         />
       </UpperSectionContainer>
 
@@ -102,18 +118,7 @@ function TaskCompletionScreen({ navigation, route }) {
 
       <PetContainer>
         {!loading ? (
-          <PetImage source={habitat}>
-            {pet.image ? (
-              <Pet
-                source={pet.image}
-                resizeMode="contain"
-                style={{
-                  width: pet.width,
-                  height: pet.height,
-                }}
-              />
-            ) : null}
-          </PetImage>
+          <PetImage>{pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}</PetImage>
         ) : (
           <Loading color={theme.colors.lightGreen} />
         )}

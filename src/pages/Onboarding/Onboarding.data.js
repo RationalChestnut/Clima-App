@@ -1,5 +1,5 @@
 import seed from "../../../assets/images/seed.png";
-import tree from "../../../assets/images/tree.png";
+import tree from "../../../assets/images/babyTree.png";
 import sapling from "../../../assets/images/sapling.png";
 
 const ONBOARDING_DATA = [

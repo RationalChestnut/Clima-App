@@ -50,19 +50,17 @@ export const Mood = styled(Text)`
   margin-left: auto;
 `;
 
-export const PetImage = styled(View).attrs({ resizeMode: "cover" })`
-  width: 100%;
+export const PetImage = styled(View)`
   height: 525px;
   align-items: center;
   justify-content: center;
   flex: 6;
+  width: 95%;
 `;
 
 export const Pet = styled(Image)`
   height: 400px;
   width: 400px;
-  position: absolute;
-  bottom: 35px;
 `;
 
 export const NameInput = styled(TextInput).attrs({
@@ -70,14 +68,18 @@ export const NameInput = styled(TextInput).attrs({
   activeOutlineColor: "none",
   activeUnderlineColor: "transparent",
 })`
-  width: 80%;
   height: 40px;
   text-align: center;
   font-size: ${(props) => props.theme.fontSizes.h5};
   font-family: ${(props) => props.theme.fonts.heading};
   background-color: transparent;
-  margin-top: 5px;
-  margin-bottom: -7px;
+`;
+
+export const PetType = styled(Text)`
+  font-size: ${(props) => props.theme.fontSizes.h5};
+  font-family: ${(props) => props.theme.fonts.heading};
+  background-color: transparent;
+  margin-left: -8px;
 `;
 
 export const FlatListContainer = styled(View)``;
@@ -86,4 +88,10 @@ export const TaskContainer = styled(View)`
   width: 100%;
   padding: 0px 10px;
   margin-top: ${(props) => props.theme.sizes.lg}px;
+`;
+
+export const PetNameContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;

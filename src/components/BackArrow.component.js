@@ -26,6 +26,7 @@ function BackArrow({
           navigation.navigate("All Activities Screen");
           navigation.navigate("Home");
         } else if (destination === "Path") {
+          navigation.goBack();
           navigation.navigate("All Activities Screen");
           navigation.navigate("DisplayActivityInfoScreen", {
             pathNumber,
@@ -33,6 +34,8 @@ function BackArrow({
             pathItem,
             navigation,
           });
+        } else if (destination === "PathScreen") {
+          navigation.navigate("PathScreen");
         } else if (destination) {
           navigation.navigate("DisplayListOfActivities", { type: destination });
         } else {

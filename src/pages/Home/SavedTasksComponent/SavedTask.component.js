@@ -51,10 +51,13 @@ function SavedTask({
         userCarbonReduced,
         userWasteRemoved,
         userWaterSaved,
+        isPathPage,
+        sectionNumber,
+        pathItem,
+        pathNumber,
       });
       setIsCompleted(true);
     } catch (err) {
-      console.log(task);
       console.log(err);
     }
   };

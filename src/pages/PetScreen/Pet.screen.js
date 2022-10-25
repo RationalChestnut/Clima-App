@@ -1,13 +1,14 @@
-import React, { useContext, useCallback, useState } from "react";
+import React, { useContext, useCallback, useState, useRef } from "react";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
-
-import { Text } from "react-native";
+import { Keyboard, Text } from "react-native";
 import Tooltip from "rn-tooltip";
 import { useFocusEffect } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import QuestionMarkComponent from "../../components/QuestionMark/QuestionMark.component";
 import BarComponent from "./Bar/Bar.component";
+
 import {
   PetImage,
   PetScreenContainer,
@@ -20,18 +21,22 @@ import {
   Mood,
   NameInput,
   Pet,
+  PetNameContainer,
+  PetType,
 } from "./Pet.style";
 import Loading from "../../components/Loading/Loading";
-import habitat from "../../../assets/images/habitat.png";
 import seed from "../../../assets/images/seed.png";
 import sapling from "../../../assets/images/sapling.png";
-import tree from "../../../assets/images/tree.png";
+import babyTree from "../../../assets/images/babyTree.png";
+import bigTree from "../../../assets/images/bigTree.png";
+import biggestTree from "../../../assets/images/biggestTree.png";
 
 import { totalExpToLevel } from "../../utils/utils";
 
 function PetScreen() {
-  const theme = useContext(ThemeContext);
   const user = useContext(AuthenticationContext);
+  const nameInput = useRef();
+  const theme = useContext(ThemeContext);
   const [stats, setStats] = useState({
     lvl: 0,
     lvlTotalExp: 0,
@@ -64,19 +69,25 @@ function PetScreen() {
 
       setStats({ ...data, ...totalExpToLevel(data.exp) });
 
-      const petProperties = { type: "Seed", image: seed, name: data.name, width: 100, height: 100 };
-      if (totalExpToLevel(data.exp).lvl >= 15) {
+      const petProperties = { type: "Seed", image: seed, name: data.name };
+      if (totalExpToLevel(data.exp).lvl >= 4) {
         petProperties.type = "Sapling";
         petProperties.image = sapling;
-        petProperties.width = 100;
-        petProperties.height = 250;
       }
 
-      if (totalExpToLevel(data.exp).lvl >= 30) {
+      if (totalExpToLevel(data.exp).lvl >= 7) {
+        petProperties.type = "Baby Tree";
+        petProperties.image = babyTree;
+      }
+
+      if (totalExpToLevel(data.exp).lvl >= 11) {
         petProperties.type = "Tree";
-        petProperties.image = tree;
-        petProperties.width = 300;
-        petProperties.height = 400;
+        petProperties.image = bigTree;
+      }
+
+      if (totalExpToLevel(data.exp).lvl >= 18) {
+        petProperties.type = "Big Tree";
+        petProperties.image = biggestTree;
       }
 
       setPet({ ...petProperties });
@@ -86,18 +97,44 @@ function PetScreen() {
     }
   };
 
+  const handleEnter = async (e) => {
+    if (e.nativeEvent.key === "Enter") {
+      Keyboard.dismiss();
+      try {
+        await axios.patch(`http://localhost:5000/user/${user}/pet`, { name: pet.name });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
       getStats();
     }, [])
   );
-
   const pageContent = (
     <>
-      <PetImage source={habitat}>
-        {pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}
-      </PetImage>
-      <NameInput value={`${pet.name} (${pet.type})`} />
+      <PetImage>{pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}</PetImage>
+      <PetNameContainer>
+        <MaterialCommunityIcons
+          name="pencil"
+          size={24}
+          color="black"
+          onPress={() => {
+            nameInput.current.focus();
+          }}
+        />
+        <NameInput
+          ref={nameInput}
+          value={pet.name}
+          keyboardType="default"
+          returnKeyType="done"
+          onKeyPress={handleEnter}
+          onChangeText={(text) => setPet((prevPet) => ({ ...prevPet, name: text }))}
+        />
+        <PetType>({pet.type})</PetType>
+      </PetNameContainer>
       <BarContainer>
         <InfoContainer>
           <LevelText>Lvl. {stats.lvl}</LevelText>

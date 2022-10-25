@@ -53,7 +53,7 @@ function DisplayActivityInfo({ route }) {
     <DisplayActivityInfoPageContainer>
       <ActivityPageBackground source={pathItem.image}>
         <Spacer>
-          <BackArrow color="white" navigation={navigation} />
+          <BackArrow color="white" navigation={navigation} destination="PathScreen" />
           <ActivityTitle>{pathItem.title}</ActivityTitle>
           <Description>{pathItem.description}</Description>
         </Spacer>

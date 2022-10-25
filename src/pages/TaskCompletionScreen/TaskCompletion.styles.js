@@ -83,18 +83,17 @@ export const TitleText = styled(Text)`
 
 export const PetContainer = styled(View)`
   width: 100%;
-  margin: 12px auto;
   margin-bottom: 0px;
+  margin-top: 20px;
 `;
 
-export const PetImage = styled(ImageBackground).attrs({ resizeMode: "cover" })`
-  width: 100%;
+export const PetImage = styled(View)`
   height: 400px;
-  opacity: 1;
-  align-items: center;
-  z-index: 998;
+  width: 400px;
 `;
 
 export const Pet = styled(Image)`
-  margin-top: 225px;
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
 `;

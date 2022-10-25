@@ -103,7 +103,6 @@ function Profile({ navigation }) {
       } catch (err) {
         switch (err.code) {
           case "storage/object-not-found":
-            console.log("not found");
             profilePicture = null;
             break;
           case "storage/unknown":
