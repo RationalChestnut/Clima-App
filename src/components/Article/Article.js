@@ -54,7 +54,7 @@ const Icon = styled(AntDesign)`
   flex: 0.3;
 `;
 // eslint-disable-next-line react/prop-types
-function Article({ title, image, link }) {
+function Article({ title, image, link, type }) {
   return (
     <ArticleLink
       onPress={() => {
@@ -64,7 +64,7 @@ function Article({ title, image, link }) {
       <ArticleContainer>
         <ArticleImage source={image} />
         <Content>
-          <Type>Article</Type>
+          <Type>{type}</Type>
           <Title>{title}</Title>
         </Content>
         <Icon name="right" size={24} color="black" />

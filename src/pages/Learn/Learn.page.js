@@ -4,7 +4,9 @@ import { ActivityContainer, ArticlesContainer, Separator } from "./Learn.styled"
 import Article from "../../components/Article/Article";
 
 function Learn({ articlesList }) {
-  const article = ({ item }) => <Article title={item.title} image={item.image} link={item.link} />;
+  const article = ({ item }) => (
+    <Article title={item.title} image={item.image} link={item.link} type={item.type} />
+  );
   return (
     <ActivityContainer>
       <ArticlesContainer
