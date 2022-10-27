@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: Platform.OS === "android" && 1,
     borderColor: "#0FA958",
-    borderStyle: Platform.OS === "android" && "solid",
+    borderStyle: Platform.OS === "android" ? "solid" : null,
   },
   background: {
     width: 30,
