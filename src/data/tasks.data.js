@@ -915,7 +915,7 @@ export const tasks = [
       "Plastic water bottles occupy valuable space in landfills, where they take 450 years to disintegrate, pollute the ocean, damage the natural environment, and may even end up in our water! Yes, harmful chemicals in plastics can contaminate water bodies when not recycled properly, and possibly end up in our drinking water.",
     exp: 2,
     carbonRemoved: 0.43,
-    wasteRemoved: 2,
+    wasteRemoved: 0.2,
     waterSaved: 0,
     statistics: [
       "Only 9% of all plastic is recycled",
