@@ -19,6 +19,8 @@ import {
   BrowserLink,
   BrowserLinkText,
   ErrorText,
+  PrivacyContainer,
+  LogoView,
 } from "./Signup.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -57,16 +59,19 @@ function Signup({ email, navigation }) {
 
   return (
     <SignUpScreenContainer>
-      <UpperBar>
-        <Logo />
-        <BrandText>Clima</BrandText>
-      </UpperBar>
       <KeyboardAvoidingContainer
         behavior="position"
         keyboardVerticalOffset={keyboardVerticalOffset}
         contentContainerStyle={{ flex: 1 }}
       >
-        <ImageContainer />
+        <UpperBar>
+          <LogoView>
+            <Logo />
+            <BrandText>Clima</BrandText>
+          </LogoView>
+
+          <ImageContainer />
+        </UpperBar>
         <FormContainer>
           <Input label="Name" onChangeText={(text) => setNameState(text)} />
           <Input
@@ -91,8 +96,8 @@ function Signup({ email, navigation }) {
             <ButtonTextSecondary>Login</ButtonTextSecondary>
             <RightArrow color="#0FA958" />
           </ButtonSecondary>
-          <PrivacyPolicy>
-            By signing up, I agree to the
+          <PrivacyContainer>
+            <PrivacyPolicy>By signing up, I agree to the</PrivacyPolicy>
             <BrowserLink
               onPress={() => {
                 WebBrowser.openBrowserAsync("https://clima-privacy-policy.netlify.app/");
@@ -100,7 +105,7 @@ function Signup({ email, navigation }) {
             >
               <BrowserLinkText> privacy policy</BrowserLinkText>
             </BrowserLink>
-          </PrivacyPolicy>
+          </PrivacyContainer>
         </FormContainer>
       </KeyboardAvoidingContainer>
     </SignUpScreenContainer>

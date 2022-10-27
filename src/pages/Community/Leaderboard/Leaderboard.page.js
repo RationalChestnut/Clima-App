@@ -23,6 +23,7 @@ function LeaderboardPage({ navigation }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [topThree, setTopThree] = useState([]);
+  const [numFriends, setNumFriends] = useState(0);
   const { user } = useContext(AuthenticationContext);
 
   const getAllFriends = async () => {
@@ -40,6 +41,7 @@ function LeaderboardPage({ navigation }) {
 
       setTopThree(topThreeFriends);
       setUsers(listOfFriends.slice(3));
+      setNumFriends(listOfFriends.length);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -51,7 +53,6 @@ function LeaderboardPage({ navigation }) {
       getAllFriends();
     }, [])
   );
-
   return !loading ? (
     <LeaderboardPageContainer>
       <TopPlayersContainer>
@@ -65,7 +66,7 @@ function LeaderboardPage({ navigation }) {
       </TopPlayersContainer>
       <LeaderboardContainer>
         <LeaderboardBarComponent />
-        {users.length < 4 ? (
+        {numFriends < 4 ? (
           <InviteFriendBox navigation={navigation} />
         ) : (
           <ListContainer>

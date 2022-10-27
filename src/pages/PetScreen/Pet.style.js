@@ -1,4 +1,4 @@
-import { Image, ImageBackground, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 
@@ -27,7 +27,8 @@ export const LevelText = styled(Text)`
 
 export const BarContainer = styled(View)`
   width: 80%;
-  margin-top: 10px;
+  margin: 0px auto;
+  margin-top: 20px;
 `;
 
 export const Green = styled(Text)`
@@ -51,16 +52,20 @@ export const Mood = styled(Text)`
 `;
 
 export const PetImage = styled(View)`
-  height: 525px;
   align-items: center;
   justify-content: center;
-  flex: 6;
+  flex: 1;
   width: 95%;
 `;
 
+export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
+  width: 100%;
+  flex: 1;
+`;
+
 export const Pet = styled(Image)`
-  height: 400px;
-  width: 400px;
+  flex: 1;
+  max-width: 90%;
 `;
 
 export const NameInput = styled(TextInput).attrs({
@@ -80,6 +85,7 @@ export const PetType = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   background-color: transparent;
   margin-left: -8px;
+  color: grey;
 `;
 
 export const FlatListContainer = styled(View)``;
@@ -93,5 +99,5 @@ export const TaskContainer = styled(View)`
 export const PetNameContainer = styled(View)`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  margin: 0 auto;
 `;

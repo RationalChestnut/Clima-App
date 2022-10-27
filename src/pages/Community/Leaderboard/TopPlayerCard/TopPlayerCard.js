@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
 import "firebase/storage";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Platform } from "react-native";
 import axios from "axios";
 import {
   CardContainer,
@@ -58,7 +58,9 @@ function TopPlayerCard({ style, rank, user }) {
   }, []);
 
   return (
-    <CardContainer style={[style, rank === 1 ? { transform: [{ scale: 1.15 }] } : null]}>
+    <CardContainer
+      style={[styles.card, [rank === 1 ? { transform: [{ scale: 1.15 }] } : null, styles.card]]}
+    >
       {profilePicture ? (
         <Image style={styles.image} source={{ uri: profilePicture }} />
       ) : (
@@ -92,6 +94,11 @@ function TopPlayerCard({ style, rank, user }) {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    borderWidth: Platform.OS === "android" && 1,
+    borderColor: "#0FA958",
+    borderStyle: Platform.OS === "android" && "solid",
+  },
   background: {
     width: 30,
     height: 30,
@@ -104,7 +111,6 @@ const styles = StyleSheet.create({
   },
   backgroundFirst: {
     backgroundColor: "#F8E69F",
-
     borderColor: "#e9c162",
   },
   first: {

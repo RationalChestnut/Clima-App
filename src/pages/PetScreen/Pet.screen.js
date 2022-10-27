@@ -1,10 +1,11 @@
 import React, { useContext, useCallback, useState, useRef } from "react";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
-import { Keyboard, Text } from "react-native";
+import { Keyboard, Text, Platform } from "react-native";
 import Tooltip from "rn-tooltip";
 import { useFocusEffect } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import QuestionMarkComponent from "../../components/QuestionMark/QuestionMark.component";
 import BarComponent from "./Bar/Bar.component";
@@ -23,6 +24,7 @@ import {
   Pet,
   PetNameContainer,
   PetType,
+  KeyboardAvoidingContainer,
 } from "./Pet.style";
 import Loading from "../../components/Loading/Loading";
 import seed from "../../../assets/images/seed.png";
@@ -37,6 +39,7 @@ function PetScreen() {
   const user = useContext(AuthenticationContext);
   const nameInput = useRef();
   const theme = useContext(ThemeContext);
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
   const [stats, setStats] = useState({
     lvl: 0,
     lvlTotalExp: 0,
@@ -98,15 +101,24 @@ function PetScreen() {
   };
 
   const handleEnter = async (e) => {
-    if (e.nativeEvent.key === "Enter") {
-      Keyboard.dismiss();
-      try {
-        await axios.patch(`https://clima-backend.herokuapp.com/user/${user}/pet`, {
-          name: pet.name,
-        });
-      } catch (err) {
-        console.log(err);
-      }
+    if (pet.name.trim() === "") {
+      return Toast.show({
+        type: "error",
+        text1: "STOP",
+        text2: "You can't give your pet nothing!",
+        position: "top",
+        onPress: () => Toast.hide(),
+      });
+    }
+
+    Keyboard.dismiss();
+
+    try {
+      await axios.patch(`https://clima-backend.herokuapp.com/user/${user.user}/pet`, {
+        name: pet.name,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -117,7 +129,13 @@ function PetScreen() {
   );
   const pageContent = (
     <>
-      <PetImage>{pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}</PetImage>
+      <KeyboardAvoidingContainer
+        behavior="position"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <PetImage>{pet.image ? <Pet source={pet.image} resizeMode="contain" /> : null}</PetImage>
+      </KeyboardAvoidingContainer>
       <PetNameContainer>
         <MaterialCommunityIcons
           name="pencil"
@@ -132,11 +150,12 @@ function PetScreen() {
           value={pet.name}
           keyboardType="default"
           returnKeyType="done"
-          onKeyPress={handleEnter}
+          onSubmitEditing={handleEnter}
           onChangeText={(text) => setPet((prevPet) => ({ ...prevPet, name: text }))}
         />
         <PetType>({pet.type})</PetType>
       </PetNameContainer>
+
       <BarContainer>
         <InfoContainer>
           <LevelText>Lvl. {stats.lvl}</LevelText>

@@ -8,13 +8,18 @@ import loginImage from "../../../../assets/images/loginImage.png";
 export const SignUpScreenContainer = styled(View)`
   flex: 1;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.defaultGreen};
+  background-color: white;
+`;
+
+export const LogoView = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  padding-top: 40px;
 `;
 
 export const UpperBar = styled(View)`
-  flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
 `;
 
 export const BrandText = styled(Text)`
@@ -40,7 +45,6 @@ export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
   width: 100%;
   flex: 1;
   height: 100px;
-  background-color: white;
 `;
 
 export const Input = styled(TextInput).attrs({

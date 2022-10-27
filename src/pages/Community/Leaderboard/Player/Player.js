@@ -25,7 +25,7 @@ function Player({ user, rank }) {
   const getUserData = async () => {
     try {
       const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
-      const allData = res.data.data;
+      const allData = res.data;
 
       const storageRef = storage.ref();
       const imageRef = storageRef.child(`users/${user}`);
@@ -44,7 +44,6 @@ function Player({ user, rank }) {
             break;
         }
       }
-
       setName(allData.name);
       setPoints(allData.exp);
       setProfilePicture(image);

@@ -12,8 +12,8 @@ export const SignUpScreenContainer = styled(View)`
 `;
 
 export const UpperBar = styled(View)`
-  margin-top: 20px;
-  margin-left: -20px;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
+  padding-left: 20px;
 `;
 
 export const BrandText = styled(Text)`
@@ -43,13 +43,13 @@ export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
   flex: 1;
   height: 100px;
   background-color: ${(props) => props.theme.colors.defaultGreen};
-  margin-top: 60px;
+  margin-top: 40px;
 `;
 
 export const FormContainer = styled(View)`
   width: 100%;
+  height: 100%;
   align-items: center;
-  flex: 1;
   background-color: white;
 `;
 

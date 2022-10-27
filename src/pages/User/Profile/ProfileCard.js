@@ -12,6 +12,7 @@ const ProfileCardContainer = styled(View)`
   border-radius: ${(props) => props.theme.sizes.sm}px;
   flex-direction: row;
   padding: ${(props) => props.theme.sizes.md}px;
+  width: 370px;
 `;
 
 const ProfilePicture = styled(Image)`

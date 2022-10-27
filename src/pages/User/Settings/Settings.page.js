@@ -29,6 +29,7 @@ import {
   Textbox,
   Warning,
   Email,
+  ButtonText,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -279,8 +280,12 @@ function Settings({ navigation, route }) {
           {newPassTooShortWarning ? (
             <Warning>New password should be at least 6 characters!</Warning>
           ) : null}
-          <SaveButton title="Save" disabled={saveButtonDisabled} onPress={handleSave} />
-          <SaveButton title="Logout" onPress={handleLogout} />
+          <SaveButton disabled={saveButtonDisabled} onPress={handleSave}>
+            <ButtonText>Save</ButtonText>
+          </SaveButton>
+          <SaveButton onPress={handleLogout}>
+            <ButtonText>Logout</ButtonText>
+          </SaveButton>
           <Email>Any questions or suggestions? Email climamobileapp@gmail.com</Email>
         </>
       ) : (

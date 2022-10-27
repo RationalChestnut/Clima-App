@@ -8,8 +8,6 @@ import {
 } from "@expo-google-fonts/nunito";
 import { useFonts as useHind, Hind_400Regular } from "@expo-google-fonts/hind";
 import { ThemeProvider } from "styled-components/native";
-import "intl";
-import "intl/locale-data/jsonp/en";
 import Toast from "react-native-toast-message";
 import Navigation from "./src/infrastructure/navigation";
 import theme from "./src/infrastructure/theme";

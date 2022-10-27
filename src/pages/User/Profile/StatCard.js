@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
+import numbro from "numbro";
 
 const StatCardContainer = styled(View)`
   width: 120px;
@@ -43,15 +44,62 @@ const IndicatorText = styled(Text)`
 function StatCard({ negative, number, unit, description, percent, valid }) {
   const theme = useContext(ThemeContext);
 
+  numbro.setLanguage("en-US");
+
+  numbro.registerLanguage({
+    languageTag: "xx-XX",
+    delimiters: {
+      thousands: ",",
+      decimal: ".",
+    },
+    abbreviations: {
+      thousand: "k",
+      million: "m",
+      billion: "b",
+      trillion: "t",
+    },
+    ordinal: () => "",
+    currency: {
+      symbol: "$",
+      position: "postfix",
+      code: "USD",
+    },
+    formats: {
+      fourDigits: {
+        totalLength: 4,
+        spaceSeparated: true,
+        average: true,
+      },
+      fullWithTwoDecimals: {
+        output: "currency",
+        mantissa: 2,
+        spaceSeparated: true,
+        thousandSeparated: true,
+      },
+      fullWithTwoDecimalsNoCurrency: {
+        mantissa: 2,
+        thousandSeparated: true,
+      },
+      fullWithNoDecimals: {
+        output: "currency",
+        spaceSeparated: true,
+        thousandSeparated: true,
+        mantissa: 0,
+      },
+    },
+  });
+
   return (
     <StatCardContainer
       style={{ backgroundColor: negative ? theme.colors.red : theme.colors.lightGreen }}
     >
       <Data>
-        {`${Intl.NumberFormat("en-US", {
-          notation: "compact",
-          maximumFractionDigits: 1,
-        }).format(number)} `}
+        {`${numbro(number).format({
+          thousandSeparated: true,
+          mantissa: 1, // number of decimals displayed
+          spaceSeparatedAbbreviation: true,
+          average: true,
+        })} `}
         {unit}
       </Data>
       <Description>{description}</Description>

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Button, ImageBackground, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, ImageBackground, TextInput } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import styled from "styled-components/native";
 
@@ -48,8 +48,13 @@ export const UploadText = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
-export const SaveButton = styled(Button)`
+export const SaveButton = styled(TouchableOpacity)`
   margin-top: ${(props) => props.theme.sizes.md}px;
+`;
+
+export const ButtonText = styled(Text)`
+  font-size: 18px;
+  text-align: center;
 `;
 
 export const Warning = styled(Text)`

@@ -17,6 +17,7 @@ import {
   ForgotPasswordText,
   KeyboardAvoidingContainer,
   ErrorText,
+  LogoView,
 } from "./Login.style";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 
@@ -48,16 +49,19 @@ function Login({ navigation, email }) {
 
   return (
     <SignUpScreenContainer>
-      <UpperBar>
-        <Logo />
-        <BrandText>Clima</BrandText>
-      </UpperBar>
       <KeyboardAvoidingContainer
         behavior="position"
         keyboardVerticalOffset={keyboardVerticalOffset}
         contentContainerStyle={{ flex: 1 }}
       >
-        <ImageContainer />
+        <UpperBar>
+          <LogoView>
+            <Logo />
+            <BrandText>Clima</BrandText>
+          </LogoView>
+
+          <ImageContainer />
+        </UpperBar>
         <FormContainer>
           <Input
             label="Email"

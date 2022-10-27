@@ -24,15 +24,17 @@ export const PlayerPersonalInfoContainer = styled(View)`
 `;
 
 export const UserNameText = styled(Text)`
-  padding-left: 4.9%;
+  padding-left: 6%;
   text-align: center;
 `;
 
 export const PointText = styled(Text).attrs({ includeFontPadding: false })`
-  padding-left: 11%;
+  position: absolute;
+  right: 38%;
 `;
 
 export const LevelText = styled(Text)`
   padding-left: 14%;
-  text-align: center;s
+  position: absolute;
+  right: 15.5%;
 `;

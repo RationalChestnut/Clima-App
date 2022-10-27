@@ -35,19 +35,17 @@ function Login({ navigation }) {
 
   return (
     <SignUpScreenContainer>
-      <UpperBar>
-        <BackArrow navigation={navigation} color="white" />
-        <BrandText>Forgot Password?</BrandText>
-        <SubBrandText>Enter your email address to reset your password</SubBrandText>
-      </UpperBar>
-
       <KeyboardAvoidingContainer
         behavior="position"
         keyboardVerticalOffset={keyboardVerticalOffset}
         contentContainerStyle={{ flex: 1 }}
       >
-        <ImageContainer />
-
+        <UpperBar>
+          <BackArrow navigation={navigation} color="white" />
+          <BrandText>Forgot Password?</BrandText>
+          <SubBrandText>Enter your email address to reset your password</SubBrandText>
+          <ImageContainer />
+        </UpperBar>
         <FormContainer>
           <Input
             label="Email"

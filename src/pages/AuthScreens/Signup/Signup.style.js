@@ -8,13 +8,18 @@ import authImage from "../../../../assets/images/auth.png";
 export const SignUpScreenContainer = styled(View)`
   flex: 1;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.defaultGreen};
+  background-color: white;
 `;
 
 export const UpperBar = styled(View)`
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.defaultGreen};
+`;
+
+export const LogoView = styled(View)`
   flex-direction: row;
   align-items: center;
-  margin-top: 75px;
+  padding-top: 80px;
 `;
 
 export const BrandText = styled(Text)`
@@ -25,11 +30,6 @@ export const BrandText = styled(Text)`
 
 export const PrivacyPolicy = styled(Text)`
   font-size: 12px;
-  font-family: ${(props) => props.theme.fonts.body};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
 `;
 
 export const ImageContainer = styled(Image).attrs({ source: authImage })`
@@ -118,15 +118,17 @@ export const Logo = styled(Image).attrs({
   height: 55px;
 `;
 
-export const BrowserLink = styled(TouchableOpacity)`
-  display: flex;
+export const PrivacyContainer = styled(View)`
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 `;
+
+export const BrowserLink = styled(TouchableOpacity)``;
 
 export const BrowserLinkText = styled(Text)`
   font-size: 12px;
-  margin-bottom: 0.8px;
 `;
 
 export const ErrorText = styled(Text)`
