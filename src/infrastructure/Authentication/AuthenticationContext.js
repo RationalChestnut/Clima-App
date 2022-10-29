@@ -35,6 +35,7 @@ export function AuthenticationContextProvider({ children }) {
   };
 
   const createNewUser = async (name, email, id) => {
+    setIsLoading(true);
     try {
       const res = await axios.post("https://clima-backend.herokuapp.com/user/createUser", {
         name,
@@ -43,6 +44,9 @@ export function AuthenticationContextProvider({ children }) {
       });
       if (res.status === 201) {
         setUser(id);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     } catch (err) {
       console.log(err);
