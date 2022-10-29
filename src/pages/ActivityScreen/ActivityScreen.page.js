@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as WebBrowser from "expo-web-browser";
 import Toast from "react-native-toast-message";
@@ -35,6 +35,7 @@ import {
   SliderDescriptionLeft,
   SliderDescriptionRight,
   SliderValue,
+  UnsaveIcon,
 } from "./ActivityScreen.styled";
 import BackArrow from "../../components/BackArrow.component";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
@@ -43,6 +44,7 @@ function ActivityScreen({ navigation, route }) {
   const { item, destination, pathNumber, sectionNumber, pathItem } = route.params;
   const { user } = useContext(AuthenticationContext);
   const [sliderValue, setSliderValue] = useState(0);
+  const [isTaskSaved, setIsTaskSaved] = useState(false);
   const completeTask = async () => {
     try {
       const res = await axios.post(
@@ -91,6 +93,38 @@ function ActivityScreen({ navigation, route }) {
       console.log(err);
     }
   };
+
+  const getIsTaskSaved = async () => {
+    try {
+      const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
+      const { savedTasks } = res.data;
+      setIsTaskSaved(savedTasks.includes(item.id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const unsaveTask = async () => {
+    try {
+      const res = await axios.patch(
+        `https://clima-backend.herokuapp.com/user/unsaveTask/${user}/${item.id}`
+      );
+      Toast.show({
+        type: "success",
+        text1: "Howdy👋 Eco-Activist",
+        text2: "We unsaved your task!",
+        position: "top",
+        onPress: () => Toast.hide(),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getIsTaskSaved();
+  }, []);
+
   return (
     <ActivityScreenContainer>
       <UpperBar>
@@ -142,12 +176,22 @@ function ActivityScreen({ navigation, route }) {
           </OptionIconContainer>
           <OptionText>Complete!</OptionText>
         </Option>
-        <Option onPress={saveTask}>
-          <OptionIconContainer>
-            <IonOptionIcon name="save" />
-          </OptionIconContainer>
-          <OptionText>Save</OptionText>
-        </Option>
+        {!isTaskSaved ? (
+          <Option onPress={saveTask}>
+            <OptionIconContainer>
+              <IonOptionIcon name="save" />
+            </OptionIconContainer>
+            <OptionText>Save</OptionText>
+          </Option>
+        ) : (
+          <Option onPress={unsaveTask}>
+            <OptionIconContainer>
+              <UnsaveIcon name="content-save-off-outline" />
+            </OptionIconContainer>
+            <OptionText>Unsave</OptionText>
+          </Option>
+        )}
+
         <Option>
           <OptionIconContainer>
             <EntypoOptionIcon name="share" />

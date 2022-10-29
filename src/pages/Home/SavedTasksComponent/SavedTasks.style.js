@@ -32,18 +32,24 @@ export const AddMoreText = styled(Text)`
 
 export const TasksToBeSavedContainer = styled(View)`
   width: 90%;
-  height: 300px;
+  height: 250px;
   background-color: ${(props) => props.theme.colors.lightGray};
   margin: 0 auto;
   border-radius: 16px;
   padding: 22px;
+  margin-top: 12px;
 `;
 
 export const TasksToBeSavedText = styled(Text)`
-  font-size: 34px;
+  font-size: 18px;
+  text-align: center;
+  color: ${(props) => props.theme.colors.defaultGreen};
+  font-weight: bold;
+  margin-top: 22px;
 `;
 
 export const Description = styled(Text)`
   font-size: 22px;
   margin-top: 8px;
+  text-align: center;
 `;

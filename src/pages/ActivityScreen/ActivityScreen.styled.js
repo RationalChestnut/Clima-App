@@ -1,6 +1,6 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, Touchable } from "react-native";
 import styled from "styled-components/native";
-import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
+import { AntDesign, Ionicons, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import MarkedList from "@jsamr/react-native-li";
 import disc from "@jsamr/counter-style/presets/disc";
 import Slider from "@react-native-community/slider";
@@ -97,6 +97,11 @@ export const AntOptionIcon = styled(AntDesign).attrs({ size: 24, color: "black" 
 export const IonOptionIcon = styled(Ionicons).attrs({ size: 24, color: "black" })`
   color: white;
 `;
+
+export const UnsaveIcon = styled(MaterialCommunityIcons).attrs({ size: 24, color: "black" })`
+  color: white;
+`;
+
 export const EntypoOptionIcon = styled(Entypo).attrs({ size: 24, color: "black" })`
   color: white;
 `;

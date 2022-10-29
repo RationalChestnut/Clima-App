@@ -84,8 +84,10 @@ export const Textbox = styled(TextInput)`
   border-bottom-color: ${(props) => props.theme.colors.gray};
 `;
 
+export const EmailContainer = styled(TouchableOpacity).attrs({})`
+  margin-top: 75px;
+`;
+
 export const Email = styled(Text)`
   text-align: center;
-  margin-top: auto;
-  margin-bottom: 24px;
 `;

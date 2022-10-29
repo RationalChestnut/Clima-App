@@ -12,46 +12,33 @@ import {
   TasksToBeSavedText,
   Description,
 } from "./SavedTasks.style";
-import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
+
 import { tasks } from "../../../data/tasks.data";
 
-function SavedTasksPage({ navigation }) {
+function SavedTasksPage({ navigation, userData }) {
   const [data, setData] = useState([]);
-  const { user } = useContext(AuthenticationContext);
   const getTaskData = async () => {
     try {
-      const savedRes = await axios.get(
-        `https://clima-backend.herokuapp.com/user/savedTasks/${user}`
-      );
-      const userSavedTaskList = savedRes.data;
-      const res = await axios.post(`https://clima-backend.herokuapp.com/tasks/getMultipleTasks`, {
-        listOfTaskIds: userSavedTaskList,
-      });
+      const userSavedTaskList = userData.savedTasks;
       const dataToAppend = [];
-
-      await axios
-        .get(`https://clima-backend.herokuapp.com/user/getUser/${user}`)
-        .then((response) => {
-          const userTotalData = response.data.totalData;
-          const date_ob = new Date();
-          const currentMonth = date_ob.getMonth() + 1;
-          const currentYear = date_ob.getFullYear();
-          const day = date_ob.getDate();
-          const currentWeek = Math.ceil(day / 7);
-          const completedTasks =
-            userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
-              ?.tasksCompletedIDs;
-          for (let i = 0; i < userSavedTaskList.length; i += 1) {
-            const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
-            if (completedTasks?.includes(correspondingTask[0].id)) {
-              correspondingTask[0].isCompleted = true;
-            }
-            dataToAppend.push(correspondingTask[0]);
-          }
-          setData(dataToAppend);
-        });
+      const userTotalData = userData.totalData;
+      const date_ob = new Date();
+      const currentMonth = date_ob.getMonth() + 1;
+      const currentYear = date_ob.getFullYear();
+      const day = date_ob.getDate();
+      const currentWeek = Math.ceil(day / 7);
+      const completedTasks =
+        userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
+          ?.tasksCompletedIDs;
+      for (let i = 0; i < userSavedTaskList.length; i += 1) {
+        const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
+        if (completedTasks?.includes(correspondingTask[0].id)) {
+          correspondingTask[0].isCompleted = true;
+        }
+        dataToAppend.push(correspondingTask[0]);
+      }
+      setData(dataToAppend);
     } catch (err) {
-      console.log(err);
       setData(null);
     }
   };
@@ -72,20 +59,17 @@ function SavedTasksPage({ navigation }) {
   );
   return (
     <PageContainer>
-      {data && data !== [] ? <SavedTasksText>Habits</SavedTasksText> : <></>}
+      <SavedTasksText>Habits</SavedTasksText>
 
       {data && data !== [] ? (
         <FlatListContainer data={data} renderItem={renderSavedTask} />
       ) : (
         <TasksToBeSavedContainer>
-          <TasksToBeSavedText>Welcome to Clima!</TasksToBeSavedText>
+          <Description>Add a task to get started!</Description>
           <Description>
-            We are an app to help gamify reductions in carbon emissions. Let's go ahead and get
-            started.
+            Completed tasks reward you with EXP and also are added to your stats page
           </Description>
-          <Description>
-            Click explore more and browse our tasks. Try to complete one and try to save one.
-          </Description>
+          <TasksToBeSavedText>Click Explore More to get started</TasksToBeSavedText>
         </TasksToBeSavedContainer>
       )}
 

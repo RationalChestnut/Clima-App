@@ -28,11 +28,18 @@ function SavedTask({
 
   const completeTask = async () => {
     try {
+      const date_ob = new Date();
+      const day = date_ob.getDate();
+      const month = date_ob.getMonth() + 1;
+      const year = date_ob.getFullYear();
       const res = await axios.post(
         `https://clima-backend.herokuapp.com/user/completeTask/${user}`,
         {
           task,
           sliderValue: 1,
+          day,
+          month,
+          year,
         }
       );
       const {

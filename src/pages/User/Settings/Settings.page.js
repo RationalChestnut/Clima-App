@@ -4,12 +4,12 @@ import { AntDesign } from "@expo/vector-icons";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
-// import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
-import { Text } from "react-native";
+import { Linking } from "react-native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
@@ -30,6 +30,7 @@ import {
   Warning,
   Email,
   ButtonText,
+  EmailContainer,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -116,42 +117,6 @@ function Settings({ navigation, route }) {
       setLoading(true);
       setSaveButtonDisabled(true);
 
-      if (
-        !name ||
-        name.trim() === "" ||
-        !email ||
-        email.trim() === "" ||
-        !currentPassword ||
-        currentPassword.trim() === ""
-      ) {
-        return setDisplayWarning(true);
-      }
-
-      setDisplayWarning(false);
-
-      await firebaseUser.reauthenticateWithCredential(
-        firebase.auth.EmailAuthProvider.credential(firebaseUser.email, currentPassword)
-      );
-
-      setDisplayWrongPassWarning(false);
-
-      if (name !== route.params.name) {
-        await axios.patch("https://clima-backend.herokuapp.com/user/updateUser", {
-          userId: user.user,
-          name: name.trim(),
-        });
-      }
-
-      if (email !== firebaseUser.email) {
-        await firebaseUser.updateEmail(email.trim());
-      }
-
-      if (passwordUpdated) {
-        await firebaseUser.updatePassword(newPassword);
-      }
-
-      setNewPassTooShortWarning(false);
-
       if (photoUpdated) {
         const storageRef = storage.ref();
         const imageRef = storageRef.child(`users/${user.user}`);
@@ -161,6 +126,41 @@ function Settings({ navigation, route }) {
 
         await imageRef.put(bytes);
       }
+
+      if (name && name.trim() !== "") {
+        if (name !== route.params.name) {
+          await axios.patch("https://clima-backend.herokuapp.com/user/updateUser", {
+            userId: user.user,
+            name: name.trim(),
+          });
+        }
+      }
+      await firebaseUser.reauthenticateWithCredential(
+        firebase.auth.EmailAuthProvider.credential(firebaseUser.email, currentPassword)
+      );
+
+      if (email && email.trim() !== "") {
+        if (email !== firebaseUser.email) {
+          await firebaseUser.updateEmail(email.trim());
+        }
+      }
+      if (currentPassword && currentPassword.trim() !== "") {
+        if (passwordUpdated) {
+          await firebaseUser.updatePassword(newPassword);
+        }
+      }
+
+      setDisplayWarning(false);
+      setDisplayWrongPassWarning(false);
+
+      if (name !== route.params.name) {
+        await axios.patch("https://clima-backend.herokuapp.com/user/updateUser", {
+          userId: user.user,
+          name: name.trim(),
+        });
+      }
+
+      setNewPassTooShortWarning(false);
 
       setCurrentPassword(null);
       setNewPassword(null);
@@ -273,6 +273,7 @@ function Settings({ navigation, route }) {
               secureTextEntry
             />
           </InputContainer>
+
           {displayWarning ? (
             <Warning>Name, email, and current password cannot be empty!</Warning>
           ) : null}
@@ -286,7 +287,13 @@ function Settings({ navigation, route }) {
           <SaveButton onPress={handleLogout}>
             <ButtonText>Logout</ButtonText>
           </SaveButton>
-          <Email>Any questions or suggestions? Email climamobileapp@gmail.com</Email>
+          <EmailContainer
+            onPress={() =>
+              Linking.openURL("mailto:climamobileapp@gmail.com?subject=Clima Feedback")
+            }
+          >
+            <Email>Any questions or suggestions? Email climamobileapp@gmail.com</Email>
+          </EmailContainer>
         </>
       ) : (
         <Loading color={theme.colors.lightGreen} />
