@@ -52,6 +52,9 @@ function ActivityScreen({ navigation, route }) {
         {
           task: item,
           sliderValue,
+          day: new Date().getDate(),
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
         }
       );
       const {
@@ -148,12 +151,19 @@ function ActivityScreen({ navigation, route }) {
         <ActivityImage source={item.image} />
       </ImageContainer>
       <StatsContainer>
-        <Stat>+{item.exp * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}exp</Stat>
         <Stat>
-          -{item.carbonRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}kg CO2
+          +{(item.exp * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}exp
         </Stat>
-        <Stat>-{item.wasteRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}kg</Stat>
-        <Stat>-{item.waterSaved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)}L</Stat>
+        <Stat>
+          -{(item.carbonRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}kg
+          CO2
+        </Stat>
+        <Stat>
+          -{(item.wasteRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}kg
+        </Stat>
+        <Stat>
+          -{(item.waterSaved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}L
+        </Stat>
       </StatsContainer>
       <SliderValue>
         {sliderValue === 0 ? sliderValue + item.minValue : sliderValue} {item.valueMessage}

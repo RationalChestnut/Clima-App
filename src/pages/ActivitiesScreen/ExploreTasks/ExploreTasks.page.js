@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import aBetterFutureImage from "../../../../assets/images/a_better_future.jpeg";
+import React from "react";
+import solarPanels from "../../../../assets/images/solarPanels.jpeg";
 
 import {
   ExploreTasksPage,
@@ -35,7 +34,7 @@ function ExploreTasks({ navigation }) {
         <Touchable
           onPress={() => navigation.navigate("DisplayListOfActivities", { type: "All Actions" })}
         >
-          <LargeBannerImage source={aBetterFutureImage}>
+          <LargeBannerImage source={solarPanels}>
             <Gradient>
               <MainCardTextContainer>
                 <MainCardTitle>All Actions</MainCardTitle>

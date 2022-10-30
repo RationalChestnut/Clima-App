@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import * as Clipboard from "expo-clipboard";
 import axios from "axios";
+import Toast from "react-native-toast-message";
 import {
   AddFriendScreenContainer,
   CodeText,
@@ -38,7 +39,21 @@ function AddFriendScreen({ navigation }) {
         friendId: code,
       });
       setCode("");
+      Toast.show({
+        type: "success",
+        text1: "Good to have friends!",
+        text2: "Your friend has been added :)",
+        position: "top",
+        onPress: () => Toast.hide(),
+      });
     } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Woah woah",
+        text2: "Invalid friend code",
+        position: "top",
+        onPress: () => Toast.hide(),
+      });
       console.log(err);
     }
   };

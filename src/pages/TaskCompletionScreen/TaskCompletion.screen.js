@@ -135,7 +135,7 @@ function TaskCompletionScreen({ navigation, route }) {
               formatter={(val) => `${parseFloat(val).toFixed(0)}`}
             />
           </ValueNumber>
-          <AddText>+{exp}</AddText>
+          <AddText>+{exp.toFixed(2)}</AddText>
         </StatContainer>
         <StatContainer>
           <StatText>Total CO2 Removed:</StatText>
@@ -148,7 +148,7 @@ function TaskCompletionScreen({ navigation, route }) {
             />
             <Label>kg</Label>
           </ValueNumber>
-          <AddText>+{carbonRemoved}</AddText>
+          <AddText>+{carbonRemoved.toFixed(2)}</AddText>
         </StatContainer>
         <StatContainer>
           <StatText>Total Waste Removed:</StatText>
