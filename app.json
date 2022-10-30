@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "clima_app",
-    "slug": "clima_app",
+    "name": "Clima",
+    "slug": "Clima",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,12 +26,26 @@
         "backgroundColor": "#FFFFFF"
       },
       "googleServicesFile": "./android/app/google-services.json",
-      "package": "com.yxli.clima_app"
+      "package": "com.yxli.clima_app",
+      "versionCode": 1,
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-google-signin/google-signin", ["expo-image-picker", {"photosPermission": "The app accesses your photos to allow you to upload new profile pictures."}
-    ]]
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to allow you to upload new profile pictures."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "104e355e-fe97-4c4c-a340-a60da699e054"
+      }
+    }
   }
 }
