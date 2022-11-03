@@ -57,6 +57,21 @@ export const ButtonText = styled(Text)`
   text-align: center;
 `;
 
+export const DeleteButtonContainer = styled(TouchableOpacity)`
+  background-color: #dc3444;
+  width: 150px;
+  margin: 0 auto;
+  padding: 6px;
+  border-radius: 12px;
+  margin-top: ${(props) => props.theme.sizes.md}px;
+`;
+
+export const DeleteButtonText = styled(Text)`
+  font-size: 18px;
+  text-align: center;
+  color: white;
+`;
+
 export const Warning = styled(Text)`
   color: ${(props) => props.theme.colors.orange};
   font-size: ${(props) => props.theme.fontSizes.body};

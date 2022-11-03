@@ -4,13 +4,8 @@
   },
   "build": {
     "development": {
-      "distribution": "internal",
-      "android": {
-        "gradleCommand": ":app:assembleDebug"
-      },
-      "ios": {
-        "buildConfiguration": "Debug"
-      }
+      "developmentClient": true,
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal"
@@ -18,6 +13,12 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "contactaidevops@gmail.com",
+        "ascAppId": "6444138849",
+        "appleTeamId": "AG4Y5T4Z8N"
+      }
+    }
   }
 }

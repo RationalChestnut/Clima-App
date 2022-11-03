@@ -31,6 +31,8 @@ import {
   Email,
   ButtonText,
   EmailContainer,
+  DeleteButtonContainer,
+  DeleteButtonText,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -189,6 +191,11 @@ function Settings({ navigation, route }) {
     user.logout();
   };
 
+  const handleDelete = () => {
+    firebaseUser.delete();
+    user.logout();
+  };
+
   return (
     <SettingsPageContainer>
       {!loading ? (
@@ -287,6 +294,9 @@ function Settings({ navigation, route }) {
           <SaveButton onPress={handleLogout}>
             <ButtonText>Logout</ButtonText>
           </SaveButton>
+          <DeleteButtonContainer onPress={handleDelete}>
+            <DeleteButtonText>Delete Account</DeleteButtonText>
+          </DeleteButtonContainer>
           <EmailContainer
             onPress={() =>
               Linking.openURL("mailto:climamobileapp@gmail.com?subject=Clima Feedback")

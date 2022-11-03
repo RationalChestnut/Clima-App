@@ -1,14 +1,17 @@
-module.exports = {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
-  },
-  // added this
-  resolver: {
-    sourceExts: ["jsx", "js", "ts", "tsx", "cjs"],
-  },
-};
+const { getDefaultConfig } = require("expo/metro-config");
+
+// extra config is needed to enable `react-native-svg-transformer`
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts },
+  } = await getDefaultConfig(__dirname);
+  return {
+    transformer: {
+      assetPlugins: ["expo-asset/tools/hashAssetFiles"],
+    },
+    resolver: {
+      assetExts: assetExts.filter((ext) => ext !== "svg"),
+      sourceExts: [...sourceExts, "svg", "cjs", "json"],
+    },
+  };
+})();
