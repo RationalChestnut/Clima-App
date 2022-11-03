@@ -4,12 +4,11 @@ import { AntDesign } from "@expo/vector-icons";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
-
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
-import { Linking } from "react-native";
+import { Linking, Alert } from "react-native";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
@@ -191,9 +190,33 @@ function Settings({ navigation, route }) {
     user.logout();
   };
 
+  const deleteAccount = async () => {
+    const res = await axios.delete(
+      `https://clima-backend.herokuapp.com/user/deleteUser/${user.user}`
+    );
+    if (res.status === 200) {
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`users/${user.user}`);
+      imageRef.delete();
+      firebaseUser.delete(); // Deletes user from authentication
+      user.logout();
+    }
+  };
+
   const handleDelete = () => {
-    firebaseUser.delete();
-    user.logout();
+    Alert.alert(
+      "Delete Account",
+      "Are you sure you want to delete your account? This action cannot be undone.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => deleteAccount() },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
