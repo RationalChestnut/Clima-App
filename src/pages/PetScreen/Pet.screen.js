@@ -73,22 +73,23 @@ function PetScreen() {
       setStats({ ...data, ...totalExpToLevel(data.exp) });
 
       const petProperties = { type: "Seed", image: seed, name: data.name };
-      if (totalExpToLevel(data.exp).lvl >= 4) {
+      const levelCalc = totalExpToLevel(data.exp).lvl;
+      if (levelCalc >= 4) {
         petProperties.type = "Sapling";
         petProperties.image = sapling;
       }
 
-      if (totalExpToLevel(data.exp).lvl >= 7) {
+      if (levelCalc >= 7) {
         petProperties.type = "Baby Tree";
         petProperties.image = babyTree;
       }
 
-      if (totalExpToLevel(data.exp).lvl >= 11) {
+      if (levelCalc >= 11) {
         petProperties.type = "Tree";
         petProperties.image = bigTree;
       }
 
-      if (totalExpToLevel(data.exp).lvl >= 18) {
+      if (levelCalc >= 18) {
         petProperties.type = "Big Tree";
         petProperties.image = biggestTree;
       }
@@ -127,6 +128,7 @@ function PetScreen() {
       getStats();
     }, [])
   );
+
   const pageContent = (
     <>
       <KeyboardAvoidingContainer
@@ -158,7 +160,7 @@ function PetScreen() {
 
       <BarContainer>
         <InfoContainer>
-          <LevelText>Lvl. {stats.lvl}</LevelText>
+          <LevelText>Lvl. {stats.lvl + 1}</LevelText>
           <Tooltip
             popover={<Text>Complete tasks in order to gain exp and level up!</Text>}
             backgroundColor="#AEAEAE"

@@ -7,7 +7,6 @@ export const CardContainer = styled(View)`
   align-items: center;
   box-shadow: 0px 3px 4px #bebebe;
   background-color: white;
-  height: 150px;
   width: 25%;
   border-radius: 10px;
   position: relative;

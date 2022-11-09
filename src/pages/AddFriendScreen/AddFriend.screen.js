@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import * as Clipboard from "expo-clipboard";
 import axios from "axios";
 import Toast from "react-native-toast-message";
+import { Share } from "react-native";
 import {
   AddFriendScreenContainer,
   CodeText,
@@ -58,6 +59,17 @@ function AddFriendScreen({ navigation }) {
     }
   };
 
+  const shareCode = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          "I found a cool new app called Clima! It helps you save the environment. Download here: https://clima2022.netlify.app/",
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <AddFriendScreenContainer>
       <BackArrow
@@ -70,7 +82,7 @@ function AddFriendScreen({ navigation }) {
         <Username>RationalChestnut</Username>
         <ProfileText>Your Friend Code:</ProfileText>
         <ProfileCode>{user}</ProfileCode>
-        <ShareCodeButton>
+        <ShareCodeButton onPress={shareCode}>
           <StyledText>Share your friend code</StyledText>
         </ShareCodeButton>
         <Copy onPress={copyToClipboard}>

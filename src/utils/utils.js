@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const totalExpToLevel = (totalExp) => {
   let sumExp = 0;
   let level = 0;
@@ -12,10 +13,9 @@ export const totalExpToLevel = (totalExp) => {
     level += 1;
     expOverLevel = 0;
   }
-
   return {
     lvl: level,
-    lvlTotalExp: 100 * (Math.floor(level ** 1.2 * 100) / 100),
+    lvlTotalExp: sumExp + 100 * (Math.floor((level + 1) ** 1.2 * 100) / 100),
     expOverLevel,
   };
 };

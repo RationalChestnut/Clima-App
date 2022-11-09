@@ -76,10 +76,7 @@ function SavedTasksPage({ navigation, userData }) {
       <AddMoreButton
         onPress={() =>
           navigation.navigate("Activities", {
-            screen: "All Activities",
-            params: {
-              screen: "All Activities Screen",
-            },
+            screen: "Path",
           })
         }
       >
