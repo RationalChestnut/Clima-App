@@ -10,9 +10,11 @@ import axios from "axios";
 import { ThemeContext } from "styled-components/native";
 import { Linking } from "react-native";
 import Dialog from "react-native-dialog";
+import Toast from "react-native-toast-message";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
+import { resetEmail } from "../../../infrastructure/Authentication/authentication.service";
 
 import {
   SettingsPageContainer,
@@ -34,6 +36,7 @@ import {
   DeleteButtonContainer,
   DeleteButtonText,
   ErrorText,
+  Underline,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -81,9 +84,15 @@ function Settings({ navigation, route }) {
     });
 
     if (!result.cancelled) {
-      setSaveButtonDisabled(false);
-      setPhoto(result.uri);
       setPhotoUpdated(true);
+      setPhoto(result.uri);
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`users/${user.user}`);
+
+      const img = await fetch(result.uri);
+      const bytes = await img.blob();
+
+      await imageRef.put(bytes);
     }
   };
 
@@ -124,16 +133,6 @@ function Settings({ navigation, route }) {
       setLoading(true);
       setSaveButtonDisabled(true);
 
-      if (photoUpdated) {
-        const storageRef = storage.ref();
-        const imageRef = storageRef.child(`users/${user.user}`);
-
-        const img = await fetch(photo);
-        const bytes = await img.blob();
-
-        await imageRef.put(bytes);
-      }
-
       if (name && name.trim() !== "") {
         if (name !== route.params.name) {
           await axios.patch("https://clima-backend.herokuapp.com/user/updateUser", {
@@ -168,7 +167,7 @@ function Settings({ navigation, route }) {
       }
 
       setNewPassTooShortWarning(false);
-
+      setSaveButtonDisabled(true);
       setCurrentPassword(null);
       setNewPassword(null);
       setLoading(false);
@@ -218,7 +217,7 @@ function Settings({ navigation, route }) {
         .then(() => {
           deleteAccount();
         })
-        .catch((err) => {
+        .catch(() => {
           setAccountDeleteError(true);
         });
     } else {
@@ -231,6 +230,28 @@ function Settings({ navigation, route }) {
   const handleDelete = () => {
     setIsLoginAgainVisible(true);
     // Create alert to ask user to login again:
+  };
+
+  const resetPassword = () => {
+    resetEmail(firebaseUser.email.trim())
+      .then(() => {
+        Toast.show({
+          type: "success",
+          text1: "We sent you an email to reset your password",
+          text2: "Be sure to check your spam",
+          position: "top",
+          onPress: () => Toast.hide(),
+        });
+      })
+      .catch((err) => {
+        Toast.show({
+          type: "error",
+          text1: "Howdy👋 Eco-Activist",
+          text2: "Something went wrong, please try again later",
+          position: "top",
+          onPress: () => Toast.hide(),
+        });
+      });
   };
 
   return (
@@ -349,6 +370,9 @@ function Settings({ navigation, route }) {
           <SaveButton disabled={saveButtonDisabled} onPress={handleSave}>
             <ButtonText>Save</ButtonText>
           </SaveButton>
+          <SaveButton onPress={resetPassword}>
+            <ButtonText>Reset Password</ButtonText>
+          </SaveButton>
           <SaveButton onPress={handleLogout}>
             <ButtonText>Logout</ButtonText>
           </SaveButton>
@@ -360,7 +384,9 @@ function Settings({ navigation, route }) {
               Linking.openURL("mailto:climamobileapp@gmail.com?subject=Clima Feedback")
             }
           >
-            <Email>Any questions or suggestions? Email climamobileapp@gmail.com</Email>
+            <Email>
+              Any questions or suggestions? Email <Underline>climamobileapp@gmail.com</Underline>
+            </Email>
           </EmailContainer>
         </>
       ) : (

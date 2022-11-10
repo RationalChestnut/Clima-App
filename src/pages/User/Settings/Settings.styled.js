@@ -100,11 +100,15 @@ export const Textbox = styled(TextInput)`
 `;
 
 export const EmailContainer = styled(TouchableOpacity).attrs({})`
-  margin-top: 75px;
+  margin-top: 50px;
 `;
 
 export const Email = styled(Text)`
   text-align: center;
+`;
+
+export const Underline = styled(Text)`
+  text-decoration-line: underline;
 `;
 
 export const ErrorText = styled(Text)`

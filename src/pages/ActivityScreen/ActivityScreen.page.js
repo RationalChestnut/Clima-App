@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as WebBrowser from "expo-web-browser";
 import Toast from "react-native-toast-message";
-
+import { Share } from "react-native";
 import {
   ActivityScreenContainer,
   UpperBar,
@@ -51,7 +51,7 @@ function ActivityScreen({ navigation, route }) {
         `https://clima-backend.herokuapp.com/user/completeTask/${user}`,
         {
           task: item,
-          sliderValue,
+          sliderValue: sliderValue === 0 ? item.minValue : sliderValue,
           day: new Date().getDate(),
           month: new Date().getMonth() + 1,
           year: new Date().getFullYear(),
@@ -121,6 +121,17 @@ function ActivityScreen({ navigation, route }) {
       });
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const shareTask = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          "I found a cool new app called Clima! It helps you save the environment. Download here: https://clima2022.netlify.app/",
+      });
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -202,7 +213,7 @@ function ActivityScreen({ navigation, route }) {
           </Option>
         )}
 
-        <Option>
+        <Option onPress={shareTask}>
           <OptionIconContainer>
             <EntypoOptionIcon name="share" />
           </OptionIconContainer>

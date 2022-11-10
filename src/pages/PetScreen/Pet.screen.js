@@ -72,7 +72,7 @@ function PetScreen() {
 
       setStats({ ...data, ...totalExpToLevel(data.exp) });
 
-      const petProperties = { type: "Seed", image: seed, name: data.name };
+      const petProperties = { type: "Leaf", image: seed, name: data.name };
       const levelCalc = totalExpToLevel(data.exp).lvl;
       if (levelCalc >= 4) {
         petProperties.type = "Sapling";
