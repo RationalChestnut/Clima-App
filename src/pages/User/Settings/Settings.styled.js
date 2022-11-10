@@ -106,3 +106,10 @@ export const EmailContainer = styled(TouchableOpacity).attrs({})`
 export const Email = styled(Text)`
   text-align: center;
 `;
+
+export const ErrorText = styled(Text)`
+  color: #ff0033;
+  font-size: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+`;

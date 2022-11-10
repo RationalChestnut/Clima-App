@@ -6,7 +6,6 @@ export const totalExpToLevel = (totalExp) => {
     level += 1;
     sumExp += 100 * (Math.floor(level ** 1.2 * 100) / 100);
   }
-
   let expOverLevel = totalExp - sumExp;
 
   if (totalExp - sumExp === 100 * (Math.floor(level ** 1.2 * 100) / 100)) {

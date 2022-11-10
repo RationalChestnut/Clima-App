@@ -8,7 +8,8 @@ import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { ThemeContext } from "styled-components/native";
-import { Linking, Alert } from "react-native";
+import { Linking } from "react-native";
+import Dialog from "react-native-dialog";
 import { storage } from "../../../infrastructure/Storage/storage.service";
 import { AuthenticationContext } from "../../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../../components/Loading/Loading";
@@ -32,6 +33,7 @@ import {
   EmailContainer,
   DeleteButtonContainer,
   DeleteButtonText,
+  ErrorText,
 } from "./Settings.styled";
 import anonymousimage from "../../../../assets/images/anonymousimage.jpeg";
 
@@ -52,6 +54,10 @@ function Settings({ navigation, route }) {
   const [passwordUpdated, setPasswordUpdated] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [isLoginAgainVisible, setIsLoginAgainVisible] = useState(false);
+  const [accountDeleteEmail, setAccountDeleteEmail] = useState("");
+  const [accountDeletePassword, setAccountDeletePassword] = useState("");
+  const [accountDeleteError, setAccountDeleteError] = useState(false);
 
   useEffect(() => {
     requestPermission();
@@ -203,26 +209,55 @@ function Settings({ navigation, route }) {
     }
   };
 
+  const tryDeleteAccount = () => {
+    if (accountDeleteEmail.toLowerCase() === firebaseUser.email.toLowerCase()) {
+      firebaseUser
+        .reauthenticateWithCredential(
+          firebase.auth.EmailAuthProvider.credential(accountDeleteEmail, accountDeletePassword)
+        )
+        .then(() => {
+          deleteAccount();
+        })
+        .catch((err) => {
+          setAccountDeleteError(true);
+        });
+    } else {
+      setAccountDeleteEmail("");
+      setAccountDeletePassword("");
+      setAccountDeleteError(true);
+    }
+  };
+
   const handleDelete = () => {
-    Alert.alert(
-      "Delete Account",
-      "Are you sure you want to delete your account? This action cannot be undone.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => deleteAccount() },
-      ],
-      { cancelable: true }
-    );
+    setIsLoginAgainVisible(true);
+    // Create alert to ask user to login again:
   };
 
   return (
     <SettingsPageContainer>
       {!loading ? (
         <>
+          <Dialog.Container visible={isLoginAgainVisible}>
+            <Dialog.Title>Account Deletion</Dialog.Title>
+            <Dialog.Description>
+              Please reenter credentials to confirm deleting your account
+            </Dialog.Description>
+            {accountDeleteError && <ErrorText>Account credentials incorrect</ErrorText>}
+            <Dialog.Input placeholder="Email" onChangeText={setAccountDeleteEmail} />
+            <Dialog.Input
+              placeholder="Password"
+              onChangeText={setAccountDeletePassword}
+              secureTextEntry
+            />
+            <Dialog.Button
+              label="Cancel"
+              onPress={() => {
+                setIsLoginAgainVisible(false);
+                setAccountDeleteError(false);
+              }}
+            />
+            <Dialog.Button label="Submit" onPress={tryDeleteAccount} />
+          </Dialog.Container>
           <NavBar>
             <BackArrowButton
               onPress={() => {

@@ -55,7 +55,7 @@ export const PetImage = styled(View)`
   align-items: center;
   justify-content: center;
   flex: 1;
-  width: 95%;
+  max-width: 100%;
 `;
 
 export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
