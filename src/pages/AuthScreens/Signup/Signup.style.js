@@ -64,7 +64,7 @@ export const Input = styled(TextInput).attrs({
   margin-top: ${hp("1%")}px;
 `;
 
-export const ButtonStyling = styled(TouchableOpacity)`
+const ButtonStyling = styled(TouchableOpacity)`
   width: 90%;
   padding: ${hp("1%")}px ${wp("3%")}px;
   height: ${hp("6%")}px;
@@ -82,7 +82,7 @@ export const ButtonSecondary = styled(ButtonStyling)`
   border: 1px solid ${(props) => props.theme.colors.highlightGreen};
 `;
 
-export const ButtonStylingText = styled(Text).attrs({ includeFontPadding: false })`
+const ButtonStylingText = styled(Text).attrs({ includeFontPadding: false })`
   font-size: ${RFPercentage(2.75)}px;
   font-family: ${(props) => props.theme.fonts.heading};
   padding-left: ${wp("4%")}px;
