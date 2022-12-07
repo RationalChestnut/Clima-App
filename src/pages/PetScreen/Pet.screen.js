@@ -23,7 +23,6 @@ import {
   NameInput,
   Pet,
   PetNameContainer,
-  PetType,
   KeyboardAvoidingContainer,
 } from "./Pet.style";
 import Loading from "../../components/Loading/Loading";
@@ -155,7 +154,6 @@ function PetScreen() {
           onSubmitEditing={handleEnter}
           onChangeText={(text) => setPet((prevPet) => ({ ...prevPet, name: text }))}
         />
-        <PetType>({pet.type})</PetType>
       </PetNameContainer>
 
       <BarContainer>

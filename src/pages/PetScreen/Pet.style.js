@@ -80,14 +80,6 @@ export const NameInput = styled(TextInput).attrs({
   background-color: transparent;
 `;
 
-export const PetType = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.h5};
-  font-family: ${(props) => props.theme.fonts.heading};
-  background-color: transparent;
-  margin-left: -8px;
-  color: grey;
-`;
-
 export const FlatListContainer = styled(View)``;
 
 export const TaskContainer = styled(View)`

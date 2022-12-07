@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import {
@@ -14,6 +14,7 @@ import theme from "./src/infrastructure/theme";
 import { AuthenticationContextProvider } from "./src/infrastructure/Authentication/AuthenticationContext";
 
 export default function App() {
+  const [safeAreaBackgroundColor, setSafeAreaBackgroundColor] = useState("white");
   const [nunitoLoaded] = useNunito({
     Nunito_400Regular,
     Nunito_700Bold,
@@ -30,8 +31,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>
-        <SafeAreaView style={{ flex: 1 }} edges={["right", "top", "left"]}>
-          <AuthenticationContextProvider>
+        <SafeAreaView
+          style={{ flex: 1, backgroundColor: safeAreaBackgroundColor }}
+          edges={["right", "top", "left"]}
+        >
+          <AuthenticationContextProvider setSafeAreaBackgroundColor={setSafeAreaBackgroundColor}>
             <Navigation />
             <Toast />
           </AuthenticationContextProvider>

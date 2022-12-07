@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import { loginRequest, signupRequest, auth, logout } from "./authentication.service";
+import { loginRequest, signupRequest, auth, logout, resetEmail } from "./authentication.service";
 
 export const AuthenticationContext = createContext(null);
 
-export function AuthenticationContextProvider({ children }) {
+export function AuthenticationContextProvider({ children, setSafeAreaBackgroundColor }) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
@@ -90,6 +90,8 @@ export function AuthenticationContextProvider({ children }) {
         onLogin,
         onRegister,
         logout,
+        resetEmail,
+        setSafeAreaBackgroundColor,
       }}
     >
       {children}
