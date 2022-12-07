@@ -6,7 +6,7 @@ const ONBOARDING_DATA = [
   {
     id: 1,
     subtitle: "Welcome to",
-    title: "clima",
+    title: "Clima",
     image: seed,
     description: "Join others in reducing carbon emissions and make the world a better place!",
     backgroundColor: "#0FA958",

@@ -4,10 +4,8 @@ import {
   DescriptionText,
   OnboardImage,
   OnboardingItemContainer,
-  SkipButton,
   SubTitleText,
   TitleText,
-  SkipButtonText,
   BeginButton,
   BeginText,
 } from "./OnboardingItem.styles";
@@ -17,12 +15,6 @@ function OnboardingItem({ item, scrollX, navigation }) {
   const { height, width } = useWindowDimensions();
   return (
     <OnboardingItemContainer backgroundColor={item.backgroundColor} height={height} width={width}>
-      {item.id !== 3 && (
-        <SkipButton onPress={() => navigation.navigate("Signup")}>
-          <SkipButtonText>Skip</SkipButtonText>
-        </SkipButton>
-      )}
-
       <SubTitleText>{item.subtitle}</SubTitleText>
       <TitleText main={item.main}>{item.title}</TitleText>
       <OnboardImage source={item.image} nospacing={item.nospacing} />
