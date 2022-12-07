@@ -7,14 +7,11 @@ import OnboardingPage from "../../pages/Onboarding/Onboarding.page";
 import SplashScreen from "../../pages/SplashScreen/SplashScreen.page";
 import ResetPassword from "../../pages/AuthScreens/ResetPassword/ResetPassword.page";
 import IntroNavigator from "./IntroductionFlow.navigator";
-import { AuthenticationContext } from "../Authentication/AuthenticationContext";
 
 const Stack = createNativeStackNavigator();
 
 function UnAuthNavigator() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
-  const { setSafeAreaBackgroundColor } = useContext(AuthenticationContext);
-
   useEffect(() => {
     AsyncStorage.getItem("clima-already-launched").then((value) => {
       if (value == null) {
@@ -24,10 +21,6 @@ function UnAuthNavigator() {
         setIsFirstLaunch(false);
       }
     });
-  }, []);
-
-  useEffect(() => {
-    setSafeAreaBackgroundColor("#0FA958");
   }, []);
 
   if (isFirstLaunch == null) {

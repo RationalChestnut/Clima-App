@@ -1,18 +1,27 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { FlatList, Animated } from "react-native";
 import { OnboardingPageContainer } from "./Onboarding.styles";
 import ONBOARDING_DATA from "./Onboarding.data";
 import OnboardingItem from "./OnboardingItem.component";
+import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 
 function OnboardingPage({ navigation }) {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesRef = useRef(null);
+  const { setSafeAreaBackgroundColor } = useContext(AuthenticationContext);
+
   const viewableItemsChanged = useRef(({ viewableItems }) => {
     setCurrentIndex(viewableItems[0].index);
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+
+  useEffect(() => {
+    setSafeAreaBackgroundColor(
+      currentIndex === 0 ? "#0FA958" : currentIndex === 1 ? "#527462" : "#3A887C"
+    );
+  }, [currentIndex]);
 
   return (
     <OnboardingPageContainer>

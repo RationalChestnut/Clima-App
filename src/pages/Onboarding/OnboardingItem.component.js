@@ -15,7 +15,6 @@ import Paginator from "./Paginator.component";
 
 function OnboardingItem({ item, scrollX, navigation }) {
   const { height, width } = useWindowDimensions();
-
   return (
     <OnboardingItemContainer backgroundColor={item.backgroundColor} height={height} width={width}>
       {item.id !== 3 && (
