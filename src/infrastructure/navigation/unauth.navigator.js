@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Login from "../../pages/AuthScreens/Login/Login.page";
@@ -29,7 +29,7 @@ function UnAuthNavigator() {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {true ? <Stack.Screen name="Onboard" component={OnboardingPage} /> : null}
+      {isFirstLaunch ? <Stack.Screen name="Onboard" component={OnboardingPage} /> : null}
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Reset" component={ResetPassword} />

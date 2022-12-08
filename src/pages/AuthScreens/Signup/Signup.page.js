@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import {
@@ -31,6 +31,7 @@ function Signup({ email, navigation }) {
   const [nameState, setNameState] = useState("");
   const [emailState, setEmailState] = useState(email || "");
   const [passwordState, setPasswordState] = useState(null);
+  const { setSafeAreaBackgroundColor } = useContext(AuthenticationContext);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
   const validateEmail = (userEmail) =>
@@ -56,6 +57,10 @@ function Signup({ email, navigation }) {
       setErrorText("Please fill in all fields");
     }
   };
+
+  useEffect(() => {
+    setSafeAreaBackgroundColor("#3A887C");
+  }, []);
 
   return (
     <SignUpScreenContainer>
