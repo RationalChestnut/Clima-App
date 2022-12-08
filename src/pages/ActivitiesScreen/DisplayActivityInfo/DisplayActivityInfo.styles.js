@@ -1,5 +1,10 @@
 import { ImageBackground, View, Text } from "react-native";
 import styled from "styled-components/native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const DisplayActivityInfoPageContainer = styled(View)`
   flex: 1;
@@ -8,24 +13,24 @@ export const DisplayActivityInfoPageContainer = styled(View)`
 
 export const ActivityPageBackground = styled(ImageBackground).attrs({ resizeMode: "cover" })`
   width: 100%;
-  height: 150px;
+  height: ${hp("20%")}px;
 `;
 
 export const ActivityTitle = styled(Text)`
-  font-size: 28px;
+  font-size: ${RFPercentage(3.75)}px;
   font-family: ${(props) => props.theme.fonts.heading};
   color: white;
+  margin-top: ${hp("1%")}px;
 `;
 
 export const Spacer = styled(View)`
   background-color: rgba(0, 0, 0, 0.4);
   flex: 1;
-  padding: 20px 0px 0px 20px;
+  padding: ${hp("2%")}px 0px 0px ${wp("6%")}px;
 `;
 
 export const Description = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
-  margin-bottom: 10px;
   color: white;
 `;
