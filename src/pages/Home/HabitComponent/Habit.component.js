@@ -68,11 +68,7 @@ function Habit({ navigation, userData }) {
     const dataToAppend = [];
 
     const data = [];
-    if (
-      userData?.totalData?.[currentYear] &&
-      userData?.totalData?.[currentYear]?.[currentMonth] &&
-      userData?.totalData?.[currentYear]?.[currentMonth]?.[currentWeek]
-    ) {
+    if (userData?.totalData?.[currentYear] && userData?.totalData?.[currentYear]?.[currentMonth]) {
       let year = currentYear;
       let month = currentMonth;
       let week = currentWeek;
@@ -117,7 +113,6 @@ function Habit({ navigation, userData }) {
         }
       }
     }
-
     dataToAppend.sort((a, b) => {
       if (a?.dayOfTheWeek >= b?.dayOfTheWeek) {
         return 1;
