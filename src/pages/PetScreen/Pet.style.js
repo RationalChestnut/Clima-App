@@ -1,11 +1,16 @@
 import { Image, KeyboardAvoidingView, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const PetScreenContainer = styled(View)`
   flex: 1;
   align-items: center;
-  padding-bottom: 35px;
+  padding-bottom: ${hp("4%")}px;
   background-color: white;
 `;
 
@@ -15,39 +20,39 @@ export const PetInfoContainer = styled(View)`
 
 export const InfoContainer = styled(View)`
   width: 100%;
-  padding: 4px 10px;
+  padding: ${wp("1%")}px ${wp("5%")}px;
   align-items: center;
   flex-direction: row;
 `;
 
 export const LevelText = styled(Text)`
   color: ${(props) => props.theme.colors.highlightGreen};
-  font-size: 16px;
+  font-size: ${RFPercentage(2.5)}px;
 `;
 
 export const BarContainer = styled(View)`
-  width: 80%;
+  width: 90%;
   margin: 0px auto;
-  margin-top: 20px;
+  margin-top: ${hp("2%")}px;
 `;
 
 export const Green = styled(Text)`
-  color: ${(props) => props.theme.colors.highlightGreen}; ;
+  color: ${(props) => props.theme.colors.highlightGreen};
 `;
 
 export const StatusText = styled(Text)`
-  font-size: 16px;
+  font-size: ${RFPercentage(2.5)}px;
   margin-left: auto;
 `;
 
 export const MoodText = styled(Text)`
   color: ${(props) => props.theme.colors.orange};
-  font-size: 16px;
+  font-size: ${RFPercentage(2.5)}px;
 `;
 
 export const Mood = styled(Text)`
   color: ${(props) => props.color};
-  font-size: 16px;
+  font-size: ${RFPercentage(2.5)}px;
   margin-left: auto;
 `;
 
@@ -73,19 +78,11 @@ export const NameInput = styled(TextInput).attrs({
   activeOutlineColor: "none",
   activeUnderlineColor: "transparent",
 })`
-  height: 40px;
+  height: ${hp("2%")}px;
   text-align: center;
-  font-size: ${(props) => props.theme.fontSizes.h5};
+  font-size: ${RFPercentage(3)}px;
   font-family: ${(props) => props.theme.fonts.heading};
   background-color: transparent;
-`;
-
-export const FlatListContainer = styled(View)``;
-
-export const TaskContainer = styled(View)`
-  width: 100%;
-  padding: 0px 10px;
-  margin-top: ${(props) => props.theme.sizes.lg}px;
 `;
 
 export const PetNameContainer = styled(View)`

@@ -4,6 +4,11 @@ import axios from "axios";
 import { ThemeContext } from "styled-components";
 import { Dimensions } from "react-native";
 import AnimateNumber from "react-native-animate-number-renewed";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import BackArrow from "../../components/BackArrow.component";
 import Loading from "../../components/Loading/Loading";
@@ -13,7 +18,6 @@ import babyTree from "../../../assets/images/babyTree.png";
 import bigTree from "../../../assets/images/bigTree.png";
 import biggestTree from "../../../assets/images/biggestTree.png";
 import { totalExpToLevel } from "../../utils/utils";
-
 import {
   AddText,
   Cannon,
@@ -103,10 +107,12 @@ function TaskCompletionScreen({ navigation, route }) {
         <BackArrow
           navigation={navigation}
           style={{
-            marginLeft: "auto",
+            position: "absolute",
+            right: wp("4%"),
+            top: hp("2.5%"),
           }}
           icon="X"
-          iconStyle={{ fontWeight: "bold", fontSize: 24 }}
+          iconStyle={{ fontWeight: "bold", fontSize: RFPercentage(3.5) }}
           destination={isPathPage ? "Path" : null}
           pathNumber={pathNumber}
           sectionNumber={sectionNumber}

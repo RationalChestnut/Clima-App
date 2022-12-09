@@ -2,7 +2,11 @@ import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react
 import styled from "styled-components/native";
 import { TextInput } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
-import logo from "../../../../assets/images/white_icon.png";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import reset from "../../../../assets/images/reset.png";
 
 export const SignUpScreenContainer = styled(View)`
@@ -13,12 +17,12 @@ export const SignUpScreenContainer = styled(View)`
 
 export const UpperBar = styled(View)`
   background-color: ${(props) => props.theme.colors.defaultGreen};
-  padding-left: 20px;
+  padding-left: ${wp("5%")}px;
 `;
 
 export const BrandText = styled(Text)`
   color: white;
-  font-size: 36px;
+  font-size: ${RFPercentage(4)}px;
   font-family: ${(props) => props.theme.fonts.heading};
   margin-top: 8px;
 `;
@@ -26,24 +30,27 @@ export const BrandText = styled(Text)`
 export const SubBrandText = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  margin-top: 8px;
+  font-size: ${RFPercentage(2.5)}px;
+  margin-top: ${hp("1%")}px;
+  padding-right: ${wp("2%")}px;
 `;
 
 export const ImageContainer = styled(Image).attrs({
   source: reset,
 })`
   background-color: ${(props) => props.theme.colors.defaultGreen};
-  height: 275px;
+  height: ${hp("30%")}px;
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: ${hp("4%")}px;
+  margin-top: ${hp("4%")}px;
 `;
 
 export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
   width: 100%;
   flex: 1;
-  height: 100px;
+  height: ${hp("20%")}px;
   background-color: ${(props) => props.theme.colors.defaultGreen};
-  margin-top: 40px;
+  margin-top: ${hp("4%")}px;
 `;
 
 export const FormContainer = styled(View)`
@@ -59,66 +66,40 @@ export const Input = styled(TextInput).attrs({
 })`
   width: 90%;
   background-color: white;
-  margin-top: 25px;
+  margin-top: ${hp("2%")}px;
 `;
 
 export const Button = styled(TouchableOpacity)`
   width: 90%;
   background-color: ${(props) => props.theme.colors.highlightGreen};
-  padding: 10px;
-  height: 50px;
+  padding: ${hp("1%")}px;
+  height: ${hp("6%")}px;
   flex-direction: row;
   align-items: center;
-  border-radius: 10px;
-  margin-top: 25px;
+  border-radius: ${hp("1.5%")}px;
+  margin-top: ${hp("4%")}px;
 `;
 
 export const ButtonText = styled(Text).attrs({ includeFontPadding: false })`
   color: white;
-  font-size: 20px;
+  font-size: ${RFPercentage(2.5)}px;
   font-family: ${(props) => props.theme.fonts.heading};
-  padding-left: 20px;
+  padding-left: ${wp("4%")}px;
 `;
 
 export const RightArrow = styled(AntDesign).attrs((props) => ({
   name: "arrowright",
-  size: 24,
+  size: wp("6%"),
   color: props.color,
 }))`
   margin-left: auto;
-  padding-right: 20px;
-`;
-
-export const HorizontalLine = styled(View)`
-  border-bottom: 1px solid black;
-  width: 50%;
-  height: 1px;
-`;
-
-export const Logo = styled(Image).attrs({
-  source: logo,
-})`
-  width: 70px;
-  height: 70px;
-`;
-
-export const ForgotPassword = styled(TouchableOpacity)`
-  margin-top: 16px;
-  margin-left: 22px;
-  align-self: flex-start;
-`;
-
-export const ForgotPasswordText = styled(Text)`
-  color: #6e6e6e;
-  text-decoration: underline;
-  font-size: 16px;
-  font-family: ${(props) => props.theme.fonts.heading};
+  padding-right: ${wp("4%")}px;
 `;
 
 export const Message = styled(Text)`
   color: #ff0033;
-  font-size: 14px;
-  margin-top: 24px;
+  font-size: ${RFPercentage(2)}px;
+  margin-top: ${hp("2%")}px;
   text-align: center;
   max-width: 95%;
 `;

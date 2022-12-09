@@ -3,6 +3,11 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { AntDesign } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const ArticleLink = styled(TouchableOpacity)`
   flex: 1;
@@ -13,13 +18,13 @@ const ArticleContainer = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  padding: ${hp("1%")}px ${wp("1%")}px;
 `;
 
 const ArticleImage = styled(Image)`
   flex: 1;
-  max-height: 80px;
-  border-radius: 15px;
+  max-height: ${hp("10%")}px;
+  border-radius: ${wp("4%")}px;
   resize-mode: cover;
   align-self: stretch;
 `;
@@ -29,29 +34,25 @@ const Content = styled(View)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  margin-left: ${(props) => props.theme.sizes.sm}px;
-  margin-right: ${(props) => props.theme.sizes.sm}px;
+  margin-left: ${wp("2%")}px;
+  margin-right: ${wp("2%")}px;
 `;
 
 const Type = styled(Text)`
-  ${"" /* flex: 1; */}
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(2)}px;
   color: ${(props) => props.theme.colors.muteGreen}
   font-weight: 700;
-  line-height: 20px;
 `;
 
 const Title = styled(Text)`
-  ${"" /* flex: 1; */}
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.body};
-  line-height: 20px;
-  margin-top: ${(props) => props.theme.sizes.xs}px;
+  font-size: ${RFPercentage(2.5)}px;
 `;
 
 const Icon = styled(AntDesign)`
   flex: 0.3;
+  margin-left: ${wp("2%")}px;
 `;
 // eslint-disable-next-line react/prop-types
 function Article({ title, image, link, type }) {
@@ -67,7 +68,7 @@ function Article({ title, image, link, type }) {
           <Type>{type}</Type>
           <Title>{title}</Title>
         </Content>
-        <Icon name="right" size={24} color="black" />
+        <Icon name="right" size={wp("6%")} color="black" />
       </ArticleContainer>
     </ArticleLink>
   );

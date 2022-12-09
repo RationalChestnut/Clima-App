@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Text, TouchableOpacity } from "react-native";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const BackArrowComponent = styled(AntDesign).attrs({
   name: "arrowleft",
-  size: 28,
+  size: RFPercentage(4),
 })``;
 
 function BackArrow({

@@ -5,7 +5,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const DayContainer = styled(View)`
   align-items: center;
