@@ -163,17 +163,17 @@ function ActivityScreen({ navigation, route }) {
       </ImageContainer>
       <StatsContainer>
         <Stat>
-          +{(item.exp * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}exp
+          +{(item.exp * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(1)}exp
         </Stat>
         <Stat>
-          -{(item.carbonRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}kg
+          -{(item.carbonRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(1)}kg
           CO2
         </Stat>
         <Stat>
-          -{(item.wasteRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}kg
+          -{(item.wasteRemoved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(1)}kg
         </Stat>
         <Stat>
-          -{(item.waterSaved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(2)}L
+          -{(item.waterSaved * (sliderValue !== 0 ? sliderValue : sliderValue + 1)).toFixed(1)}L
         </Stat>
       </StatsContainer>
       <SliderValue>
@@ -234,15 +234,6 @@ function ActivityScreen({ navigation, route }) {
             ))}
           </ListContainer>
         </ListItemsContainer>
-        {item.linkToPurchase === "" ||
-          (!item.linkToPurchase && (
-            <LinkToPurchaseContainer
-              onPress={() => WebBrowser.openBrowserAsync(item.linkToPurchase)}
-            >
-              <LinkToPurchaseTitle>Purchase:</LinkToPurchaseTitle>
-              <LinkToPurchase>{item.linkToPurchase}</LinkToPurchase>
-            </LinkToPurchaseContainer>
-          ))}
       </InfoContainer>
     </ActivityScreenContainer>
   );
