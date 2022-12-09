@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, Touchable } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign, Ionicons, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import MarkedList from "@jsamr/react-native-li";
