@@ -1,19 +1,24 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
 import styled from "styled-components/native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const ProfilePageContainer = styled(View)`
   flex: 1;
-  padding: ${(props) => props.theme.sizes.sm}px;
+  padding: ${hp("0%")}px ${wp("2%")}px;
   background-color: white;
 `;
 
 export const ProfilePageScrollView = styled(ScrollView)``;
 
 export const StatsTitle = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${RFPercentage(2.5)}px;
   color: ${(props) => props.theme.colors.defaultGreen};
   font-weight: 400;
-  margin-top: ${(props) => props.theme.sizes.md}px;
+  margin-top: ${hp("2%")}px;
   text-align: center;
 `;
 
@@ -23,19 +28,19 @@ export const StatsListContainer = styled(View)`
 
 export const StatsList = styled(FlatList)`
   flex: 1;
-  padding-bottom: ${(props) => props.theme.sizes.sm}px;
-  margin-top: ${(props) => props.theme.sizes.md}px;
+  padding-bottom: ${hp("2%")}px;
+  margin-top: ${hp("1%")}px;
 `;
 
 export const Separator = styled(View)`
-  margin: ${(props) => props.theme.sizes.sm}px;
+  margin: ${hp("1%")}px ${wp("1%")}px;
 `;
 
 export const CalendarTitle = styled(Text)`
   text-align: center;
-  margin-top: ${(props) => props.theme.sizes.md}px;
-  margin-bottom: ${(props) => props.theme.sizes.sm}px;
+  margin-top: ${hp("2%")}px;
+  margin-bottom: ${hp("1%")}px;
   color: ${(props) => props.theme.colors.defaultGreen};
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${RFPercentage(2.75)}px;
   font-family: ${(props) => props.theme.fonts.heading};
 `;

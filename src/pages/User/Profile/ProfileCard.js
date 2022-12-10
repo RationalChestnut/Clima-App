@@ -3,16 +3,19 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import anonymous from "../../../../assets/images/anonymousimage.jpeg";
 
 const ProfileCardContainer = styled(View)`
-  height: 100px;
+  height: ${hp("12.5%")}px;
   background-color: ${(props) => props.theme.colors.lightGray};
-  border-radius: ${(props) => props.theme.sizes.sm}px;
+  border-radius: ${wp("2%")}px;
   flex-direction: row;
-  padding: ${(props) => props.theme.sizes.md}px;
-  width: 370px;
+  padding: ${hp("2%")}px ${wp("2%")}px;
 `;
 
 const ProfilePicture = styled(Image)`
@@ -20,12 +23,12 @@ const ProfilePicture = styled(Image)`
   height: undefined;
   resize-mode: contain;
   aspect-ratio: 1;
-  border-radius: ${(props) => props.theme.sizes.xxl}px;
+  border-radius: ${wp("400%")}px;
 `;
 
 const ProfileInfo = styled(View)`
   flex: 2;
-  margin-left: ${(props) => props.theme.sizes.md}px;
+  margin-left: ${wp("4%")}px;
 `;
 
 const NameContainer = styled(View)`
@@ -36,13 +39,13 @@ const NameContainer = styled(View)`
 
 const Name = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${RFPercentage(2.5)}px;
 `;
 
 const Level = styled(Text)`
-  margin-left: ${(props) => props.theme.sizes.sm}px;
+  margin-left: ${wp("2%")}px;
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(2)}px;
   color: ${(props) => props.theme.colors.highlightGreen};
 `;
 
@@ -57,12 +60,12 @@ const ExpContainer = styled(View)`
 
 const CurrentExp = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(2)}px;
 `;
 
 const TotalExp = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(2)}px;
   color: ${(props) => props.theme.colors.highlightGreen};
 `;
 

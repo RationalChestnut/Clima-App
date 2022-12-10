@@ -3,25 +3,30 @@ import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
 import numbro from "numbro";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const StatCardContainer = styled(View)`
-  width: 120px;
+  width: ${wp("30%")}px;
   aspect-ratio: 1;
-  border-radius: ${(props) => props.theme.sizes.sm}px;
-  padding: ${(props) => props.theme.sizes.md}px;
+  border-radius: ${wp("2%")}px;
+  padding: ${hp("2%")}px ${wp("4%")}px;
   align-items: center;
 `;
 
 const Data = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${RFPercentage(2.5)}px;
 `;
 
 const Description = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(1.6)}px;
 `;
 
 const Separator = styled(Text)`
@@ -37,7 +42,7 @@ const IndicatorContainer = styled(View)`
 const IndicatorText = styled(Text)`
   color: white;
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(2)}px;
 `;
 
 // eslint-disable-next-line react/prop-types

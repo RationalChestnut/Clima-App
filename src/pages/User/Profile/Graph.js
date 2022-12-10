@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ThemeContext } from "styled-components/native";
 import { Dimensions, Text, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const Container = styled(View)`
   display: flex;
@@ -11,10 +12,9 @@ const Container = styled(View)`
 `;
 
 const GraphTitle = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${RFPercentage(2.25)}px;
   color: ${(props) => props.theme.colors.defaultGreen};
   text-align: center;
-  margin-top: ${(props) => props.theme.sizes.md}px;
 `;
 
 function Graph({ data }) {

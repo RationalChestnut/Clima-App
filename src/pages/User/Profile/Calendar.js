@@ -2,6 +2,11 @@ import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatGrid } from "react-native-super-grid";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const CalendarGrid = styled(FlatGrid)`
   flex: 1;
@@ -11,9 +16,9 @@ const CalendarGrid = styled(FlatGrid)`
 const CalendarItem = styled(View)`
   flex: 1;
   aspect-ratio: 0.9;
-  padding: ${(props) => props.theme.sizes.xs}px;
+  padding: ${hp("1%")}px ${wp("1%")}px;
   align-items: center;
-  border-radius: ${(props) => props.theme.sizes.sm}px;
+  border-radius: ${wp("2%")}px;
 `;
 
 const TasksTextContainer = styled(View)`
@@ -23,14 +28,14 @@ const TasksTextContainer = styled(View)`
 `;
 
 const TasksText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.body};
+  font-size: ${RFPercentage(2.25)}px;
   font-family: ${(props) => props.theme.fonts.boldHeading};
   font-weight: bold;
   color: white;
 `;
 
 const DateText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${RFPercentage(1.4)}px;
   font-family: ${(props) => props.theme.fonts.body};
   flex: 1;
   color: white;

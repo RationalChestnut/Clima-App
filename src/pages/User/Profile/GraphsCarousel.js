@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import moment from "moment";
-
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Graph from "./Graph";
 
 const Container = styled(View)`
   width: 100%;
-  margin-top: 10px;
+  margin-top: ${hp("2%")}px;
 `;
 
 const CarouselScrollView = styled(FlatList)``;
