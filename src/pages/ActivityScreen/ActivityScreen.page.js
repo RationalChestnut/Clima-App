@@ -36,9 +36,18 @@ import {
 } from "./ActivityScreen.styled";
 import BackArrow from "../../components/BackArrow.component";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
+import { tasks } from "../../data/tasks.data";
 
-function ActivityScreen({ navigation, route }) {
-  const { item, destination, pathNumber, sectionNumber, pathItem } = route.params;
+function ActivityScreen({ navigation, route, isIntroScreen = false }) {
+  const { item, destination, pathNumber, sectionNumber, pathItem } = !isIntroScreen
+    ? route.params
+    : {
+        item: tasks[0],
+        destination: "",
+        pathNumber: 0,
+        sectionNumber: 0,
+        pathItem: 0,
+      };
   const { user } = useContext(AuthenticationContext);
   const [sliderValue, setSliderValue] = useState(0);
   const [isTaskSaved, setIsTaskSaved] = useState(false);
@@ -139,13 +148,15 @@ function ActivityScreen({ navigation, route }) {
   return (
     <ActivityScreenContainer>
       <UpperBar>
-        <BackArrow
-          navigation={navigation}
-          destination={destination}
-          pathNumber={pathNumber}
-          sectionNumber={sectionNumber}
-          pathItem={pathItem}
-        />
+        {!isIntroScreen && (
+          <BackArrow
+            navigation={navigation}
+            destination={destination}
+            pathNumber={pathNumber}
+            sectionNumber={sectionNumber}
+            pathItem={pathItem}
+          />
+        )}
       </UpperBar>
       <TextContainer>
         <TitleText>{item.title}</TitleText>
@@ -153,7 +164,9 @@ function ActivityScreen({ navigation, route }) {
       </TextContainer>
       <ImageContainer
         onPress={() =>
-          item.linkToPurchase !== "" ? WebBrowser.openBrowserAsync(item.linkToPurchase) : null
+          !isIntroScreen && item.linkToPurchase !== ""
+            ? WebBrowser.openBrowserAsync(item.linkToPurchase)
+            : null
         }
       >
         <ActivityImage source={item.image} />
@@ -188,21 +201,21 @@ function ActivityScreen({ navigation, route }) {
         <SliderDescriptionRight>{item.maxValue}</SliderDescriptionRight>
       </SliderDescription>
       <OptionsContainer>
-        <Option onPress={completeTask}>
+        <Option onPress={!isIntroScreen ? completeTask : null}>
           <OptionIconContainer>
             <AntOptionIcon name="check" />
           </OptionIconContainer>
           <OptionText>Complete!</OptionText>
         </Option>
         {!isTaskSaved ? (
-          <Option onPress={saveTask}>
+          <Option onPress={!isIntroScreen ? saveTask : null}>
             <OptionIconContainer>
               <IonOptionIcon name="save" />
             </OptionIconContainer>
             <OptionText>Save</OptionText>
           </Option>
         ) : (
-          <Option onPress={unsaveTask}>
+          <Option onPress={!isIntroScreen ? unsaveTask : null}>
             <OptionIconContainer>
               <UnsaveIcon name="content-save-off-outline" />
             </OptionIconContainer>
@@ -210,7 +223,7 @@ function ActivityScreen({ navigation, route }) {
           </Option>
         )}
 
-        <Option onPress={shareTask}>
+        <Option onPress={!isIntroScreen ? shareTask : null}>
           <OptionIconContainer>
             <EntypoOptionIcon name="share" />
           </OptionIconContainer>

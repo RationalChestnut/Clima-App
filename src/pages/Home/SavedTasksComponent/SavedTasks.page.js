@@ -15,7 +15,13 @@ import {
 
 import { tasks } from "../../../data/tasks.data";
 
-function SavedTasksPage({ navigation, userData, isIntroScreen }) {
+function SavedTasksPage({
+  navigation,
+  userData,
+  isIntroScreen,
+  canClickOnTask,
+  setDidClickOnTask,
+}) {
   const [data, setData] = useState([]);
   const getTaskData = async () => {
     if (!isIntroScreen) {
@@ -60,6 +66,8 @@ function SavedTasksPage({ navigation, userData, isIntroScreen }) {
       navigation={navigation}
       isTaskCompleted={item.isCompleted || false}
       isIntroScreen={isIntroScreen}
+      canClickOnTask={canClickOnTask}
+      setDidClickOnTask={setDidClickOnTask}
     />
   );
   return (

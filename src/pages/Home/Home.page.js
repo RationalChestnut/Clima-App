@@ -8,7 +8,7 @@ import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../components/Loading/Loading";
 
-function Home({ navigation, isIntroScreen = false }) {
+function Home({ navigation, isIntroScreen = false, canClickOnTask, setDidClickOnTask }) {
   const [userData, setUserData] = useState(null);
   const theme = useContext(ThemeContext);
   const { user } = useContext(AuthenticationContext);
@@ -43,6 +43,8 @@ function Home({ navigation, isIntroScreen = false }) {
             navigation={navigation}
             userData={userData}
             isIntroScreen={isIntroScreen}
+            canClickOnTask={canClickOnTask}
+            setDidClickOnTask={setDidClickOnTask}
           />
         </PaddingAdder>
       ) : (

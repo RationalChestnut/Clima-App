@@ -23,6 +23,7 @@ function SavedTask({
   sectionNumber,
   pathItem,
   isIntroScreen,
+  setDidClickOnTask,
 }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
@@ -79,21 +80,22 @@ function SavedTask({
   return (
     <SavedTaskContainer
       onPress={() =>
-        !isIntroScreen &&
-        navigation.navigate("Activities", {
-          screen: "All Activities",
-          params: {
-            screen: "Activity",
-            params: {
-              item: task,
-              imageURL: task.image,
-              pathNumber,
-              sectionNumber,
-              destination: isPathPage ? "Path" : "HomeScreen",
-              pathItem,
-            },
-          },
-        })
+        !isIntroScreen
+          ? navigation.navigate("Activities", {
+              screen: "All Activities",
+              params: {
+                screen: "Activity",
+                params: {
+                  item: task,
+                  imageURL: task.image,
+                  pathNumber,
+                  sectionNumber,
+                  destination: isPathPage ? "Path" : "HomeScreen",
+                  pathItem,
+                },
+              },
+            })
+          : setDidClickOnTask(true)
       }
     >
       <TextContainer>

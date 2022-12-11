@@ -23,7 +23,6 @@ function Navigation() {
         setDoIntroFlow(true);
         await AsyncStorage.setItem("do-intro-flow", "true");
       }
-      setDoIntroFlow(true);
     } catch (e) {
       console.log(e);
     }
