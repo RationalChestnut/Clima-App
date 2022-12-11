@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import "firebase/storage";
@@ -24,6 +25,9 @@ function SavedTask({
   pathItem,
   isIntroScreen,
   setDidClickOnTask,
+  canClickOnTask,
+  setIndex,
+  index,
 }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
@@ -80,7 +84,7 @@ function SavedTask({
   return (
     <SavedTaskContainer
       onPress={() =>
-        !isIntroScreen
+        !isIntroScreen && canClickOnTask
           ? navigation.navigate("Activities", {
               screen: "All Activities",
               params: {
@@ -95,7 +99,9 @@ function SavedTask({
                 },
               },
             })
-          : setDidClickOnTask(true)
+          : canClickOnTask
+          ? setDidClickOnTask(true)
+          : setIndex(index + 1)
       }
     >
       <TextContainer>

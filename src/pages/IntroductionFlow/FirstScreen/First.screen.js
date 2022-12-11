@@ -127,6 +127,7 @@ function FirstScreen({ route, navigation }) {
         ) : index === 9 ? (
           <Cover />
         ) : null}
+
         {index === 9 ? (
           <Profile />
         ) : index === 8 ? (
@@ -137,12 +138,16 @@ function FirstScreen({ route, navigation }) {
           <PetScreen />
         ) : index === 5 ? (
           <PathScreen navigation={navigation} />
+        ) : index === 4 ? (
+          <ActivityScreen navigation={navigation} item={tasks[0]} isIntroScreen />
         ) : !didClickOnTask ? (
           <Home
             isIntroScreen
             canClickOnTask={canClickOnTask}
             navigation={navigation}
             setDidClickOnTask={setDidClickOnTask}
+            setIndex={setIndex}
+            index={index}
           />
         ) : (
           <ActivityScreen navigation={navigation} item={tasks[0]} isIntroScreen />

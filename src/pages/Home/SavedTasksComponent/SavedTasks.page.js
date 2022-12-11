@@ -1,6 +1,5 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import axios from "axios";
 import SavedTask from "./SavedTask.component";
 import {
   SavedTasksText,
@@ -21,6 +20,8 @@ function SavedTasksPage({
   isIntroScreen,
   canClickOnTask,
   setDidClickOnTask,
+  setIndex,
+  index,
 }) {
   const [data, setData] = useState([]);
   const getTaskData = async () => {
@@ -68,6 +69,8 @@ function SavedTasksPage({
       isIntroScreen={isIntroScreen}
       canClickOnTask={canClickOnTask}
       setDidClickOnTask={setDidClickOnTask}
+      setIndex={setIndex}
+      index={index}
     />
   );
   return (
