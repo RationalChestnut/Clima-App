@@ -9,14 +9,14 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 export const InviteFriendBoxContainer = styled(View)`
   margin-top: ${hp("2%")}px;
   width: 90%;
-  height: ${hp("27.5%")}px;
+  height: ${hp("30%")}px;
   background-color: ${(props) => props.theme.colors.lightGray};
   border-radius: ${wp("4%")}px;
   padding: ${hp("2%")}px ${wp("2%")}px;
 `;
 
 export const InviteFriendsText = styled(Text)`
-  font-size: ${RFPercentage(3.5)}px;
+  font-size: ${RFPercentage(3.25)}px;
   text-align: center;
 `;
 

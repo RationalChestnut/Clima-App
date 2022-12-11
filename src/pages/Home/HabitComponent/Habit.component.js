@@ -13,7 +13,7 @@ import {
 } from "./Habit.style";
 import Day from "./Day.component";
 
-function Habit({ navigation, userData }) {
+function Habit({ navigation, userData, isIntroScreen }) {
   const [days, setDays] = useState([]);
   const [actionsLogged, setActionsLogged] = useState(0);
   const weekCount = (year, month_number) => {
@@ -160,12 +160,13 @@ function Habit({ navigation, userData }) {
     <HabitsContainer>
       <AddActivityIcon
         onPress={() => {
-          navigation.navigate("Activities", {
-            screen: "All Activities",
-            params: {
-              screen: "All Activities Screen",
-            },
-          });
+          !isIntroScreen &&
+            navigation.navigate("Activities", {
+              screen: "All Activities",
+              params: {
+                screen: "All Activities Screen",
+              },
+            });
         }}
       />
       <UpperHabitBar>

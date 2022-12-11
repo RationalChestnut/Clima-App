@@ -15,31 +15,35 @@ import {
 
 import { tasks } from "../../../data/tasks.data";
 
-function SavedTasksPage({ navigation, userData }) {
+function SavedTasksPage({ navigation, userData, isIntroScreen }) {
   const [data, setData] = useState([]);
   const getTaskData = async () => {
-    try {
-      const userSavedTaskList = userData.savedTasks;
-      const dataToAppend = [];
-      const userTotalData = userData.totalData;
-      const date_ob = new Date();
-      const currentMonth = date_ob.getMonth() + 1;
-      const currentYear = date_ob.getFullYear();
-      const day = date_ob.getDate();
-      const currentWeek = Math.ceil(day / 7);
-      const completedTasks =
-        userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
-          ?.tasksCompletedIDs;
-      for (let i = 0; i < userSavedTaskList.length; i += 1) {
-        const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
-        if (completedTasks?.includes(correspondingTask[0].id)) {
-          correspondingTask[0].isCompleted = true;
+    if (!isIntroScreen) {
+      try {
+        const userSavedTaskList = userData.savedTasks;
+        const dataToAppend = [];
+        const userTotalData = userData.totalData;
+        const date_ob = new Date();
+        const currentMonth = date_ob.getMonth() + 1;
+        const currentYear = date_ob.getFullYear();
+        const day = date_ob.getDate();
+        const currentWeek = Math.ceil(day / 7);
+        const completedTasks =
+          userTotalData?.[currentYear]?.[currentMonth]?.[currentWeek]?.[day]?.tasksCompleted
+            ?.tasksCompletedIDs;
+        for (let i = 0; i < userSavedTaskList.length; i += 1) {
+          const correspondingTask = tasks.filter((task) => task.id === userSavedTaskList[i]);
+          if (completedTasks?.includes(correspondingTask[0].id)) {
+            correspondingTask[0].isCompleted = true;
+          }
+          dataToAppend.push(correspondingTask[0]);
         }
-        dataToAppend.push(correspondingTask[0]);
+        setData(dataToAppend);
+      } catch (err) {
+        setData(null);
       }
-      setData(dataToAppend);
-    } catch (err) {
-      setData(null);
+    } else {
+      setData(tasks.slice(0, 5));
     }
   };
 
@@ -55,6 +59,7 @@ function SavedTasksPage({ navigation, userData }) {
       key={item.id}
       navigation={navigation}
       isTaskCompleted={item.isCompleted || false}
+      isIntroScreen={isIntroScreen}
     />
   );
   return (
@@ -75,9 +80,11 @@ function SavedTasksPage({ navigation, userData }) {
 
       <AddMoreButton
         onPress={() =>
-          navigation.navigate("Activities", {
-            screen: "Path",
-          })
+          !isIntroScreen
+            ? navigation.navigate("Activities", {
+                screen: "Path",
+              })
+            : null
         }
       >
         <AddMoreText>Explore More</AddMoreText>

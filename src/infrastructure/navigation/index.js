@@ -17,7 +17,13 @@ function Navigation() {
   const getDoIntroFlowData = async () => {
     try {
       const value = await AsyncStorage.getItem("do-intro-flow");
-      setDoIntroFlow(value);
+      if (value !== null) {
+        setDoIntroFlow(false);
+      } else {
+        setDoIntroFlow(true);
+        await AsyncStorage.setItem("do-intro-flow", "true");
+      }
+      setDoIntroFlow(true);
     } catch (e) {
       console.log(e);
     }
@@ -33,7 +39,7 @@ function Navigation() {
   return (
     <NavigationContainer>
       {isAuthenticated && doIntroFlow ? (
-        <IntroNavigator />
+        <IntroNavigator setDoIntroFlow={setDoIntroFlow} />
       ) : isAuthenticated ? (
         <MainNavigator />
       ) : (

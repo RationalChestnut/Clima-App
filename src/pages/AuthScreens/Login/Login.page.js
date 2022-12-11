@@ -41,8 +41,6 @@ function Login({ navigation, email }) {
       const login = await onLogin(emailState.trim(), passwordState.trim());
       if (login.type === "Error") {
         setErrorText(login.message);
-      } else {
-        navigation.navigate("IntroFlow");
       }
     } else {
       setErrorText("Please fill in all fields");

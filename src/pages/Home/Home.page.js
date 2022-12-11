@@ -8,7 +8,7 @@ import SavedTasksPage from "./SavedTasksComponent/SavedTasks.page";
 import { AuthenticationContext } from "../../infrastructure/Authentication/AuthenticationContext";
 import Loading from "../../components/Loading/Loading";
 
-function Home({ navigation }) {
+function Home({ navigation, isIntroScreen = false }) {
   const [userData, setUserData] = useState(null);
   const theme = useContext(ThemeContext);
   const { user } = useContext(AuthenticationContext);
@@ -16,9 +16,13 @@ function Home({ navigation }) {
   const getUserData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
-      setUserData(res.data);
-      setLoading(false);
+      if (!isIntroScreen) {
+        const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
+        setUserData(res.data);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
     }
@@ -34,8 +38,12 @@ function Home({ navigation }) {
     <HomePageContainer>
       {!loading ? (
         <PaddingAdder>
-          <Habit navigation={navigation} userData={userData} />
-          <SavedTasksPage navigation={navigation} userData={userData} />
+          <Habit navigation={navigation} userData={userData} isIntroScreen={isIntroScreen} />
+          <SavedTasksPage
+            navigation={navigation}
+            userData={userData}
+            isIntroScreen={isIntroScreen}
+          />
         </PaddingAdder>
       ) : (
         <Loading color={theme.colors.lightGreen} />

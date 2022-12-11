@@ -59,6 +59,7 @@ export const StatsContainer = styled(View)`
   flex-direction: row;
   justify-content: flex-end;
   padding: 0px ${wp("4%")}px;
+  flex-wrap: wrap;
 `;
 
 export const Stat = styled(Text)`

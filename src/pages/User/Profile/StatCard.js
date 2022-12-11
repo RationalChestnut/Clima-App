@@ -10,11 +10,12 @@ import {
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 const StatCardContainer = styled(View)`
-  width: ${wp("30%")}px;
+  width: ${wp("35%")}px;
   aspect-ratio: 1;
   border-radius: ${wp("2%")}px;
   padding: ${hp("2%")}px ${wp("4%")}px;
   align-items: center;
+  height: ${hp("20%")}px;
 `;
 
 const Data = styled(Text)`

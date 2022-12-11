@@ -22,12 +22,16 @@ function SavedTask({
   pathNumber,
   sectionNumber,
   pathItem,
+  isIntroScreen,
 }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const { user } = useContext(AuthenticationContext);
 
   const completeTask = async () => {
     try {
+      if (isIntroScreen) {
+        return;
+      }
       const date_ob = new Date();
       const day = date_ob.getDate();
       const month = date_ob.getMonth() + 1;
@@ -75,6 +79,7 @@ function SavedTask({
   return (
     <SavedTaskContainer
       onPress={() =>
+        !isIntroScreen &&
         navigation.navigate("Activities", {
           screen: "All Activities",
           params: {
