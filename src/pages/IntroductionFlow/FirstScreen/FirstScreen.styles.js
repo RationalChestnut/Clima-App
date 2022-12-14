@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, View, TouchableWithoutFeedback } from "react-native";
+import { Image, View, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import {
   widthPercentageToDP as wp,
@@ -82,6 +82,6 @@ export const DialogueTwo = styled(DefaultDialogue)`
   bottom: 30%;
 `;
 
-export const Typer = styled(TypeWriter).attrs({ typing: 1.5 })`
+export const Typer = styled(TypeWriter).attrs({ typing: 1 })`
   font-size: ${RFPercentage(2.5)}px;
 `;

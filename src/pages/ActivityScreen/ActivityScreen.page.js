@@ -144,7 +144,6 @@ function ActivityScreen({ navigation, route, isIntroScreen = false }) {
   useEffect(() => {
     getIsTaskSaved();
   }, []);
-
   return (
     <ActivityScreenContainer>
       <UpperBar>
@@ -191,7 +190,7 @@ function ActivityScreen({ navigation, route, isIntroScreen = false }) {
       </SliderValue>
       <ValueSlider
         onValueChange={setSliderValue}
-        minimumValue={item.minValue}
+        minimumValue={item.minValue || 0}
         maximumValue={item.maxValue}
         step={item.isWhole ? 1 : 0.5}
         value={item.minValue}

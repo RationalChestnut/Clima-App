@@ -25,7 +25,7 @@ function SavedTask({
   pathItem,
   isIntroScreen,
   setDidClickOnTask,
-  canClickOnTask,
+  canClickOnTask = true,
   setIndex,
   index,
 }) {

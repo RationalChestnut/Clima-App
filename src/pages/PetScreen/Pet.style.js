@@ -78,7 +78,7 @@ export const NameInput = styled(TextInput).attrs({
   activeOutlineColor: "none",
   activeUnderlineColor: "transparent",
 })`
-  height: ${hp("2%")}px;
+  height: ${hp("4%")}px;
   text-align: center;
   font-size: ${RFPercentage(3)}px;
   font-family: ${(props) => props.theme.fonts.heading};

@@ -18,6 +18,9 @@
         "appleId": "contactaidevops@gmail.com",
         "ascAppId": "6444138849",
         "appleTeamId": "AG4Y5T4Z8N"
+      },
+      "android": {
+        "serviceAccountKeyPath": "../keys/serviceAccountKey.json"
       }
     }
   }
