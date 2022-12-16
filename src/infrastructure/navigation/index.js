@@ -37,7 +37,7 @@ function Navigation() {
   }
   return (
     <NavigationContainer>
-      {isAuthenticated && doIntroFlow ? (
+      {isAuthenticated && true ? (
         <IntroNavigator setDoIntroFlow={setDoIntroFlow} />
       ) : isAuthenticated ? (
         <MainNavigator />

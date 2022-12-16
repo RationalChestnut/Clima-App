@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   Cover,
+  CoverFour,
   CoverThree,
   CoverTwo,
   Dialogue,
@@ -11,6 +12,7 @@ import {
   MascotThree,
   MascotTwo,
   Typer,
+  UpperCoverFour,
   WithoutFeedback,
 } from "./FirstScreen.styles";
 import Home from "../../Home/Home.page";
@@ -111,10 +113,15 @@ function FirstScreen({ route, navigation }) {
 
         {index < 2 ? (
           <Cover />
-        ) : index < 4 ? (
+        ) : index === 2 ? (
           <>
             <CoverThree />
             <CoverTwo />
+          </>
+        ) : index === 3 ? (
+          <>
+            <UpperCoverFour />
+            <CoverFour />
           </>
         ) : index < 6 ? (
           <Cover />

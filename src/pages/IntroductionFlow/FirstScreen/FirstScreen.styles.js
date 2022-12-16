@@ -69,7 +69,21 @@ export const CoverThree = styled(DefaultCover)`
   bottom: 0;
   left: 0;
   right: 0;
-  height: 22.5%;
+  height: 12.5%;
+`;
+
+export const CoverFour = styled(DefaultCover)`
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 54.5%;
+`;
+
+export const UpperCoverFour = styled(DefaultCover)`
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 31%;
 `;
 
 export const Dialogue = styled(DefaultDialogue)`
