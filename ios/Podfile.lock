@@ -14,6 +14,8 @@ PODS:
   - EXImageLoader (3.2.0):
     - ExpoModulesCore
     - React-Core
+  - EXNotifications (0.15.4):
+    - ExpoModulesCore
   - Expo (45.0.6):
     - ExpoModulesCore
   - ExpoClipboard (3.0.1):
@@ -436,6 +438,7 @@ DEPENDENCIES:
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
+  - EXNotifications (from `../node_modules/expo-notifications/ios`)
   - Expo (from `../node_modules/expo/ios`)
   - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
   - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
@@ -522,6 +525,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-font/ios"
   EXImageLoader:
     :path: "../node_modules/expo-image-loader/ios"
+  EXNotifications:
+    :path: "../node_modules/expo-notifications/ios"
   Expo:
     :path: "../node_modules/expo/ios"
   ExpoClipboard:
@@ -636,6 +641,7 @@ SPEC CHECKSUMS:
   EXFileSystem: 2aa2d9289f84bca9532b9ccbd81504fa31eb1ded
   EXFont: 04235cc22e6fef86028feb67db452978dc6f240f
   EXImageLoader: b88e053d760f85a82405b1db2de4abf11978fc9f
+  EXNotifications: 297bb555bbd26fd7aa8ff3bf7e724d4d65f7e895
   Expo: 3df4af520db4f37f9821ba732ce9ac0dc67bb7b8
   ExpoClipboard: e2dda22be0524595a5eeead51665f60729829123
   ExpoImagePicker: d9d6b4f29db437fc7796f13cee5f133f5b4b5f7c
@@ -700,6 +706,6 @@ SPEC CHECKSUMS:
   RNSVG: 3dd44d99d1c18e1342aee4bfa53ab3f6a8c4865f
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
 
-PODFILE CHECKSUM: 6dbfbad2907691c74bd41c386cafc9bdb7df4a07
+PODFILE CHECKSUM: eca37e61fe6c05942a71964a038ec7163325a150
 
 COCOAPODS: 1.11.3
