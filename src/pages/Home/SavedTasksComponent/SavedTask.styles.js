@@ -27,7 +27,7 @@ export const ImageContainer = styled(Image).attrs((props) => ({
 `;
 
 export const TextContainer = styled(View)`
-  flex: 1;
+  flex: 0.9;
 `;
 
 export const TaskTitle = styled(Text)`
@@ -46,10 +46,10 @@ export const CheckMark = styled(TouchableOpacity)`
   position: absolute;
   z-index: 999;
   border-radius: 4000px;
-  height: 40px;
-  width: 40px;
+  height: ${hp("5%")}px;
+  width: ${hp("5%")}px;
   background-color: white;
-  border: 3px solid ${(props) => props.theme.colors.highlightGreen};
+  border: 4px solid ${(props) => props.theme.colors.highlightGreen};
   right: ${wp("5%")}px;
   align-self: center;
 `;
@@ -63,4 +63,8 @@ export const InnerCheckMark = styled(View)`
   border-radius: 4000px;
 `;
 
-export const Check = styled(Ionicons).attrs({ name: "checkmark", size: 24, color: "white" })``;
+export const Check = styled(Ionicons).attrs({
+  name: "checkmark",
+  size: hp("3%"),
+  color: "white",
+})``;

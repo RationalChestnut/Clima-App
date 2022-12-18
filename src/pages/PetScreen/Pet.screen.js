@@ -158,7 +158,7 @@ function PetScreen() {
 
       <BarContainer>
         <InfoContainer>
-          <LevelText>Lvl. {stats.lvl + 1}</LevelText>
+          <LevelText>Lvl. {stats.lvl}</LevelText>
           <Tooltip
             popover={<Text>Complete tasks in order to gain exp and level up!</Text>}
             backgroundColor="#AEAEAE"

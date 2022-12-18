@@ -144,6 +144,7 @@ function ActivityScreen({ navigation, route, isIntroScreen = false }) {
   useEffect(() => {
     getIsTaskSaved();
   }, []);
+
   return (
     <ActivityScreenContainer>
       <UpperBar>
