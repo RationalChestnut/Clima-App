@@ -90,14 +90,14 @@ export const CoverFour = styled(DefaultCover)`
   bottom: 0;
   left: 0;
   right: 0;
-  height: 54.5%;
+  height: 53%;
 `;
 
 export const UpperCoverFour = styled(DefaultCover)`
   top: 0;
   left: 0;
   right: 0;
-  height: 31%;
+  height: 28%;
 `;
 
 export const Dialogue = styled(DefaultDialogue)`

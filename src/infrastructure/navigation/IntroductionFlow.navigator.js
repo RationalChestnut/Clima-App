@@ -15,7 +15,7 @@ const createScreenOptions = ({ route }) => {
     tabBarActiveTintColor: "#3B887C",
     tabBarInactiveTintColor: "rgba(0,0,0,0.25))",
     headerShown: false,
-    tabBarStyle: { backgroundColor: "transparent" },
+    tabBarStyle: { backgroundColor: "white" },
   };
 };
 const TAB_ICON = {

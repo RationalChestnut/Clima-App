@@ -19,7 +19,7 @@ export const CardContainer = styled(View)`
 
 export const ProfilePhoto = styled(Image)``;
 
-export const PlayerName = styled(Text).attrs({ numberOfLines: 1 })`
+export const PlayerName = styled(Text).attrs({ numberOfLines: 2 })`
   color: ${(props) => props.theme.colors.highlightGreen};
   font-size: ${RFPercentage(2.25)}px;
   font-family: ${(props) => props.theme.fonts.heading};

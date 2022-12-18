@@ -18,7 +18,7 @@ function Navigation() {
     try {
       const value = await AsyncStorage.getItem("do-intro-flow");
       if (value !== null) {
-        setDoIntroFlow(false); // NEED TO SET TO FALSE
+        setDoIntroFlow(false);
       } else {
         setDoIntroFlow(true);
         await AsyncStorage.setItem("do-intro-flow", "true");

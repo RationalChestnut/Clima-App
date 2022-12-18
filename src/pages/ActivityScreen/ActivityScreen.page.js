@@ -107,7 +107,7 @@ function ActivityScreen({ navigation, route, isIntroScreen = false }) {
     try {
       const res = await axios.get(`https://clima-backend.herokuapp.com/user/getUser/${user}`);
       const { savedTasks } = res.data;
-      setIsTaskSaved(savedTasks.includes(item.id));
+      setIsTaskSaved(savedTasks?.includes(item.id));
     } catch (err) {
       console.log(err);
     }
@@ -137,14 +137,13 @@ function ActivityScreen({ navigation, route, isIntroScreen = false }) {
           "I found a cool new app called Clima! It helps you save the environment. Download here: https://clima2022.netlify.app/",
       });
     } catch (error) {
-      alert(error.message);
+      console.log(error);
     }
   };
 
   useEffect(() => {
     getIsTaskSaved();
   }, []);
-
   return (
     <ActivityScreenContainer>
       <UpperBar>
