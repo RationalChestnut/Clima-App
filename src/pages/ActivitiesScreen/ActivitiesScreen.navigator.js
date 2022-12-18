@@ -24,10 +24,14 @@ function PathStackScreen() {
   );
 }
 
-function ActivitiesScreen() {
+function ActivitiesScreen({ swipeEnabled = true }) {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false, tabBarIndicatorStyle: { backgroundColor: "#0FA958" } }}
+      screenOptions={{
+        headerShown: false,
+        tabBarIndicatorStyle: { backgroundColor: "#0FA958" },
+        swipeEnabled,
+      }}
     >
       <Tab.Screen name="Path" component={PathStackScreen} />
       <Tab.Screen name="All Activities" component={AllActivitiesScreenNavigator} />

@@ -11,20 +11,21 @@ import SplashScreen from "../../pages/SplashScreen/SplashScreen.page";
 import IntroNavigator from "./IntroductionFlow.navigator";
 
 function Navigation() {
-  const [doIntroFlow, setDoIntroFlow] = useState(false);
+  const [doIntroFlow, setDoIntroFlow] = useState(true);
   const { isAuthenticated, isLoading } = useContext(AuthenticationContext);
 
   const getDoIntroFlowData = async () => {
     try {
       const value = await AsyncStorage.getItem("do-intro-flow");
       if (value !== null) {
-        setDoIntroFlow(false);
+        setDoIntroFlow(false); // NEED TO SET TO FALSE
       } else {
         setDoIntroFlow(true);
         await AsyncStorage.setItem("do-intro-flow", "true");
       }
     } catch (e) {
       console.log(e);
+      setDoIntroFlow(true);
     }
   };
 
@@ -37,7 +38,7 @@ function Navigation() {
   }
   return (
     <NavigationContainer>
-      {isAuthenticated && true ? (
+      {isAuthenticated && doIntroFlow ? (
         <IntroNavigator setDoIntroFlow={setDoIntroFlow} />
       ) : isAuthenticated ? (
         <MainNavigator />

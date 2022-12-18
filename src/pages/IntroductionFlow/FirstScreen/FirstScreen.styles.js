@@ -35,6 +35,9 @@ export const MascotThree = styled(DefaultMascot)`
   top: 20%;
   left: 5%;
 `;
+export const MascotActivites = styled(DefaultMascot)`
+  bottom: 5%;
+`;
 
 const DefaultDialogue = styled(View).attrs({ borderBottomLeftRadius: 0 })`
   position: absolute;
@@ -44,11 +47,15 @@ const DefaultDialogue = styled(View).attrs({ borderBottomLeftRadius: 0 })`
   border-radius: ${wp("17.5%")}px;
   padding: ${hp("3%")}px ${wp("5%")}px;
 `;
-
 const DefaultCover = styled(View)`
   position: absolute;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.33);
+`;
+
+export const ActivityDialogue = styled(DefaultDialogue)`
+  bottom: 18%;
+  left: 30.5%;
 `;
 
 export const Cover = styled(DefaultCover)`
@@ -70,6 +77,13 @@ export const CoverThree = styled(DefaultCover)`
   left: 0;
   right: 0;
   height: 12.5%;
+`;
+
+export const CoverActivities = styled(DefaultCover)`
+  top: 0;
+  height: 100%;
+  left: 0;
+  right: 0;
 `;
 
 export const CoverFour = styled(DefaultCover)`
@@ -96,6 +110,6 @@ export const DialogueTwo = styled(DefaultDialogue)`
   bottom: 30%;
 `;
 
-export const Typer = styled(TypeWriter).attrs({ typing: 1 })`
+export const Typer = styled(TypeWriter).attrs({ typing: 2 })`
   font-size: ${RFPercentage(2.5)}px;
 `;
